@@ -1,0 +1,23 @@
+---
+layout: default
+---
+
+<main class="reading-list-container sticky-footer--main-wrap clearfix">
+  <div class="reading-list">
+  			<ol class="post-list chinese-punct" lang="en">
+          {% for post in site.posts %}
+            {% assign date_format = site.minima.date_format | default: "%b %-d, %Y" %}
+            <li class="post-list-item">
+    					<article class="post-digest digest-with-thumb clearfix">
+
+    						<h1 class="post-digest--h1"><a href="{{ post.url | relative_url }}">{{ post.title | escape }}</a></h1>
+    						<p class="post-digest--excerpt"><a href="{{ post.url | relative_url }}">{{ post.excerpt | remove: '<p>' | remove: '</p>' }}</a></p>
+    						<p class="post-digest--meta">
+    							<span class="post-digest--timestamp">{{ post.date | date: date_format }}</span>
+    						</p>
+    					</article>
+    				</li>
+          {% endfor %}
+  			</ol>
+  		</div>
+</main>

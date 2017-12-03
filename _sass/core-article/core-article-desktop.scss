@@ -1,0 +1,229 @@
+@media only screen and (min-width: 1024px) {
+  .article-core {
+    font-size: 1em;
+    font-weight: 400; /*Normal*/
+    line-height: 1.778;
+    color: $text-main;
+    vertical-align: baseline;
+  }
+  
+  /*====== Header styles ======*/
+  .article-header {
+    width: 33em;
+    margin: 0 auto;
+    position: relative;
+  }
+  
+  .article-header--h1 {
+  	font-size: 28px;
+  	font-weight: 600;
+  	line-height: 40px;
+  	margin: 0px;
+  }
+  /*====== Header styles END ======*/
+  
+  /*====== Body styles ======*/
+  .article-section {
+  	width: 33em;
+  	margin: 64px auto 0px auto;
+  	position: relative;
+  }
+  
+  .article-section p {
+    width: 33em;
+  	text-indent: 2em;
+  	line-height: 32px;
+  	margin: 24px auto 0px auto;
+  }
+  
+  .article-section p a{
+    color: $blue-main;
+  	text-decoration: none;
+  	border-bottom: 1px solid $blue-main;
+  	margin-left: 0.075em;
+  	margin-right: 0.075em;
+  	transition: ease 0.5s;
+  }
+  
+  .article-section p a:hover	{
+  	color: $text-main;
+  	border-bottom: 1px solid $text-main;
+  	transition: ease 0.5s;
+  }
+  
+  // blockquote
+  .article-section blockquote {
+    color: $text-sub;
+  	border-left: 2px solid $text-sub;
+  	padding-left: 34px;
+  	margin: 24px 0px 0px -16px;
+  }
+  
+  .article-section blockquote + .article-section blockquote {
+    margin-top: 0px;
+    padding-top: 24px;
+  }
+  
+  .article-section blockquote p {
+  	text-indent: 0em;
+  	margin: 24px auto 0px auto;
+  	color: $text-sub;
+  	width: 32em;
+  }
+  
+  article > header {
+    width: 33em;
+  	margin: 0 auto;
+  	position: relative;
+    
+    h1 {
+      font-size: 28px;
+  		font-weight: 600;
+  		line-height: 40px;
+  		margin: 0px;
+    }
+    
+    h2 {
+  		font-size: 22px;
+  		font-weight: 400;
+  		line-height: 32px;
+  		color: $text-disable;
+  		margin-top: 4px;
+  	}
+  }
+  
+  article > section {
+  	width: 33em;
+  	margin: 64px auto 0px auto;
+  	position: relative;
+	
+  	h2 {
+  		font-size: 28px;
+  		font-weight: 400;
+  		margin: 48px auto 0px auto;
+  	}
+	
+  	h3 {
+  		font-size: 22px;
+  		font-weight: 600;
+  		margin: 48px auto 0px auto;
+  	}
+	
+  	h4 {
+  		font-size: 18px;
+  		font-weight: 600;
+  		margin: 24px auto 0px auto;
+  	}
+	
+  	p {
+  		width: 33em;
+  		text-indent: 2em;
+  		line-height: 32px;
+  		margin: 24px auto 0px auto;
+  	}
+	
+  	p a {
+  		color: $blue-main;
+  		text-decoration: none;
+  		border-bottom: 1px solid $blue-main;
+  		margin-left: 0.075em;
+  		margin-right: 0.075em;
+  		transition: ease 0.5s;
+  	}
+	
+  	p a:hover	{
+  		color: $text-main;
+  		border-bottom: 1px solid $text-main;
+  		transition: ease 0.5s;
+  	}
+	
+  	p a:active {
+  		color: black;
+  	}
+	
+  	blockquote {
+  		color: $text-sub;
+  		border-left: 2px solid $text-sub;
+  		padding-left: 34px;
+  		margin: 24px 0px 0px -16px;
+  	}
+	
+  	blockquote + blockquote {
+  		margin-top: 0px;
+  		padding-top: 24px;
+  	}
+	
+  	blockquote p {
+  		text-indent: 0em;
+  		margin: 24px auto 0px auto;
+  		color: $text-sub;
+  		width: 32em;
+  	}
+	
+  	/*--- FALLBACK List styles ---*/
+  	ol,
+  	ul {
+  		list-style: none;
+  		padding: 0;
+  	}
+	
+  	ol > li,
+  	ul > li {
+  		margin-top: 24px;
+  		margin-left: 2em;
+  		width: 31em;
+  	}
+	
+  	ol > li li,
+  	ul > li li {
+  		margin-top: 12px;
+  		margin-left: 2em;
+  	}
+	
+  	ol {
+  		counter-reset: olNumber;
+  	}
+	
+  	ol > li::before	{
+  		counter-increment: olNumber;
+  		content: counter(olNumber) ".";
+  		display: block;
+  		margin-left: -2em;
+  		float: left;
+  	}
+	
+  	ul > li::before {
+  		content: "•";
+  		display: block;
+  		margin-left: -2em;
+  		float: left;
+  	}
+	
+  	ol > li li::before,
+  	ul > li li::before {
+  		margin-left: -2em;
+  	}
+  	/*--- FALLBACK List styles END ---*/
+	
+  	/*--- FALLBACK Figure styles ---*/
+  	figure {
+  		position: relative;
+  		margin: 40px 0px;
+  		padding: 0px;
+  	}
+	
+  	figure img {
+  		display: block;
+  		width: 100%;
+  	}
+	
+  	img {
+  		display: block;
+  		position: relative;
+  		margin: 40px 0px;
+  		padding: 0px;
+  		width: 100%;
+  	}
+  }
+  /*====== Body styles ======*/
+}

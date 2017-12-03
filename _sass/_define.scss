@@ -1,0 +1,52 @@
+$bg-main: #fcfcfc;
+$bg-sub: #f7f7f7;
+
+$text-main: #333;
+$text-sub: #8c8c8c;
+$text-disable: #b3b3b3;
+
+$blue-main: #0d86ff;
+$blue-sub: #0077ed;
+
+$red-main: #ff4040;
+$hairline: #e5e5e5;
+
+$spacing-unit: 30px !default;
+$base-font-size:   16px !default;
+
+$grey-color:       #828282 !default;
+$grey-color-light: lighten($grey-color, 40%) !default;
+$grey-color-dark:  darken($grey-color, 25%) !default;
+
+@mixin relative-font-size($ratio) {
+  font-size: $base-font-size * $ratio;
+}
+
+/**
+ * Define icon font:
+ * Minerva Glyphs
+ */
+
+@font-face {
+  font-family: 'Minerva Glyphs';
+  	src: url("Minerva-Glyphs.eot");
+  	src: url("Minerva-Glyphs.eot?#iefix") format("embedded-opentype"),
+  	     url("Minerva-Glyphs.ttf") format("truetype"),
+  	     url("Minerva-Glyphs.woff") format("woff"),
+  	     url("Minerva-Glyphs.svg#Minerva-Glyphs") format("svg");  
+}
+
+@font-face {
+	/* Workaround for Ruby assets path */
+	font-family: 'Minerva Glyphs FALLBACK';
+	src: url("../Minerva-Glyphs.eot");
+	src: url("../Minerva-Glyphs.eot?#iefix") format("embedded-opentype"),
+	     url("../Minerva-Glyphs.ttf") format("truetype"),
+	     url("../Minerva-Glyphs.woff") format("woff"),
+	     url("../Minerva-Glyphs.svg#Minerva-Glyphs") format("svg");   
+}
+
+.minerva-glyphs {
+	font-family: "Minerva Glyphs", "Minerva Glyphs FALLBACK";
+	speak: none;
+}

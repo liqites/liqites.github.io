@@ -1,0 +1,30 @@
+---
+layout: default
+---
+<main class="post-container sticky-footer--main-wrap clearfix">
+  <article class="post-article article-core chinese-punct clearfix" lang="en">
+    <!--Publish info-->
+		<aside class="publish-info-card clearfix">
+			<!-- <a class="publish-info-card--avatar-link" href="/cnpolitics">
+        <img class="avatar-circle publish-info-card--avatar" src="images/feed-avatar.jpg" alt="政见">
+        <h4 class="publish-info-card--name">政见</h4>
+      </a> -->
+			<p class="publish-info-card--meta">
+				<span class="time-last-modified">
+          {% assign date_format = site.minima.date_format | default: "%b %-d, %Y" %}
+        {{ page.date | date: date_format }}
+      </span>
+			</p>
+		</aside>
+          
+    <!--Article Header-->
+    <header class="article-header">
+      <h1 class="article-header--h1">{{ page.title | escape }}</h1>
+    </header>
+    
+    <!--Article Header-->
+    <section class="article-section">
+      {{ content }}
+    </section>
+  </article>
+</main>

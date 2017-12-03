@@ -1,0 +1,232 @@
+@media only screen and (min-width: 1024px) {
+
+
+
+/**
+ * Styles of post list
+ */
+
+.post-list {
+	width: 33em;
+	margin: 0 auto;
+	list-style: none;
+	padding: 0;
+}
+
+.post-list-item {
+	padding: 45px 0px;
+}
+
+/*--- Post digest typographic style ---*/
+/* Headline style */
+.post-digest {
+	position: relative;
+	font-size: 16px;	/* 1em = 16px */
+	line-height: 28px;
+}
+
+.post-digest--h1 {
+	font-size: 1.125em;
+	font-weight: 600;
+	margin: 0;
+}
+
+.post-digest--h1 a {
+	color: $text-main;
+	text-decoration: none;
+	transition: ease 0.5s;
+}
+
+.post-digest--h1 a:hover {
+	color: black;
+	transition: ease 0.5s;
+}
+/* Headline style end */
+
+/* Excerpt style */
+.post-digest--excerpt {
+	margin: 14px 0px 0px 0px;
+	hyphens: auto;
+}
+
+.post-digest--excerpt a {
+	color: $text-main;
+	text-decoration: none;
+	transition: ease 0.5s;
+}
+
+.post-digest--excerpt a:hover {
+	color: black;
+	transition: ease 0.5s;
+}
+/* Excerpt style end */
+/*--- Post digest typographic style END ---*/
+
+/*--- Post digest meta line ---*/
+.post-digest--meta {
+	margin: 14px 0px 0px 0px;
+	font-size: 14px;
+	color: $text-disable;
+}
+
+.post-digest--feed-name {
+	font-weight: 600;
+	color: $text-disable;
+	text-decoration: none;
+	transition: ease 0.5s;
+}
+
+.post-digest--feed-name:hover {
+	color: black;
+	text-decoration: underline;
+	text-decoration-skip: ink;
+	transition: ease 0.5s;
+}
+
+.post-digest--author-name {
+	color: $text-disable;
+	text-decoration: none;
+	transition: ease 0.5s;
+}
+
+.post-digest--author-name:hover {
+	color: $text-main;
+	text-decoration: underline;
+	text-decoration-skip: ink;
+	transition: ease 0.5s;
+}
+
+/* Digest action list */
+.post-digest--action-list {
+	position: relative;
+	float: right;
+	display: inline-block;
+	height: 28px;
+	line-height: 28px;
+	user-select: none;
+}
+
+.post-digest--action-fav, 
+.post-digest--action-share-sinaweibo,
+.post-digest--action-share-wechat {
+	position: relative;
+	margin-left: 9px;
+	color: $text-disable;
+	// vertical-align: top;
+	// height: 28px;
+	font-size: 16px;
+	line-height: 28px;
+	transition: color ease 0.5s;
+}
+.post-digest--action-share-wechat { top: 1px; }
+
+.post-digest--action-edit,
+.post-digest--action-publish {
+	color: $blue-main;
+}
+
+.post-digest--action-delete {
+	color: $red-main;
+}
+
+.post-digest--action-edit,
+.post-digest--action-publish,
+.post-digest--action-delete {
+	text-decoration: none;
+	transition: color ease 0.5s;
+}
+
+.post-digest--action-fav:hover,
+.post-digest--action-share-sinaweibo:hover,
+.post-digest--action-share-wechat:hover,
+.post-digest--action-edit:hover,
+.post-digest--action-publish:hover,
+.post-digest--action-delete:hover {
+	color: $text-main;
+	// transition: color ease 0.5s;
+}
+
+@keyframes icon-fav--bounce-in {
+	0% {top:  0px;}
+	50% {top: -4px;}
+	100% {top:  0px;}
+}
+
+@keyframes icon-fav--bounce-out {
+	0% {top:  0px;}
+	50% {top: -4px;}
+	100% {top:  0px;}
+}
+
+.post-digest--action-fav {
+	animation: icon-fav--bounce-out ease 0.5s;
+}
+
+.post-digest--action-fav.is-active {
+	color: $blue-main;
+	animation: icon-fav--bounce-in ease 0.5s;
+	transition: color ease 0.5s;
+	
+	&:hover {
+		color: $blue-sub;
+	}
+}
+
+.post-digest--action-share-wechat.is-active {
+	color: $text-main;
+}
+.post-digest--wechat-qrcode {
+	bottom: -90px;
+	right: -35px;
+	width: 90px;
+	height: 90px;
+	
+	// visibility: visible;
+	// opacity: 100;
+}
+/* Digest action list END */
+/*--- Post digest meta line END ---*/
+
+/*--- Post digest thumbnail figure styles ---*/
+.post-digest--thumb {
+	position: absolute;
+	left: 414px;
+	padding: 0;
+	margin: 0;
+	border: 1px solid $hairline;
+	width: 180px;
+	height: 100%;
+	box-sizing: border-box;
+	overflow: hidden;
+	text-align: center;
+}
+
+.post-digest--thumb a {
+	display: block;
+	height: 100%;
+	background-color: $bg-sub;
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+/*--- Post digest thumbnail figure styles END ---*/
+
+/*--- Digest thumb-specific rules ---*/
+.digest-with-thumb .post-digest--h1, 
+.digest-with-thumb .post-digest--excerpt,
+.digest-with-thumb .post-digest--meta {
+	width: 378px;
+	float: left;
+}
+/*--- Digest thumb-specific rules end ---*/
+
+
+
+/* Layout of feedlist's page-nav */
+.post-list + .list-page-nav {
+	margin-top: 45px;
+}
+
+
+
+}

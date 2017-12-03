@@ -4,7 +4,6 @@ title:  "Ruby Refinements Documented"
 date:   2017-11-22 22:53:12 +0800
 categories: jekyll update
 ---
-
 本文主要记录了 Refinement 使用的一些要点，内容基本来自 Ruby 的官方文档以及 Metaprogramming Ruby 这本书。
 
 <!--more-->
@@ -46,7 +45,7 @@ end
 * `Module#refine` 只能接收 class 作为参数
 * `Module#refine` 会创建一个匿名 module 并且修改包裹在内。在 `refine` block 中，`self` 指向这个匿名 module
 
-## 作用域
+### 作用域
 
 > You may only activate refinements at top-level, not inside any class, module or method scope. You may activate refinements in a string passed to Kernel#eval that is evaluated at top-level. Refinements are active until the end of the file or the end of the eval string, respectively.
 
@@ -157,7 +156,7 @@ end
 
 **有一点要注意：M 只在这次的 Scope 中生效，后面再打开 Foo 中，M 也不会生效。**
 
-## 方法查找
+### 方法查找
 
 当在一个类 C 的实体上查找方法时，顺序是这样的
 * 如果有多个 Refinement 生效，那么将按照每个 refinement 生效的顺序，反向查找 refinement 内部的方法。
@@ -231,16 +230,16 @@ puts A.ancestors # [M4, A, M3, Objcet, Kernel, BasicObject]
 对于第一个输出，其实没有异议。那么为什么此时打印 `A.ancestors` 时，却没有 `M1` 和 `M2` 呢？
 我倾向于认为，因为进入到了 `ancestors` 这个函数里，所以控制权已经发生了改变， AExtend 已经失效了。
 
-## super 
+### super 
 `super` 的方法查找
 * 查找所有 included modules 
 * 如果当前是 refinement class，重复上面步骤
 * 如果当前 class 有 superclass，则在 superclass 上重复上面步骤
 
-## 非直接调用
+### 非直接调用
 目前 refinement 对于 Kernel#send，Kernel#method 以及 Kernel#respond_to? 都不起作用
 
-## 在 include 中的方法查找【此处已经被移除】
+### 在 include 中的方法查找【此处已经被移除】
 看下面的示例
 
 ```ruby
@@ -286,5 +285,5 @@ puts A.new.foo # A foo in AExtend1
 * 先查找 AExtend3 中的 refinement
 * 再按照 prepend 以及 include 的顺序来查找，也就是 ancestors 继承链中的顺序从前往后查找。
 
-## 总结
+### 总结
 第一次了解 Refinement，感觉还有一点乱，虽然可以用来避免 Monkey Patch 的全局影响问题，但是要想使用好，还需要花时间。

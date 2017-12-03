@@ -1,0 +1,64 @@
+/**
+ * Styles of feed/post list's page navigation
+ */
+.list-page-nav {
+
+	.page-prev {
+		float: left;
+		width: 36px;
+		height: 36px;
+		margin-right: 18px;
+		border-color: $hairline;
+		transition: color .5s ease, border-color .5s ease;
+		
+		.prev-page-arrow {
+			float: left;
+			margin: 0px 0px 0px 13px;
+			transition: ease 0.5s;
+		}
+		
+		&:hover {
+			border-color: $text-main;
+			
+			.prev-page-arrow {
+				border-color: transparent $text-main transparent transparent;
+			}
+		}
+	}
+
+	.page-next {
+		float: left;
+		width: 90px;
+		height: 36px;
+		margin-right: 18px;
+		border-color: $hairline;
+		line-height: 36px;
+		transition: color .5s ease, border-color .5s ease;
+		
+		.next-page-label {
+			font-size: 14px;
+			color: $text-sub;
+			float: left;
+			margin-left: 16px;
+			transition: color .5s ease, border-color .5s ease;
+		}
+		
+		.next-page-arrow {
+			float: right;
+			margin: 13px 13px 0px 0px;
+			transition: color .5s ease, border-color .5s ease;
+		}
+		
+		&:hover {
+			border-color: $text-main;
+			
+			.next-page-arrow {
+				border-color: transparent transparent transparent $text-main;
+			}
+			
+			.next-page-label {
+				color: $text-main;
+			}
+		}
+	}	
+}

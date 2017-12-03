@@ -1,0 +1,26 @@
+<nav class="nav-top headroom clearfix">
+	<div class="mzread-entrance">
+		<a href="{{ "/" | relative_url }}">{{ site.title | escape }}</a>
+	</div>
+
+	<ul class="main-nav">
+    {% if page_paths %}
+    {% for path in page_paths %}
+      {% assign my_page = site.pages | where: "path", path | first %}
+      {% if my_page.title %}
+  		<li class="main-nav-item">
+  			<a href="{{ my_page.url | relative_url }}">{{ my_page.title | escape }}</a>
+  		</li>
+      {% endif %}
+    {% endfor %}
+		<li class="main-nav-item">
+			<a href="b1-explore.htm">发现</a>
+		</li>
+    {% endif %}
+	</ul>
+
+	<!-- <div class="nav-user">
+    <a class="nav-user-item" href="/login">登录</a>
+    <a class="nav-user-item" href="/signup">注册</a>
+  </div> -->
+</nav>
