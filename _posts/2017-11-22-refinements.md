@@ -1,6 +1,7 @@
 ---
 layout: post
 title:  "Ruby Refinements Documented"
+author: Tesla Lee
 date:   2017-11-22 22:53:12 +0800
 categories: jekyll update
 ---

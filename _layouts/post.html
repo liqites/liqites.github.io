@@ -10,6 +10,9 @@ layout: default
         <h4 class="publish-info-card--name">政见</h4>
       </a> -->
 			<p class="publish-info-card--meta">
+        {% if page.author %}
+        <a href="#" class="publish-info-card--author-name">{{ page.author }}</a><span class="vert-line">｜</span>
+        {% endif %}
 				<span class="time-last-modified">
           {% assign date_format = site.minima.date_format | default: "%b %-d, %Y" %}
         {{ page.date | date: date_format }}
@@ -30,7 +33,7 @@ layout: default
   <footer class="post-footer clearfix">
   			<div class="clearfix">
   				<nav class="post-footer--post-nav">
-  					<a href="#" class="button-capsule post-footer--next-post"><span class="button-label next-post-label">没有“国进民退”，也没有“国家资本主义”这回事儿？</span><span class="button-arrow-right next-post-arrow"></span></a>
+  					<!-- <a href="#" class="button-capsule post-footer--next-post"><span class="button-label next-post-label">没有“国进民退”，也没有“国家资本主义”这回事儿？</span><span class="button-arrow-right next-post-arrow"></span></a> -->
   				</nav>
   			</div>
   		</footer>
