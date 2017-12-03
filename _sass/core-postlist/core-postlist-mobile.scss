@@ -1,0 +1,216 @@
+@media only screen 
+and (max-width: 1023px) {
+
+
+
+/**
+ * Styles of post list
+ */
+
+.post-list {
+	margin: 0px 20px;
+	list-style: none;
+	padding: 0;
+}
+
+.post-list-item {
+	padding: 24px 0px;
+	border-top: 1px solid $hairline;
+}
+
+/*--- Post digest typographic style ---*/
+/* Headline style */
+.post-digest {
+	position: relative;
+	font-size: 14px;
+	line-height: 24px;
+}
+
+.post-digest--h1 {
+	font-size: 18px;
+	font-weight: 600;
+	margin: 0;
+}
+
+.post-digest--h1 a {
+	color: $text-main;
+	text-decoration: none;
+	transition: ease 0.2s;
+}
+
+.post-digest--h1 a:hover {
+	color: black;
+	transition: ease 0.2s;
+}
+/* Headline style end */
+
+/* Excerpt style */
+.post-digest--excerpt {
+	margin: 12px 0px 0px 0px;
+	hyphens: auto;
+}
+
+.post-digest--excerpt a {
+	color: $text-main;
+	text-decoration: none;
+	transition: ease 0.2s;
+}
+
+.post-digest--excerpt a:hover {
+	color: black;
+	transition: ease 0.2s;
+}
+/* Excerpt style end */
+
+/* Meta line */
+.post-digest--meta {
+	margin: 12px 0px 0px 0px;
+	font-size: 12px;
+	color: $text-disable;
+}
+
+.post-digest--feed-name {
+	font-weight: 600;
+	color: $text-disable;
+	text-decoration: none;
+	transition: ease 0.2s;
+}
+
+.post-digest--feed-name:hover {
+	color: black;
+	text-decoration: underline;
+	text-decoration-skip: ink;
+	transition: ease 0.2s;
+}
+
+.post-digest--author-name {
+	color: $text-disable;
+	text-decoration: none;
+}
+
+.post-digest--author-name:hover {
+	color: $text-main;
+	text-decoration: underline;
+	text-decoration-skip: ink;
+	transition: ease 0.2s;
+}
+
+.post-digest--action-list {
+	display: none;
+}
+/* Meta line end */
+/*--- Post digest typographic style end ---*/
+
+/*--- Post digest thumbnail figure styles ---*/
+.post-digest--thumb {
+	float: right;
+	padding: 0;
+	margin: 0px 0px 0px 20px;
+	border: 1px solid $hairline;
+	width: 90px;
+	height: 90px;
+	box-sizing: border-box;
+	overflow: hidden;
+	text-align: center;
+}
+
+.post-digest--thumb a {
+	display: block;
+	height: 100%;
+	background-color: $bg-sub;
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+/*--- Post digest thumbnail figure styles end ---*/
+
+/*--- Digest thumb-specific rules ---*/
+.digest-with-thumb .post-digest--excerpt {
+	display: none;
+}
+
+.digest-with-thumb .post-digest--h1,
+.digest-with-thumb .post-digest--meta {
+	width: calc(100% - 110px);
+	float: left;
+}
+/*--- Digest thumb-specific rules end ---*/
+
+
+
+/**
+ * Styles of post list's page navigation
+ */
+
+.post-list--page-nav {
+	margin: 24px auto 72px auto;
+}
+
+.post-list--page-prev {
+	display: inline-block;
+	width: 36px;
+	height: 36px;
+	border-color: $hairline;
+	margin-left: 20px;
+	padding: 0;
+	float: left;
+	transition: ease 0.2s;
+}
+
+.prev-page-arrow {
+	float: left;
+	margin: 0px 0px 0px 13px;
+	transition: ease 0.2s;
+}
+
+.post-list--page-next {
+	display: inline-block;
+	width: 90px;
+	height: 36px;
+	line-height: 36px;
+	border-color: $hairline;
+	margin-right: 20px;
+	padding: 0;
+	float: right;
+	transition: ease 0.2s;
+}
+
+.next-page-label {
+	font-size: 14px;
+/*	line-height: 36px;*/
+	color: $text-sub;
+	float: left;
+	margin-left: 16px;
+	transition: ease 0.2s;
+}
+
+.next-page-arrow {
+	float: right;
+	margin: 13px 13px 0px 0px;
+	transition: ease 0.2s;
+}
+
+.post-list--page-prev:hover,
+.post-list--page-next:hover {
+	border-color: $text-main;
+	transition: ease 0.2s;
+}
+
+.post-list--page-prev:hover .prev-page-arrow {
+	border-color: transparent $text-main transparent transparent;
+	transition: ease 0.2s;
+}
+
+.post-list--page-next:hover .next-page-arrow {
+	border-color: transparent transparent transparent $text-main;
+	transition: ease 0.2s;
+}
+
+.post-list--page-next:hover .next-page-label {
+	color: $text-main;
+	transition: ease 0.2s;
+}
+
+
+
+}

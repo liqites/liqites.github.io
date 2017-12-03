@@ -26,6 +26,81 @@ and (max-width: 1023px) {
   }
 }
 
+button,
+input,
+textarea {
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+button {
+	background: none;
+	user-select: none;
+	touch-action: none;
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+
+button:focus {
+	outline: none;
+}
+
+input[type="radio"] {
+	cursor: pointer;
+}
+
+.button-circle {
+	display: inline-block;
+	box-sizing: border-box;
+	text-align: center;
+	text-decoration: none;
+	/* <a> compatible */
+	padding: 0;
+	border: 1px solid;
+	border-radius: 100%;
+}
+
+.button-capsule {
+	display: inline-block;
+	box-sizing: border-box;
+	text-align: center;
+	text-decoration: none;
+	/* <a> compatible */
+	padding: 0;
+	border: 1px solid;
+	border-radius: 100em;
+}
+
+.button-icon,
+.button-text {
+	display: inline-block;
+	padding: 0;
+	border: 0;
+}
+
+.button-label {
+	text-align: center;
+}
+
+.button-arrow-left {
+	display: inline-block;
+	width: 0;
+	height: 0;
+	border-style: solid;
+	border-width: 4px 6px 4px 0px;
+	border-color: transparent #8c8c8c transparent transparent;
+}
+
+.button-arrow-right {
+	display: inline-block;
+	width: 0;
+	height: 0;
+	border-style: solid;
+	border-width: 4px 0 4px 6px;
+	border-color: transparent transparent transparent #8c8c8c;
+}
+
+
+
 .clearfix::after {
 	content: ".";
 	display: block;

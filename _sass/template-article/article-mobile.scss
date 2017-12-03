@@ -1,0 +1,368 @@
+/**
+ *	style-article-mobile.less
+ */
+
+@media only screen 
+and (max-width: 1023px) {
+
+
+
+.post-container{
+	width: 100%;
+	margin: 0 auto;
+	max-width: 480px;
+}
+
+
+
+/*====== Styles of publish info card ======*/
+
+.publish-info-card {
+	margin: 28px 16px 32px 16px;
+	position: relative;
+}
+
+.publish-info-card--avatar-link {
+	display: block;
+	text-decoration: none;
+	margin-left: 54px;
+}
+
+.publish-info-card--avatar {
+	float: left;
+	width: 36px;
+	height: 36px;
+	border: 1px solid #e5e5e5;
+	margin: -4px 0px 0px -54px;
+}
+
+.publish-info-card--name {
+	font-size: 14px;
+	font-weight: 600;
+	color: #333333;
+	line-height: 14px;
+	margin: 0px 0px 0px 0px;
+	-webkit-transition: ease 0.2s;
+	   -moz-transition: ease 0.2s;
+		    transition: ease 0.2s;
+}
+
+.publish-info-card--avatar-link:hover .publish-info-card--name {
+	color: #000;
+	text-decoration: underline;
+	-webkit-text-decoration-skip: ink;
+	   -moz-text-decoration-skip: ink;
+	        text-decoration-skip: ink;
+	-webkit-transition: ease 0.2s;
+	   -moz-transition: ease 0.2s;
+		    transition: ease 0.2s;
+}
+
+.publish-info-card--meta {
+	font-size: 12px;
+	color: #b2b2b2;
+	line-height: 14px;
+	margin: 4px 0px 0px 54px;
+}
+
+.publish-info-card--author-name {
+	color: #b2b2b2;
+	text-decoration: none;
+	border: 0;
+	margin: 0;
+	cursor: pointer;
+}
+
+.publish-info-card--author-name:hover,
+.publish-info-card--author-name:active,
+.publish-info-card--author-name:focus {
+	color: #333333;
+	text-decoration: underline;
+	-webkit-text-decoration-skip: ink;
+	   -moz-text-decoration-skip: ink;
+	        text-decoration-skip: ink;
+	-webkit-transition: ease 0.2s;
+	   -moz-transition: ease 0.2s;
+		    transition: ease 0.2s;
+}
+
+/*====== Styles of publish info card END ======*/
+
+
+
+/*====== Styles of article ======*/
+
+.post-article .article-header {
+	position: relative;
+	margin: 56px 16px 0px 16px;
+}
+
+.post-article .article-section {
+	position: relative;
+	margin: 56px 0px 0px 0px;
+}
+
+.post-article h1,
+.post-article h2,
+.post-article h3,
+.post-article strong {
+	font-weight: 600;	/*Demi Bold*/
+}
+
+.post-article p,
+.post-article li {
+	-webkit-hyphens: auto;
+	   -moz-hyphens: auto;
+	    -ms-hyphens: auto;
+	        hyphens: auto;
+}
+
+.post-article img {
+	display: block;
+}
+
+/*====== Styles of article END ======*/
+
+
+
+/*====== Styles of article's footer ======*/
+
+.post-footer {
+	width: 100%;
+	margin: 48px auto 0px auto;
+	position: relative;
+	padding: 0px;
+}
+
+/*--- Styles of article actions ---*/
+.post-footer--action-list {
+	float: left;
+	margin-left: 16px;
+}
+
+.post-footer--action-fav,
+.post-footer--action-share-sinaweibo {
+	display: inline-block;
+	width: 36px;
+	height: 36px;
+	line-height: 34px;
+	text-align: center;
+	color: #b2b2b2;
+	border-color: #e5e5e5;
+	margin-right: 18px;
+	padding: 0;
+	float: left;
+	-webkit-transition: ease 0.2s;
+	   -moz-transition: ease 0.2s;
+		    transition: ease 0.2s;
+}
+
+.post-footer--action-fav {
+	display: none;
+}
+
+.post-footer--action-fav > .icon-fav {
+	font-size: 16px;
+	position: relative;
+}
+
+.post-footer--action-share-sinaweibo > .icon-sinaweibo {
+	font-size: 17px;
+	position: relative;
+	top: 1px;
+}
+
+.post-footer--action-fav:hover,
+.post-footer--action-share-sinaweibo:hover {
+	border-color: #333333;
+	color: #333333;
+	-webkit-transition: ease 0.2s;
+	   -moz-transition: ease 0.2s;
+		    transition: ease 0.2s;
+}
+
+.post-footer--action-fav.is-active {
+	color: #fcfcfc;
+	border-color: #fcfcfc;
+	background-color: #0d86ff;
+	-webkit-transition: ease 0.5s;
+	   -moz-transition: ease 0.5s;
+		    transition: ease 0.5s;
+}
+
+.post-footer--action-fav.is-active:hover {
+	background-color: #b2b2b2;
+	-webkit-transition: ease 0.5s;
+	   -moz-transition: ease 0.5s;
+		    transition: ease 0.5s;
+}
+/*--- Styles of article actions end---*/
+
+/*--- Styles of post navigation ---*/
+.post-footer--post-nav {
+	float: right;
+	margin-right: 16px;
+	height: 36px;
+	width: calc(100% - 104px);
+}
+
+.post-footer--next-post {
+	display: inline-block;
+	box-sizing: border-box;	/* Set box-sizing of <a> to border-box. */ 
+	height: 36px;
+	line-height: 34px;
+	padding: 0px 14px;
+	border-color: #e5e5e5;
+	width: 100%;
+	-webkit-transition: ease 0.2s;
+	   -moz-transition: ease 0.2s;
+		    transition: ease 0.2s;
+}
+
+.next-post-label {
+	font-size: 14px;
+	color: #8c8c8c;
+	float: left;
+	text-align: left;
+	height: 34px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	width: calc(100% - 14px);
+	-webkit-transition: ease 0.2s;
+	   -moz-transition: ease 0.2s;
+		    transition: ease 0.2s;
+}
+
+.next-post-label::before {
+	content: "下一篇：";
+	color: #b2b2b2;
+	-webkit-transition: ease 0.2s;
+	   -moz-transition: ease 0.2s;
+		    transition: ease 0.2s;
+}
+
+.next-post-arrow {
+	float: right;
+	margin-top: 13px;
+}
+
+.post-footer--next-post:hover {
+	border-color: #333333;
+	-webkit-transition: ease 0.2s;
+	   -moz-transition: ease 0.2s;
+		    transition: ease 0.2s;
+}
+
+.post-footer--next-post:hover .next-post-label,
+.post-footer--next-post:hover .next-post-label::before {
+	color: #333333;
+	-webkit-transition: ease 0.2s;
+	   -moz-transition: ease 0.2s;
+		    transition: ease 0.2s;
+}
+
+.post-footer--next-post:hover .next-post-arrow {
+	border-color: transparent transparent transparent #333333;
+}
+
+/*--- Styles of post navigation end---*/
+
+/*--- Styles of feed card ---*/
+.feed-card {
+	margin: 48px 16px 0px 16px;
+	position: relative;
+	border-top: 1px solid #e5e5e5;
+	padding: 48px 0px 48px 0px;
+}
+
+.feed-card--avatar-link {
+	display: block;
+	text-decoration: none;
+	margin-left: 72px;
+}
+
+.feed-card--avatar {
+	float: left;
+	width: 54px;
+	height: 54px;
+	border: 1px solid #e5e5e5;
+	margin: -4px 0px 0px -72px;
+}
+
+.feed-card--name {
+	font-size: 14px;
+	font-weight: 600;
+	color: #333333;
+	line-height: 18px;
+	margin: 4px 0px 0px 0px;
+	-webkit-transition: ease 0.2s;
+	   -moz-transition: ease 0.2s;
+		    transition: ease 0.2s;
+}
+
+.feed-card--avatar-link:hover .feed-card--name {
+	color: #000;
+	text-decoration: underline;
+	-webkit-text-decoration-skip: ink;
+	   -moz-text-decoration-skip: ink;
+	        text-decoration-skip: ink;
+	-webkit-transition: ease 0.2s;
+	   -moz-transition: ease 0.2s;
+		    transition: ease 0.2s;
+}
+
+.feed-card--tagline {
+	font-size: 12px;
+	color: #8c8c8c;
+	line-height: 18px;
+	margin: 4px 0px 0px 72px;
+}
+
+/* Subscribe button */
+.feed-card--action-subscribe {
+	display: none;
+}
+/* Subscribe button END */
+
+/*--- Styles of feed info card END ---*/
+
+/*====== Styles of article's footer END ======*/
+
+
+
+}	/* End of @media only screen and (max-width: 768px) */
+
+
+
+
+
+
+@media only screen 
+and (min-width: 619px)
+and (max-width: 1023px) {
+
+
+main {
+	-webkit-transform: scale(1.125);
+	   -moz-transform: scale(1.125);
+	        transform: scale(1.125);
+	-webkit-transform-origin: top;
+	   -moz-transform-origin: top;
+	        transform-origin: top;
+	overflow-x: hidden;
+}
+
+body {
+	overflow-x: hidden;
+}
+
+.post-container {
+	margin: 0 auto;
+	width: 69%;
+	max-width: 69%;
+}
+
+
+
+}	/* End of @media only screen and (min-width: 619px) and (max-width: 1023px) */

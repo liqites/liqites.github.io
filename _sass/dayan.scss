@@ -9,9 +9,12 @@
 
 
 @import "_syntax-highlighting";
-@import "core-article/core-article";
 @import "core-article/core-article-desktop";
+@import "core-article/core-article-mobile";
 @import "core-postlist/core-postlist-desktop";
+@import "core-postlist/core-postlist-mobile";
 
 @import "template-article/article-desktop";
+@import "template-article/article-mobile";
 @import "template-reading-list/readinglist-desktop";
+@import "template-reading-list/readinglist-mobile";
