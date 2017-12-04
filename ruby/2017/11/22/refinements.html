@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Begin Jekyll SEO tag v2.3.0 -->
+<title>Ruby Refinements Documented | Code Cube</title>
+<meta property="og:title" content="Ruby Refinements Documented" />
+<meta name="author" content="Tesla Lee" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="本文主要记录了 Refinement 使用的一些要点，内容基本来自 Ruby 的官方文档以及 Metaprogramming Ruby 这本书。" />
+<meta property="og:description" content="本文主要记录了 Refinement 使用的一些要点，内容基本来自 Ruby 的官方文档以及 Metaprogramming Ruby 这本书。" />
+<link rel="canonical" href="http://localhost:4000/ruby/2017/11/22/refinements.html" />
+<meta property="og:url" content="http://localhost:4000/ruby/2017/11/22/refinements.html" />
+<meta property="og:site_name" content="Code Cube" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2017-11-22T22:53:12+08:00" />
+<script type="application/ld+json">
+{"name":null,"description":"本文主要记录了 Refinement 使用的一些要点，内容基本来自 Ruby 的官方文档以及 Metaprogramming Ruby 这本书。","author":{"@type":"Person","name":"Tesla Lee"},"@type":"BlogPosting","url":"http://localhost:4000/ruby/2017/11/22/refinements.html","image":null,"publisher":null,"headline":"Ruby Refinements Documented","dateModified":"2017-11-22T22:53:12+08:00","datePublished":"2017-11-22T22:53:12+08:00","sameAs":null,"mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/ruby/2017/11/22/refinements.html"},"@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+  <!-- <link rel="stylesheet" href="/assets/main.css"> -->
+  <link rel="stylesheet" href="/assets/app.css">
+  <link rel="alternate" type="application/rss+xml" title="Code Cube" href="/feed.xml">
+  
+</head>
+
+  <body>
+    <nav class="nav-top headroom clearfix">
+	<div class="mzread-entrance">
+		<a href="/">Code Cube</a>
+	</div>
+
+	<ul class="main-nav">
+    
+	</ul>
+
+	<!-- <div class="nav-user">
+    <a class="nav-user-item" href="/login">登录</a>
+    <a class="nav-user-item" href="/signup">注册</a>
+  </div> -->
+</nav>
+    <main class="post-container sticky-footer--main-wrap clearfix">
+  <article class="post-article article-core chinese-punct clearfix" lang="en">
+    <!--Publish info-->
+		<aside class="publish-info-card clearfix">
+			<!-- <a class="publish-info-card--avatar-link" href="/cnpolitics">
+        <img class="avatar-circle publish-info-card--avatar" src="images/feed-avatar.jpg" alt="政见">
+        <h4 class="publish-info-card--name">政见</h4>
+      </a> -->
+			<p class="publish-info-card--meta">
+        
+        <a href="#" class="publish-info-card--author-name">Tesla Lee</a><span class="vert-line">｜</span>
+        
+				<span class="time-last-modified">
+          
+        Nov 22, 2017
+      </span>
+			</p>
+		</aside>
+          
+    <!--Article Header-->
+    <header class="article-header">
+      <h1 class="article-header--h1">Ruby Refinements Documented</h1>
+    </header>
+    
+    <!--Article Header-->
+    <section class="article-section">
+      <p>本文主要记录了 Refinement 使用的一些要点，内容基本来自 Ruby 的官方文档以及 Metaprogramming Ruby 这本书。</p>
+
+<!--more-->
+
+<p>有时，我们往往会遇到一些情况，需要对系统的类做重新打开的操作，同时再添加一些自己的扩展。Ruby 提供了多种不同的方法来实现，其中之一就是打开类。</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">String</span>
+  <span class="k">def</span> <span class="nf">a_new_method</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>但这样的写法有一个问题，这样的修改是全局的，一旦定义，整个系统都会受影响。如果出错，将会是灾难性的。
+那么，有没有什么方法，能够将这个修改只在我需要使用的范围内起作用呢？ Ruby 提供了 Refinement 来帮助你实现。</p>
+
+<p>先看一段 Ruby 官方文档。来自 Ruby 2.2.4</p>
+<blockquote>
+  <p>Refinements are designed to reduce the impact of monkey patching on other users of the monkey-patched class.Refinements provide a way to extend a class locally.</p>
+</blockquote>
+
+<p>下面下看一个典型的 Refinement 的例子：</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">C</span>
+  <span class="k">def</span> <span class="nf">foo</span>
+    <span class="nb">puts</span> <span class="s2">"C#foo"</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="k">module</span> <span class="nn">M</span>
+  <span class="n">refine</span> <span class="no">C</span> <span class="k">do</span>
+    <span class="k">def</span> <span class="nf">foo</span>
+      <span class="nb">puts</span> <span class="s2">"C# foo in M"</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>要点：</p>
+<ul>
+  <li><code class="highlighter-rouge">Module#refine</code> 只能接收 class 作为参数</li>
+  <li><code class="highlighter-rouge">Module#refine</code> 会创建一个匿名 module 并且修改包裹在内。在 <code class="highlighter-rouge">refine</code> block 中，<code class="highlighter-rouge">self</code> 指向这个匿名 module</li>
+</ul>
+
+<h3 id="作用域">作用域</h3>
+
+<blockquote>
+  <p>You may only activate refinements at top-level, not inside any class, module or method scope. You may activate refinements in a string passed to Kernel#eval that is evaluated at top-level. Refinements are active until the end of the file or the end of the eval string, respectively.</p>
+</blockquote>
+
+<p>下面用官方的两个例子来说明 Refinement 的作用域问题</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">C</span>
+<span class="k">end</span>
+
+<span class="k">module</span> <span class="nn">M</span>
+  <span class="n">refine</span> <span class="no">C</span> <span class="k">do</span>
+    <span class="k">def</span> <span class="nf">foo</span>
+      <span class="nb">puts</span> <span class="s2">"C#foo in M"</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="k">def</span> <span class="nf">call_foo</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+  <span class="n">x</span><span class="p">.</span><span class="nf">foo</span>
+<span class="k">end</span>
+
+<span class="n">using</span> <span class="no">M</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="no">C</span><span class="p">.</span><span class="nf">new</span>
+<span class="n">x</span><span class="p">.</span><span class="nf">foo</span>       <span class="c1"># prints "C#foo in M"</span>
+<span class="n">call_foo</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="c1">#=&gt; raises NoMethodError</span>
+</code></pre></div></div>
+
+<p>在这里，当调用 <code class="highlighter-rouge">call_foo</code> 时，控制权从当前作用域（假设叫做 Scope A）进入到了 <code class="highlighter-rouge">call_foo</code> 这个 <code class="highlighter-rouge">method</code> 的作用域（Scope B）中去了。
+所以，根据规则</p>
+<ul>
+  <li><strong>当控制权发生改变，跳出了当前 Refinement 生效的作用域时，Refinement 失效。</strong></li>
+</ul>
+
+<p>接下来第二个例子：</p>
+
+<p>c.rb:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">C</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>m.rb</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">require</span> <span class="s2">"c"</span>
+
+<span class="k">module</span> <span class="nn">M</span>
+  <span class="n">refine</span> <span class="no">C</span> <span class="k">do</span>
+    <span class="k">def</span> <span class="nf">foo</span>
+      <span class="nb">puts</span> <span class="s2">"C#foo in M"</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>m_user.rb</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">require</span> <span class="s2">"m"</span>
+
+<span class="n">using</span> <span class="no">M</span>
+
+<span class="k">class</span> <span class="nc">MUser</span>
+  <span class="k">def</span> <span class="nf">call_foo</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">x</span><span class="p">.</span><span class="nf">foo</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>main.rb</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">require</span> <span class="s2">"m_user"</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="no">C</span><span class="p">.</span><span class="nf">new</span>
+<span class="n">m_user</span> <span class="o">=</span> <span class="no">MUser</span><span class="p">.</span><span class="nf">new</span>
+<span class="n">m_user</span><span class="p">.</span><span class="nf">call_foo</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="c1"># prints "C#foo in M"</span>
+<span class="n">x</span><span class="p">.</span><span class="nf">foo</span>              <span class="c1">#=&gt; raises NoMethodError</span>
+</code></pre></div></div>
+
+<p>我们可以认为，Refinement 生效的作用域只在 m_user.rb 这个文件内。当我们调用 <code class="highlighter-rouge">m_user.call_foo(x)</code> 时，我们进入了 m_user.rb 这个文件的作用域，也就是 Refinement 生效了。而结束后调用后，又回到了 main.rb 这个文件的作用域内，此时 Refinement 已经失效，所以爆了 <code class="highlighter-rouge">NoMethodError</code> 这个 Exception。</p>
+
+<ul>
+  <li><strong>在定义 Refinement 时，在同一个 module 中的所有 refinements 都是相互生效的。</strong></li>
+</ul>
+
+<p>下面这一条有点奇怪。</p>
+<blockquote>
+  <p>You may also activate refinements in a class or module definition, in which case the refinements are activated from the point where using is called to the end of the class or module definition:</p>
+</blockquote>
+
+<p>我觉得这段话和上面的那段话</p>
+<blockquote>
+  <p>You may only activate refinements at top-level, not inside any class, module or method scope. You may activate refinements in a string passed to Kernel#eval that is evaluated at top-level. Refinements are active until the end of the file or the end of the eval string, respectively.</p>
+</blockquote>
+
+<p><strong>有点矛盾，我现在的疑问是，是不是我对于 TOP LEVEL 这个概念理解有偏差。</strong></p>
+
+<p>但是对于这个定义，我没有异议。看下面。</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># not activated here</span>
+<span class="k">class</span> <span class="nc">Foo</span>
+  <span class="c1"># not activated here</span>
+  <span class="n">using</span> <span class="no">M</span>
+  <span class="c1"># activated here</span>
+  <span class="k">def</span> <span class="nf">foo</span>
+    <span class="c1"># activated here</span>
+  <span class="k">end</span>
+  <span class="c1"># activated here</span>
+<span class="k">end</span>
+<span class="c1"># not activated here</span>
+</code></pre></div></div>
+
+<p><strong>有一点要注意：M 只在这次的 Scope 中生效，后面再打开 Foo 中，M 也不会生效。</strong></p>
+
+<h3 id="方法查找">方法查找</h3>
+
+<p>当在一个类 C 的实体上查找方法时，顺序是这样的</p>
+<ul>
+  <li>如果有多个 Refinement 生效，那么将按照每个 refinement 生效的顺序，反向查找 refinement 内部的方法。
+    <ul>
+      <li>refinement 中 prepend 的 module 中的 method</li>
+      <li>refinement 中的 method</li>
+      <li>refinement 中 include 的 module 中的 method</li>
+    </ul>
+  </li>
+  <li>prepend 的 module 中的 method</li>
+  <li>C 中的 method</li>
+  <li>include 的 module 中的 method
+如果没有，则继续查找 superclass，重复上面的顺序</li>
+</ul>
+
+<p>比如下面的代码</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">A</span>
+
+<span class="k">end</span>
+
+<span class="k">module</span> <span class="nn">M1</span>
+  <span class="k">def</span> <span class="nf">foo</span>
+    <span class="nb">puts</span> <span class="s2">"A foo in M1"</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="k">module</span> <span class="nn">M2</span>
+  <span class="k">def</span> <span class="nf">foo</span>
+    <span class="nb">puts</span> <span class="s2">"A foo in M2"</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="k">module</span> <span class="nn">M3</span>
+  <span class="k">def</span> <span class="nf">foo</span>
+    <span class="nb">puts</span> <span class="s2">"A foo in M3"</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="k">module</span> <span class="nn">M4</span>
+  <span class="k">def</span> <span class="nf">foo</span>
+    <span class="nb">puts</span> <span class="s2">"A foo in M4"</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="k">module</span> <span class="nn">M5</span>
+  <span class="k">def</span> <span class="nf">foo</span>
+    <span class="nb">puts</span> <span class="s2">"A foo in M5"</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="k">module</span> <span class="nn">AExtend</span> 
+  <span class="n">refine</span> <span class="no">A</span> <span class="k">do</span>
+    <span class="kp">include</span> <span class="no">M1</span>
+    <span class="n">prepend</span> <span class="no">M2</span>
+
+    <span class="k">def</span> <span class="nf">foo</span>
+      <span class="nb">puts</span> <span class="s2">"A foo in AExtend"</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="k">class</span> <span class="nc">A</span>
+  <span class="n">using</span> <span class="no">AExtend</span>
+  <span class="kp">include</span> <span class="no">M3</span>
+  <span class="n">prepend</span> <span class="no">M4</span>
+<span class="k">end</span>
+
+<span class="nb">puts</span> <span class="n">using</span> <span class="no">AExtend</span>
+<span class="nb">puts</span> <span class="no">A</span><span class="p">.</span><span class="nf">new</span><span class="p">.</span><span class="nf">foo</span> <span class="c1"># A foo in M2</span>
+<span class="nb">puts</span> <span class="no">A</span><span class="p">.</span><span class="nf">ancestors</span> <span class="c1"># [M4, A, M3, Objcet, Kernel, BasicObject]</span>
+</code></pre></div></div>
+
+<p>对于第一个输出，其实没有异议。那么为什么此时打印 <code class="highlighter-rouge">A.ancestors</code> 时，却没有 <code class="highlighter-rouge">M1</code> 和 <code class="highlighter-rouge">M2</code> 呢？
+我倾向于认为，因为进入到了 <code class="highlighter-rouge">ancestors</code> 这个函数里，所以控制权已经发生了改变， AExtend 已经失效了。</p>
+
+<h3 id="super">super</h3>
+<p><code class="highlighter-rouge">super</code> 的方法查找</p>
+<ul>
+  <li>查找所有 included modules</li>
+  <li>如果当前是 refinement class，重复上面步骤</li>
+  <li>如果当前 class 有 superclass，则在 superclass 上重复上面步骤</li>
+</ul>
+
+<h3 id="非直接调用">非直接调用</h3>
+<p>目前 refinement 对于 Kernel#send，Kernel#method 以及 Kernel#respond_to? 都不起作用</p>
+
+<h3 id="在-include-中的方法查找此处已经被移除">在 include 中的方法查找【此处已经被移除】</h3>
+<p>看下面的示例</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">A</span>
+
+<span class="k">end</span>
+
+<span class="k">module</span> <span class="nn">AExtend1</span>
+  <span class="n">refine</span> <span class="no">A</span> <span class="k">do</span>
+    <span class="k">def</span> <span class="nf">foo</span>
+      <span class="nb">puts</span> <span class="s2">"A foo in AExtend1"</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="k">module</span> <span class="nn">AExtend2</span>
+  <span class="n">refine</span> <span class="no">A</span> <span class="k">do</span>
+    <span class="k">def</span> <span class="nf">foo</span>
+      <span class="nb">puts</span> <span class="s2">"A foo in AExtend2"</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="k">module</span> <span class="nn">AExtend3</span>
+  <span class="kp">include</span> <span class="no">AExtend2</span>
+  <span class="kp">include</span> <span class="no">AExtend1</span>
+
+  <span class="c1"># refine A do</span>
+  <span class="c1">#   def foo</span>
+  <span class="c1">#     puts "A foo in AExtend3"</span>
+  <span class="c1">#   end</span>
+  <span class="c1"># end</span>
+<span class="k">end</span>
+
+<span class="k">class</span> <span class="nc">A</span>
+<span class="k">end</span>
+
+<span class="n">using</span> <span class="no">AExtend3</span>
+<span class="nb">puts</span> <span class="no">A</span><span class="p">.</span><span class="nf">new</span><span class="p">.</span><span class="nf">foo</span> <span class="c1"># A foo in AExtend1</span>
+</code></pre></div></div>
+
+<p>方法查找的顺序是</p>
+<ul>
+  <li>先查找 AExtend3 中的 refinement</li>
+  <li>再按照 prepend 以及 include 的顺序来查找，也就是 ancestors 继承链中的顺序从前往后查找。</li>
+</ul>
+
+<h3 id="总结">总结</h3>
+<p>第一次了解 Refinement，感觉还有一点乱，虽然可以用来避免 Monkey Patch 的全局影响问题，但是要想使用好，还需要花时间。</p>
+
+    </section>
+  </article>
+  <footer class="post-footer clearfix">
+  			<div class="clearfix">
+  				<nav class="post-footer--post-nav">
+  					<!-- <a href="#" class="button-capsule post-footer--next-post"><span class="button-label next-post-label">没有“国进民退”，也没有“国家资本主义”这回事儿？</span><span class="button-arrow-right next-post-arrow"></span></a> -->
+  				</nav>
+  			</div>
+  		</footer>
+</main>
+
+    <!-- 
+<footer class="sticky-footer">
+  <div class="global-footer">
+    <p class="site-copyright">© 2017 Cube</p>
+    <ul class="global-footer-links">
+    </ul>
+  </div>
+</footer> -->
+  </body>
+  <script type="text/javascript" src="/assets/app-6fc4a69a07f7a43fc2b231928503a3cc2977f0b0f9b2103668bc1c486e3a4f83.js"></script>
+  <script type="text/javascript">
+    // NProgress configuration
+    NProgress.configure({
+      minimum: 0.10,
+      ease: 'linear',
+      speed: 500,
+      trickleRate: 0.02,
+      trickleSpeed: 200,
+      showSpinner: false
+    });
+
+    NProgress.start();
+
+    $(window).load(function(){
+      NProgress.done();
+    });
+  </script>
+</html>
