@@ -197,3 +197,14 @@ a {
   margin-bottom: $spacing-unit / 2;
 }  
 /*====== Typographic reset END ======*/
+
+/*====== Hide elements for mobile ======*/
+@media only screen 
+and (max-width: 1023px) {
+	.global-footer,
+	.logo,
+	.apply-for-write {
+		display: none;
+	}
+}
+/*====== Hide elements for mobile END ======*/

@@ -6,9 +6,10 @@
 @import "_define";
 @import "basic";
 
-@import "frame/frame-nav";
 @import "frame-footer/frame-footer";
+@import "frame/frame-nav";
 
+@import "util/util-pagenav-desktop";
 
 @import "_syntax-highlighting";
 @import "core-article/core-article-desktop";
