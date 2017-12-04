@@ -3,7 +3,7 @@ layout: post
 title:  "Ruby Refinements Documented"
 author: Tesla Lee
 date:   2017-11-22 22:53:12 +0800
-categories: jekyll update
+categories: ruby
 ---
 本文主要记录了 Refinement 使用的一些要点，内容基本来自 Ruby 的官方文档以及 Metaprogramming Ruby 这本书。
 

@@ -6,4 +6,22 @@
     {{ content }}
     {% include footer.html %}
   </body>
+  {% js app %}
+  <script type="text/javascript">
+    // NProgress configuration
+    NProgress.configure({
+      minimum: 0.10,
+      ease: 'linear',
+      speed: 500,
+      trickleRate: 0.02,
+      trickleSpeed: 200,
+      showSpinner: false
+    });
+
+    NProgress.start();
+
+    $(window).load(function(){
+      NProgress.done();
+    });
+  </script>
 </html>
