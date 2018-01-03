@@ -1,5 +1,5 @@
 GEM
-  remote: https://rubygems.org/
+  remote: https://gems.ruby-china.org/
   specs:
     activesupport (4.2.9)
       i18n (~> 0.7)
@@ -21,7 +21,7 @@ GEM
       forwardable-extended (~> 2.5)
     faraday (0.13.1)
       multipart-post (>= 1.2, < 3)
-    fastimage (2.1.0)
+    fastimage (2.1.1)
     ffi (1.9.18)
     forwardable-extended (2.6.0)
     gemoji (3.0.0)
@@ -102,6 +102,8 @@ GEM
     jekyll-coffeescript (1.0.2)
       coffee-script (~> 2.2)
       coffee-script-source (~> 1.11.1)
+    jekyll-compose (0.6.0)
+      jekyll (>= 3.0.0)
     jekyll-default-layout (0.1.4)
       jekyll (~> 3.0)
     jekyll-feed (0.9.2)
@@ -173,8 +175,8 @@ GEM
       jekyll-seo-tag (~> 2.0)
     jekyll-titles-from-headings (0.4.0)
       jekyll (~> 3.3)
-    jekyll-watch (1.5.0)
-      listen (~> 3.0, < 3.1)
+    jekyll-watch (1.5.1)
+      listen (~> 3.0)
     jemoji (0.8.1)
       activesupport (~> 4.0, >= 4.2.9)
       gemoji (~> 3.0)
@@ -196,7 +198,7 @@ GEM
       mini_portile2 (~> 2.3.0)
     octokit (4.7.0)
       sawyer (~> 0.8.0, >= 0.5.3)
-    pathutil (0.16.0)
+    pathutil (0.16.1)
       forwardable-extended (~> 2.6)
     public_suffix (2.0.5)
     rack (1.6.8)
@@ -205,7 +207,7 @@ GEM
       ffi (>= 0.5.0, < 2)
     rouge (2.2.1)
     safe_yaml (1.0.4)
-    sass (3.5.3)
+    sass (3.5.4)
       sass-listen (~> 4.0.0)
     sass-listen (4.0.0)
       rb-fsevent (~> 0.9, >= 0.9.4)
@@ -231,8 +233,9 @@ PLATFORMS
 DEPENDENCIES
   github-pages
   jekyll (~> 3.6.2)
-  jekyll-assets
+  jekyll-assets (~> 2.0)
   jekyll-coffeescript
+  jekyll-compose
   jekyll-feed (~> 0.6)
   jekyll-seo-tag
   minima (~> 2.0)

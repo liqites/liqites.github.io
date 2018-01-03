@@ -33,8 +33,6 @@ plugins:
   - jekyll-seo-tag
   - jekyll-coffeescript
   - jekyll-assets
-sass:
-  style: compressed
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list
 # to override the default setting.
@@ -46,6 +44,24 @@ sass:
 #   - vendor/cache/
 #   - vendor/gems/
 #   - vendor/ruby/
+
 assets:
-  dirname: assets
+  compress:
+    css: false # | true | default - development: false, production: true
+    js: false # | true | default - development: false, production: true
+  autowrite: true
+  skip_baseurl_with_cdn: false
+  skip_prefix_with_cdn: false
+  prefix: "/assets"
   digest: true
+  assets:
+    - "*.png"
+    - "bundle.css"
+  sources:
+    - _assets/css
+    - _assets/images
+    - _assets/javascripts
+    - _assets/stylesheets
+    - _assets/fonts
+    - _assets/img
+    - _assets/js
