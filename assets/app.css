@@ -648,10 +648,10 @@ a { color: inherit; touch-action: none; -webkit-tap-highlight-color: rgba(0, 0, 
   body { overflow-x: hidden; }
   .post-container { margin: 0 auto; width: 69%; max-width: 69%; } }
 /* End of @media only screen and (min-width: 619px) and (max-width: 1023px) */
-@media only screen and (min-width: 1024px) { .reading-list-container { width: 40em; margin: 0 auto; padding-top: 126px; /*
-	Calculate min-height for the sticky footer
-	footer margin-top = 90px;
-*/ min-height: calc(100% - 90px - 126px); /*====== Post list styles ======*/ /*====== Post list styles END ======*/ }
+@media only screen and (min-width: 1024px) { .reading-list-container { width: 40em; margin: 0 auto; padding-top: 126px;         /*
+		Calculate min-height for the sticky footer
+		footer margin-top = 90px;
+	*/ min-height: calc(100% - 90px - 126px); /*====== Post list styles ======*/ /*====== Post list styles END ======*/ }
   .reading-list-container .reading-list { float: left; margin: -45px 0px 0px 36px; } }
 /** 	style-reading-list-mobile.less */
 @media only screen and (max-width: 1023px) { .reading-list-container { width: 100%; margin: 0 auto; max-width: 480px; }
