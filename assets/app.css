@@ -373,8 +373,8 @@ a { color: inherit; touch-action: none; -webkit-tap-highlight-color: rgba(0, 0, 
   article > section blockquote + blockquote { margin-top: 0px; padding-top: 24px; }
   article > section blockquote p { text-indent: 0em; margin: 24px auto 0px auto; color: #8c8c8c; width: 32em; }
   article > section ol, article > section ul { list-style: none; padding: 0; }
-  article > section ol > li, article > section ul > li { margin-top: 24px; margin-left: 2em; width: 31em; }
-  article > section ol > li li, article > section ul > li li { margin-top: 12px; margin-left: 2em; }
+  article > section ol > li, article > section ul > li { margin-left: 2em; width: 31em; }
+  article > section ol > li li, article > section ul > li li { margin-left: 2em; }
   article > section ol { counter-reset: olNumber; }
   article > section ol > li::before { counter-increment: olNumber; content: counter(olNumber) "."; display: block; margin-left: -2em; float: left; }
   article > section ul > li::before { content: "•"; display: block; margin-left: -2em; float: left; }
@@ -433,8 +433,8 @@ a { color: inherit; touch-action: none; -webkit-tap-highlight-color: rgba(0, 0, 
   article > section blockquote p { color: #8c8c8c; margin: 21px 16px 0px 13px; }
   article > section ol, article > section ul { list-style: none; padding: 0; margin: 0px 16px 0px 16px; }
   article > section ol ol, article > section ul ol, article > section ol ul, article > section ul ul { margin: 0px 0px 0px -8px; }
-  article > section ol > li, article > section ul > li { margin-top: 24px; margin-left: 1.5em; }
-  article > section ol > li li, article > section ul > li li { margin-top: 12px; margin-left: 1.5em; }
+  article > section ol > li, article > section ul > li { margin-left: 1.5em; }
+  article > section ol > li li, article > section ul > li li { margin-left: 1.5em; }
   article > section ol { counter-reset: olNumber; }
   article > section ol > li::before { counter-increment: olNumber; content: counter(olNumber) "."; display: block; margin-left: -1.5em; float: left; }
   article > section ul > li::before { content: "•"; display: block; margin-left: -1.5em; float: left; }
@@ -675,6 +675,5 @@ a { color: inherit; touch-action: none; -webkit-tap-highlight-color: rgba(0, 0, 
   .reading-list-nav { height: 52.875px; border-bottom: 1.125px solid #e5e5e5; }
   .reading-list-nav-item { padding-top: 27px; height: 13.5px; font-size: 13.5px; height: 13.5px; }
   /*--- Scale (factor: 1.125; max-width: 480px) for nav-side END ---*/
-  .reading-list { -webkit-transform: scale(1.125); -moz-transform: scale(1.125); transform: scale(1.125); -webkit-transform-origin: top; -moz-transform-origin: top; transform-origin: top; overflow-x: hidden; }
   body { overflow-x: hidden; } }
 /* End of @media only screen and (min-width: 619px) and (max-width: 1023px) */
