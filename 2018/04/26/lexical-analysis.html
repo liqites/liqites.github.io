@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Begin Jekyll SEO tag v2.3.0 -->
+<title>Lexical Analysis | Code Cube</title>
+<meta property="og:title" content="Lexical Analysis" />
+<meta name="author" content="Tesla Lee" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="《Modern Compiler Implementation in C》词法分析总结，其中有很多内容都来自书的翻译和记录。" />
+<meta property="og:description" content="《Modern Compiler Implementation in C》词法分析总结，其中有很多内容都来自书的翻译和记录。" />
+<link rel="canonical" href="http://localhost:4000/2018/04/26/lexical-analysis.html" />
+<meta property="og:url" content="http://localhost:4000/2018/04/26/lexical-analysis.html" />
+<meta property="og:site_name" content="Code Cube" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2018-04-26T00:00:00+08:00" />
+<script type="application/ld+json">
+{"name":null,"description":"《Modern Compiler Implementation in C》词法分析总结，其中有很多内容都来自书的翻译和记录。","author":{"@type":"Person","name":"Tesla Lee"},"@type":"BlogPosting","url":"http://localhost:4000/2018/04/26/lexical-analysis.html","image":null,"publisher":null,"headline":"Lexical Analysis","dateModified":"2018-04-26T00:00:00+08:00","datePublished":"2018-04-26T00:00:00+08:00","sameAs":null,"mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2018/04/26/lexical-analysis.html"},"@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+  <!-- <link rel="stylesheet" href="/assets/main.css"> -->
+  <link rel="stylesheet" href="/assets/app.css">
+
+  <link rel="alternate" type="application/rss+xml" title="Code Cube" href="/feed.xml">
+  
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+</head>
+
+  <body>
+    <nav class="nav-top headroom clearfix">
+	<div class="mzread-entrance">
+		<a href="/">Code Cube</a>
+	</div>
+
+	<ul class="main-nav">
+    
+	</ul>
+
+	<!-- <div class="nav-user">
+    <a class="nav-user-item" href="/login">登录</a>
+    <a class="nav-user-item" href="/signup">注册</a>
+  </div> -->
+</nav>
+
+    <main class="post-container sticky-footer--main-wrap clearfix">
+  <article class="post-article article-core chinese-punct clearfix" lang="en">
+    <!--Publish info-->
+		<aside class="publish-info-card clearfix">
+			<!-- <a class="publish-info-card--avatar-link" href="/cnpolitics">
+        <img class="avatar-circle publish-info-card--avatar" src="images/feed-avatar.jpg" alt="政见">
+        <h4 class="publish-info-card--name">政见</h4>
+      </a> -->
+			<p class="publish-info-card--meta">
+        
+        <a href="#" class="publish-info-card--author-name">Tesla Lee</a><span class="vert-line">｜</span>
+        
+				<span class="time-last-modified">
+          
+        Apr 26, 2018
+      </span>
+			</p>
+		</aside>
+          
+    <!--Article Header-->
+    <header class="article-header">
+      <h1 class="article-header--h1">Lexical Analysis</h1>
+    </header>
+    
+    <!--Article Header-->
+    <section class="article-section">
+      <p>《Modern Compiler Implementation in C》词法分析总结，其中有很多内容都来自书的翻译和记录。</p>
+
+<!--more-->
+
+<blockquote>
+  <p><strong>lex-i-cal</strong> : of or relating to words or the vocabulary of a language as distinguished from its grammar and construction</p>
+
+  <p>— Webster’s Dictionary</p>
+</blockquote>
+
+<p>要将程序从一种语言翻译到另一种语言，编译器要先将程序处理成片段，并理解其结构和意义，然后用另一种方式去处理这些片段。编译器的前端负责分析工作，而后端则完成再组合。</p>
+
+<p>而分析工作主要包含下面几个部分:</p>
+
+<ul>
+  <li>词法分析：将输入（程序代码）切分成词</li>
+  <li>语法分析：分析程序短语</li>
+  <li>语义分析：计算程序的意义</li>
+</ul>
+
+<h2 id="lexical-tokens">LEXICAL TOKENS</h2>
+<p>Lexical token 是组成（编程）语言的最小单位，编译器理解语言总是从将无意义的字符串转化为 Lexical token 开始。那么 Lexical token 是什么呢？又怎么去表示？</p>
+
+<p>Lexical token 是最基本的有意义的语法元素。在一般语言中我们都会遇到什么 <strong>ID</strong>，<strong>IF</strong>，<strong>CONDITION</strong> 等等，这些都是语法元素。每一种词法元素都有起描述的规则，用来分析时确定改词法元素。</p>
+
+<p>我们肯定可以使用自然语言来描述词法规则。但一般情况下，我们使用正则表达式来描述词法规则，同时使用 <strong>DFA</strong> 来实现词法分析器。</p>
+
+<p>下面会先复习一些正则的基本知识。</p>
+
+<h2 id="regular-expression">REGULAR EXPRESSION</h2>
+<p>先简单复习一下正则表达式</p>
+
+<ul>
+  <li>Symbol（符号）</li>
+  <li>Alternation（选择）</li>
+  <li>Concatenation（连续，连接）</li>
+  <li>Epsilon（空）</li>
+  <li>Repetition（重复）：重复一次，重复多次，至少重复一次</li>
+</ul>
+
+<blockquote>
+  <p>Kleene closure: Given a regular expression M, its Kleene closure is $M^*$</p>
+</blockquote>
+
+<p>写法：</p>
+
+<ul>
+  <li>$a$ : 普通字符</li>
+  <li>$\epsilon$ : 空字符串</li>
+  <li>$M \mid N$ : 选择 M 或 N</li>
+  <li>$M \bullet N$ (MN) : 连接</li>
+  <li>$M^\ast$ : 重复出现零次或多次</li>
+  <li>$M^+$ : 重复出现一次或多次</li>
+  <li>$M?$ : 出现一次或者不出现</li>
+  <li>$[a-zA-Z]$: 再大小写字母中选择</li>
+  <li>$\bullet$ : 表示任意字符</li>
+  <li>“$a.+^\ast$” : 精确匹配完成字符串</li>
+</ul>
+
+<p>在引入正则表达式后，我们就可以来描述词法规则了</p>
+
+<p>加入有一下词法规则：</p>
+
+<ul>
+  <li>IF: $if$</li>
+  <li>ID: $[a-z][a-z0-9]^\ast $</li>
+  <li>NUM: $[0-9]^+ $</li>
+  <li>REAL: $([0-9]^+”.”[0-9]^\ast) \mid ([0-9]^\ast”.”[0-9]^+)$</li>
+  <li>do nothing: $(“–“[a–z]^\ast”\n”) \mid (“\space” \mid “\n” \mid “\t”)^\ast$</li>
+  <li>error: $.$</li>
+</ul>
+
+<p>有关键字 <strong>if</strong>，标识符 <strong>ID</strong>，数字 <strong>NUM</strong>，以及实数 <strong>REAL</strong>，还定义了注释 『–』开头的单行注释。</p>
+
+<p>但，写到这里，我们很快会注意到一个问题：<strong>IF</strong> 和 <strong>ID</strong> 这两个规则是有交集的。在没有假如更多规则的情况下，我们如何去识别 <em>if</em> 到底是 <strong>ID token</strong> 还是 <strong>IF token</strong>？再比如 <em>if8</em> 是先匹配 <strong>IF</strong> 规则还是先匹配 <strong>ID</strong> 规则？</p>
+
+<p>下面引入两种常用的去歧义规则：</p>
+
+<ul>
+  <li><strong>Longest match</strong>：也就是最长匹配原则，规则所能匹配的最长子串作为下一个输出的 token。</li>
+  <li><strong>Rule priority</strong>：规则优先级原则，对于一个最长子串，第一个能够匹配的规则所表示 token 作为输。这也就意味着，匹配的顺序是有意义且重要的。</li>
+</ul>
+
+<blockquote>
+  <p>好了，到这里可以先简单的做一下总结。一门语言，有其最基本的语法元素，这里是 Lexical token。我们需要描述每一种 token 的规则，当然可以使用自然语言，但要让 Lexer 理解，必须要使用一种能实现成程序的方式。
+于是我们引入了 Regular Expression 来描述词法规则。同时付加了两条消除歧义的规则，<strong>最长匹配</strong>和<strong>匹配优先级</strong>
+那么，到这里我有一个疑问？是不是使用 Regular Expression 来描述，就已经可以实现一个 token 匹配，来生成 Lexical token 了？</p>
+</blockquote>
+
+<h2 id="finite-automata">FINITE AUTOMATA</h2>
+
+<p>在前面一段里，我最后有一个问题：因为 Regular Expression 是大多数语言都有的，要实现 token 匹配，是不是就可以使用 Regular Expression 就足够了？</p>
+
+<p>我的个人感觉是，如果想要这么做是没有问题的，一定可以实现 token 匹配的功能。但是 Regular Expression 实现 lexing 和 parsing 有其问题，这里我正好在网上搜到了 Rob Pike 一篇文章 <a href="https://commandcenter.blogspot.com/2011/08/regular-expressions-in-lexing-and.html">Regular expression in lexing and parsing</a>。</p>
+
+<p>我这里摘取他的观点放在这里。</p>
+
+<blockquote>
+  <p>Regular expressions are hard to write, hard to write well, and can be expensive relative to other technologies.</p>
+</blockquote>
+
+<blockquote>
+  <p>A regular expression library is a big thing. Using one to parse identifiers is like using a Mack truck to go to the store for milk. And when we want to adjust our lexer to admit other character types, such as Unicode identifiers, and handle normalization, and so on, the hand-written loop can cope easily but the regexp approach will break down.</p>
+</blockquote>
+
+<blockquote>
+  <p>Using regular expressions to explore the parse state to find the way forward is expensive, overkill, and error-prone.</p>
+</blockquote>
+
+<blockquote>
+  <p>Regular expressions are, in my experience, widely misunderstood and abused.</p>
+</blockquote>
+
+<p>我个人对于 Regular Expression 并没有完全精通。但对于他上面提到的几点，基本都赞同。</p>
+
+<p>由此，我们就在这里引入了新的方式 Finite Automata，有限自动机。</p>
+
+<h3 id="什么是有限自动机">什么是有限自动机？</h3>
+
+<p>有限自动机是一种状态机，它通过状态转化来实现接受或者拒绝特定字符串的功能。</p>
+
+<p>这里就摘取维基百科对于状态机的定义</p>
+
+<blockquote>
+  <p>Automata theory.svg
+About this image
+Classes of automata
+(Clicking on each layer will take you to an article on that subject)
+A finite-state machine (FSM) or finite-state automaton (FSA, plural: automata), finite automaton, or simply a state machine, is a mathematical model of computation. It is an abstract machine that can be in exactly one of a finite number of states at any given time. The FSM can change from one state to another in response to some external inputs; the change from one state to another is called a transition. An FSM is defined by a list of its states, its initial state, and the conditions for each transition. Finite state machines are of two types - deterministic finite state machines and non-deterministic finite state machines.[1]</p>
+</blockquote>
+
+<blockquote>
+  <p>The behavior of state machines can be observed in many devices in modern society that perform a predetermined sequence of actions depending on a sequence of events with which they are presented. Examples are vending machines, which dispense products when the proper combination of coins is deposited, elevators, whose sequence of stops is determined by the floors requested by riders, traffic lights, which change sequence when cars are waiting, and combination locks, which require the input of combination numbers in the proper order.</p>
+</blockquote>
+
+<blockquote>
+  <p>The finite state machine has less computational power than some other models of computation such as the Turing machine.[2] The computational power distinction means there are computational tasks that a Turing machine can do but a FSM cannot. This is because a FSM’s memory is limited by the number of states it has. FSMs are studied in the more general field of automata theory.</p>
+</blockquote>
+
+<p>好了，现在引入了有限自动机这个概念。
+有限自动机可以很方便的是现成程序。
+有限自动机由：<strong>状态集</strong>，<strong>边（从一个状态到另一个状态）</strong>，<strong>边上的符号</strong>，<strong>开始状态</strong> 和 <strong>终结状态</strong> 组成。</p>
+
+<p>有限自动机分为两种：</p>
+
+<ul>
+  <li>DFA 确定性有限自动机：从一个状态接收，只有唯一确定的边指向另一个状态。</li>
+  <li>NFA 非确定性有限自动机：从一个状态接收，有多个不同的状态可以到达。</li>
+</ul>
+
+<p>由此，我们可以给上面的词法规则画出如下的几个状态机转化图：</p>
+
+<p><img src="/assets/images/state_machine_diagram_1.png" alt="Fig 2.3" /></p>
+
+<p>我们也可以写成一个状态机转化图：</p>
+
+<p><img src="/assets/images/state_machine_diagram_2.png" alt="Fig 2.4" /></p>
+
+    </section>
+  </article>
+  <footer class="post-footer clearfix">
+  			<div class="clearfix">
+  				<nav class="post-footer--post-nav">
+  					<!-- <a href="#" class="button-capsule post-footer--next-post"><span class="button-label next-post-label">没有“国进民退”，也没有“国家资本主义”这回事儿？</span><span class="button-arrow-right next-post-arrow"></span></a> -->
+  				</nav>
+  			</div>
+  		</footer>
+</main>
+
+    <footer class="sticky-footer">
+  <div class="global-footer">
+    <ul class="global-footer-links">
+      <li>Designed by <a href="http://laerhsif.com/" target="_blank">realfish</a></li>
+    </ul>
+  </div>
+</footer>
+
+  </body>
+  <script type="text/javascript" src="/assets/app-cf635fcf31d244d93ece3ca7f45a686b16696c3d5c02dc04c2ae7cadef7c3aaa.js"></script>
+  <script type="text/javascript">
+    // NProgress configuration
+    NProgress.configure({
+      minimum: 0.10,
+      ease: 'linear',
+      speed: 500,
+      trickleRate: 0.02,
+      trickleSpeed: 200,
+      showSpinner: false
+    });
+
+    NProgress.start();
+
+    $(window).load(function(){
+      NProgress.done();
+    });
+
+    // Headroom configuration
+    $(".headroom").headroom();
+  </script>
+</html>

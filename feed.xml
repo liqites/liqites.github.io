@@ -1,4 +1,160 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://www.teslalee.com/feed.xml" rel="self" type="application/atom+xml" /><link href="http://www.teslalee.com/" rel="alternate" type="text/html" /><updated>2018-04-26T17:37:59+08:00</updated><id>http://www.teslalee.com/</id><title type="html">Code Cube</title><subtitle></subtitle><entry><title type="html">Notes on Machine Learning on Coursera</title><link href="http://www.teslalee.com/2018/04/25/notes-of-machine-larning-on-coursera.html" rel="alternate" type="text/html" title="Notes on Machine Learning on Coursera" /><published>2018-04-25T00:00:00+08:00</published><updated>2018-04-25T00:00:00+08:00</updated><id>http://www.teslalee.com/2018/04/25/notes-of-machine-larning-on-coursera</id><content type="html" xml:base="http://www.teslalee.com/2018/04/25/notes-of-machine-larning-on-coursera.html">&lt;p&gt;I always want to learn Machine Learning and finally I got time.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-04-26T18:16:24+08:00</updated><id>http://localhost:4000/</id><title type="html">Code Cube</title><subtitle></subtitle><entry><title type="html">Lexical Analysis</title><link href="http://localhost:4000/2018/04/26/lexical-analysis.html" rel="alternate" type="text/html" title="Lexical Analysis" /><published>2018-04-26T00:00:00+08:00</published><updated>2018-04-26T00:00:00+08:00</updated><id>http://localhost:4000/2018/04/26/lexical-analysis</id><content type="html" xml:base="http://localhost:4000/2018/04/26/lexical-analysis.html">&lt;p&gt;《Modern Compiler Implementation in C》词法分析总结，其中有很多内容都来自书的翻译和记录。&lt;/p&gt;
+
+&lt;!--more--&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;lex-i-cal&lt;/strong&gt; : of or relating to words or the vocabulary of a language as distinguished from its grammar and construction&lt;/p&gt;
+
+  &lt;p&gt;— Webster’s Dictionary&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;要将程序从一种语言翻译到另一种语言，编译器要先将程序处理成片段，并理解其结构和意义，然后用另一种方式去处理这些片段。编译器的前端负责分析工作，而后端则完成再组合。&lt;/p&gt;
+
+&lt;p&gt;而分析工作主要包含下面几个部分:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;词法分析：将输入（程序代码）切分成词&lt;/li&gt;
+  &lt;li&gt;语法分析：分析程序短语&lt;/li&gt;
+  &lt;li&gt;语义分析：计算程序的意义&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;lexical-tokens&quot;&gt;LEXICAL TOKENS&lt;/h2&gt;
+&lt;p&gt;Lexical token 是组成（编程）语言的最小单位，编译器理解语言总是从将无意义的字符串转化为 Lexical token 开始。那么 Lexical token 是什么呢？又怎么去表示？&lt;/p&gt;
+
+&lt;p&gt;Lexical token 是最基本的有意义的语法元素。在一般语言中我们都会遇到什么 &lt;strong&gt;ID&lt;/strong&gt;，&lt;strong&gt;IF&lt;/strong&gt;，&lt;strong&gt;CONDITION&lt;/strong&gt; 等等，这些都是语法元素。每一种词法元素都有起描述的规则，用来分析时确定改词法元素。&lt;/p&gt;
+
+&lt;p&gt;我们肯定可以使用自然语言来描述词法规则。但一般情况下，我们使用正则表达式来描述词法规则，同时使用 &lt;strong&gt;DFA&lt;/strong&gt; 来实现词法分析器。&lt;/p&gt;
+
+&lt;p&gt;下面会先复习一些正则的基本知识。&lt;/p&gt;
+
+&lt;h2 id=&quot;regular-expression&quot;&gt;REGULAR EXPRESSION&lt;/h2&gt;
+&lt;p&gt;先简单复习一下正则表达式&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Symbol（符号）&lt;/li&gt;
+  &lt;li&gt;Alternation（选择）&lt;/li&gt;
+  &lt;li&gt;Concatenation（连续，连接）&lt;/li&gt;
+  &lt;li&gt;Epsilon（空）&lt;/li&gt;
+  &lt;li&gt;Repetition（重复）：重复一次，重复多次，至少重复一次&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Kleene closure: Given a regular expression M, its Kleene closure is $M^*$&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;写法：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;$a$ : 普通字符&lt;/li&gt;
+  &lt;li&gt;$\epsilon$ : 空字符串&lt;/li&gt;
+  &lt;li&gt;$M \mid N$ : 选择 M 或 N&lt;/li&gt;
+  &lt;li&gt;$M \bullet N$ (MN) : 连接&lt;/li&gt;
+  &lt;li&gt;$M^\ast$ : 重复出现零次或多次&lt;/li&gt;
+  &lt;li&gt;$M^+$ : 重复出现一次或多次&lt;/li&gt;
+  &lt;li&gt;$M?$ : 出现一次或者不出现&lt;/li&gt;
+  &lt;li&gt;$[a-zA-Z]$: 再大小写字母中选择&lt;/li&gt;
+  &lt;li&gt;$\bullet$ : 表示任意字符&lt;/li&gt;
+  &lt;li&gt;“$a.+^\ast$” : 精确匹配完成字符串&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;在引入正则表达式后，我们就可以来描述词法规则了&lt;/p&gt;
+
+&lt;p&gt;加入有一下词法规则：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;IF: $if$&lt;/li&gt;
+  &lt;li&gt;ID: $[a-z][a-z0-9]^\ast $&lt;/li&gt;
+  &lt;li&gt;NUM: $[0-9]^+ $&lt;/li&gt;
+  &lt;li&gt;REAL: $([0-9]^+”.”[0-9]^\ast) \mid ([0-9]^\ast”.”[0-9]^+)$&lt;/li&gt;
+  &lt;li&gt;do nothing: $(“–“[a–z]^\ast”\n”) \mid (“\space” \mid “\n” \mid “\t”)^\ast$&lt;/li&gt;
+  &lt;li&gt;error: $.$&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;有关键字 &lt;strong&gt;if&lt;/strong&gt;，标识符 &lt;strong&gt;ID&lt;/strong&gt;，数字 &lt;strong&gt;NUM&lt;/strong&gt;，以及实数 &lt;strong&gt;REAL&lt;/strong&gt;，还定义了注释 『–』开头的单行注释。&lt;/p&gt;
+
+&lt;p&gt;但，写到这里，我们很快会注意到一个问题：&lt;strong&gt;IF&lt;/strong&gt; 和 &lt;strong&gt;ID&lt;/strong&gt; 这两个规则是有交集的。在没有假如更多规则的情况下，我们如何去识别 &lt;em&gt;if&lt;/em&gt; 到底是 &lt;strong&gt;ID token&lt;/strong&gt; 还是 &lt;strong&gt;IF token&lt;/strong&gt;？再比如 &lt;em&gt;if8&lt;/em&gt; 是先匹配 &lt;strong&gt;IF&lt;/strong&gt; 规则还是先匹配 &lt;strong&gt;ID&lt;/strong&gt; 规则？&lt;/p&gt;
+
+&lt;p&gt;下面引入两种常用的去歧义规则：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Longest match&lt;/strong&gt;：也就是最长匹配原则，规则所能匹配的最长子串作为下一个输出的 token。&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Rule priority&lt;/strong&gt;：规则优先级原则，对于一个最长子串，第一个能够匹配的规则所表示 token 作为输。这也就意味着，匹配的顺序是有意义且重要的。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;好了，到这里可以先简单的做一下总结。一门语言，有其最基本的语法元素，这里是 Lexical token。我们需要描述每一种 token 的规则，当然可以使用自然语言，但要让 Lexer 理解，必须要使用一种能实现成程序的方式。
+于是我们引入了 Regular Expression 来描述词法规则。同时付加了两条消除歧义的规则，&lt;strong&gt;最长匹配&lt;/strong&gt;和&lt;strong&gt;匹配优先级&lt;/strong&gt;
+那么，到这里我有一个疑问？是不是使用 Regular Expression 来描述，就已经可以实现一个 token 匹配，来生成 Lexical token 了？&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;finite-automata&quot;&gt;FINITE AUTOMATA&lt;/h2&gt;
+
+&lt;p&gt;在前面一段里，我最后有一个问题：因为 Regular Expression 是大多数语言都有的，要实现 token 匹配，是不是就可以使用 Regular Expression 就足够了？&lt;/p&gt;
+
+&lt;p&gt;我的个人感觉是，如果想要这么做是没有问题的，一定可以实现 token 匹配的功能。但是 Regular Expression 实现 lexing 和 parsing 有其问题，这里我正好在网上搜到了 Rob Pike 一篇文章 &lt;a href=&quot;https://commandcenter.blogspot.com/2011/08/regular-expressions-in-lexing-and.html&quot;&gt;Regular expression in lexing and parsing&lt;/a&gt;。&lt;/p&gt;
+
+&lt;p&gt;我这里摘取他的观点放在这里。&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Regular expressions are hard to write, hard to write well, and can be expensive relative to other technologies.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;A regular expression library is a big thing. Using one to parse identifiers is like using a Mack truck to go to the store for milk. And when we want to adjust our lexer to admit other character types, such as Unicode identifiers, and handle normalization, and so on, the hand-written loop can cope easily but the regexp approach will break down.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Using regular expressions to explore the parse state to find the way forward is expensive, overkill, and error-prone.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Regular expressions are, in my experience, widely misunderstood and abused.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;我个人对于 Regular Expression 并没有完全精通。但对于他上面提到的几点，基本都赞同。&lt;/p&gt;
+
+&lt;p&gt;由此，我们就在这里引入了新的方式 Finite Automata，有限自动机。&lt;/p&gt;
+
+&lt;h3 id=&quot;什么是有限自动机&quot;&gt;什么是有限自动机？&lt;/h3&gt;
+
+&lt;p&gt;有限自动机是一种状态机，它通过状态转化来实现接受或者拒绝特定字符串的功能。&lt;/p&gt;
+
+&lt;p&gt;这里就摘取维基百科对于状态机的定义&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Automata theory.svg
+About this image
+Classes of automata
+(Clicking on each layer will take you to an article on that subject)
+A finite-state machine (FSM) or finite-state automaton (FSA, plural: automata), finite automaton, or simply a state machine, is a mathematical model of computation. It is an abstract machine that can be in exactly one of a finite number of states at any given time. The FSM can change from one state to another in response to some external inputs; the change from one state to another is called a transition. An FSM is defined by a list of its states, its initial state, and the conditions for each transition. Finite state machines are of two types - deterministic finite state machines and non-deterministic finite state machines.[1]&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;The behavior of state machines can be observed in many devices in modern society that perform a predetermined sequence of actions depending on a sequence of events with which they are presented. Examples are vending machines, which dispense products when the proper combination of coins is deposited, elevators, whose sequence of stops is determined by the floors requested by riders, traffic lights, which change sequence when cars are waiting, and combination locks, which require the input of combination numbers in the proper order.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;The finite state machine has less computational power than some other models of computation such as the Turing machine.[2] The computational power distinction means there are computational tasks that a Turing machine can do but a FSM cannot. This is because a FSM’s memory is limited by the number of states it has. FSMs are studied in the more general field of automata theory.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;好了，现在引入了有限自动机这个概念。
+有限自动机可以很方便的是现成程序。
+有限自动机由：&lt;strong&gt;状态集&lt;/strong&gt;，&lt;strong&gt;边（从一个状态到另一个状态）&lt;/strong&gt;，&lt;strong&gt;边上的符号&lt;/strong&gt;，&lt;strong&gt;开始状态&lt;/strong&gt; 和 &lt;strong&gt;终结状态&lt;/strong&gt; 组成。&lt;/p&gt;
+
+&lt;p&gt;有限自动机分为两种：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;DFA 确定性有限自动机：从一个状态接收，只有唯一确定的边指向另一个状态。&lt;/li&gt;
+  &lt;li&gt;NFA 非确定性有限自动机：从一个状态接收，有多个不同的状态可以到达。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;由此，我们可以给上面的词法规则画出如下的几个状态机转化图：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/state_machine_diagram_1.png&quot; alt=&quot;Fig 2.3&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;我们也可以写成一个状态机转化图：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/state_machine_diagram_2.png&quot; alt=&quot;Fig 2.4&quot; /&gt;&lt;/p&gt;</content><author><name>Tesla Lee</name></author><summary type="html">《Modern Compiler Implementation in C》词法分析总结，其中有很多内容都来自书的翻译和记录。</summary></entry><entry><title type="html">Notes on Machine Learning on Coursera</title><link href="http://localhost:4000/2018/04/25/notes-of-machine-larning-on-coursera.html" rel="alternate" type="text/html" title="Notes on Machine Learning on Coursera" /><published>2018-04-25T00:00:00+08:00</published><updated>2018-04-25T00:00:00+08:00</updated><id>http://localhost:4000/2018/04/25/notes-of-machine-larning-on-coursera</id><content type="html" xml:base="http://localhost:4000/2018/04/25/notes-of-machine-larning-on-coursera.html">&lt;p&gt;I always want to learn Machine Learning and finally I got time.&lt;/p&gt;
 
 &lt;p&gt;I first started with the open class CS 229 Machine Learning from Stanford by Andrew Ng. But I failed after 2 classes, because Andrew Ng skipped some math detail that I forget the knowledge of calculus and linear algebra.&lt;/p&gt;
 
@@ -8,7 +164,7 @@
 
 &lt;p&gt;So if you want to learning machine learning, I highly recommend you try this course. All you want to know is the basic knowledge of calculus and linear algebra, which also covered in the course.&lt;/p&gt;
 
-&lt;p&gt;Yeah!&lt;/p&gt;</content><author><name>Tesla Lee</name></author><summary type="html">I always want to learn Machine Learning and finally I got time.</summary></entry><entry><title type="html">《头号玩家》</title><link href="http://www.teslalee.com/2018/04/02/ready-player-one.html" rel="alternate" type="text/html" title="《头号玩家》" /><published>2018-04-02T00:00:00+08:00</published><updated>2018-04-02T00:00:00+08:00</updated><id>http://www.teslalee.com/2018/04/02/ready-player-one</id><content type="html" xml:base="http://www.teslalee.com/2018/04/02/ready-player-one.html">&lt;p&gt;看完《头号玩家》后，有一个问题一直在脑海里盘旋：
+&lt;p&gt;Yeah!&lt;/p&gt;</content><author><name>Tesla Lee</name></author><summary type="html">I always want to learn Machine Learning and finally I got time.</summary></entry><entry><title type="html">《头号玩家》</title><link href="http://localhost:4000/2018/04/02/ready-player-one.html" rel="alternate" type="text/html" title="《头号玩家》" /><published>2018-04-02T00:00:00+08:00</published><updated>2018-04-02T00:00:00+08:00</updated><id>http://localhost:4000/2018/04/02/ready-player-one</id><content type="html" xml:base="http://localhost:4000/2018/04/02/ready-player-one.html">&lt;p&gt;看完《头号玩家》后，有一个问题一直在脑海里盘旋：
 『到底是什么触动了我，让我在看完电影后感到那么喜悦却又有点忧伤？』&lt;/p&gt;
 
 &lt;p&gt;到刚才，在微博上看到梅原大吾用隆完全格挡春丽的大招时，我才忽然明白。&lt;/p&gt;
@@ -17,7 +173,7 @@
 
 &lt;p&gt;它瞬间把我拉回了童年，那个在一群人在家里，围着游戏机一起通关的场景。&lt;/p&gt;
 
-&lt;p&gt;之所以喜悦是因为那种久违的感觉，而忧伤是，你知道永远也不会再回去了。&lt;/p&gt;</content><author><name>Tesla Lee</name></author><summary type="html">看完《头号玩家》后，有一个问题一直在脑海里盘旋： 『到底是什么触动了我，让我在看完电影后感到那么喜悦却又有点忧伤？』</summary></entry><entry><title type="html">My New Rules of Life</title><link href="http://www.teslalee.com/2018/03/02/my-new-rules-of-life.html" rel="alternate" type="text/html" title="My New Rules of Life" /><published>2018-03-02T13:56:00+08:00</published><updated>2018-03-02T13:56:00+08:00</updated><id>http://www.teslalee.com/2018/03/02/my-new-rules-of-life</id><content type="html" xml:base="http://www.teslalee.com/2018/03/02/my-new-rules-of-life.html">&lt;h4 id=&quot;things-i-wont-do-in-the-future&quot;&gt;Things I won’t do in the future&lt;/h4&gt;
+&lt;p&gt;之所以喜悦是因为那种久违的感觉，而忧伤是，你知道永远也不会再回去了。&lt;/p&gt;</content><author><name>Tesla Lee</name></author><summary type="html">看完《头号玩家》后，有一个问题一直在脑海里盘旋： 『到底是什么触动了我，让我在看完电影后感到那么喜悦却又有点忧伤？』</summary></entry><entry><title type="html">My New Rules of Life</title><link href="http://localhost:4000/2018/03/02/my-new-rules-of-life.html" rel="alternate" type="text/html" title="My New Rules of Life" /><published>2018-03-02T13:56:00+08:00</published><updated>2018-03-02T13:56:00+08:00</updated><id>http://localhost:4000/2018/03/02/my-new-rules-of-life</id><content type="html" xml:base="http://localhost:4000/2018/03/02/my-new-rules-of-life.html">&lt;h4 id=&quot;things-i-wont-do-in-the-future&quot;&gt;Things I won’t do in the future&lt;/h4&gt;
 
 &lt;p&gt;1 Alchohol.&lt;/p&gt;
 
@@ -33,7 +189,7 @@
 
 &lt;p&gt;2 Sleep early and get up early.&lt;/p&gt;
 
-&lt;p&gt;3 Reading.&lt;/p&gt;</content><author><name></name></author><summary type="html">Things I won’t do in the future</summary></entry><entry><title type="html">两部电影和下一步</title><link href="http://www.teslalee.com/2018/01/10/recent.html" rel="alternate" type="text/html" title="两部电影和下一步" /><published>2018-01-10T00:15:00+08:00</published><updated>2018-01-10T00:15:00+08:00</updated><id>http://www.teslalee.com/2018/01/10/recent</id><content type="html" xml:base="http://www.teslalee.com/2018/01/10/recent.html">&lt;p&gt;最近看了两部有意思的电影。《一日情人》和《三块广告牌》。&lt;/p&gt;
+&lt;p&gt;3 Reading.&lt;/p&gt;</content><author><name></name></author><summary type="html">Things I won’t do in the future</summary></entry><entry><title type="html">两部电影和下一步</title><link href="http://localhost:4000/2018/01/10/recent.html" rel="alternate" type="text/html" title="两部电影和下一步" /><published>2018-01-10T00:15:00+08:00</published><updated>2018-01-10T00:15:00+08:00</updated><id>http://localhost:4000/2018/01/10/recent</id><content type="html" xml:base="http://localhost:4000/2018/01/10/recent.html">&lt;p&gt;最近看了两部有意思的电影。《一日情人》和《三块广告牌》。&lt;/p&gt;
 
 &lt;p&gt;《一日情人》是一部法国电影。工作后，就一直没有心思停下来看这样“絮絮叨叨”的电影了，好像，电影里所探讨的问题，琐碎得遥远。&lt;/p&gt;
 
@@ -56,7 +212,7 @@
 
 &lt;p&gt;同一位导演我还看过另一部作品《在布鲁日》（又名《杀手没有假期》），当时没有看得太明白，只是觉得非常有意思。&lt;/p&gt;
 
-&lt;p&gt;关于我的下一步。在考虑了几天之后，我决定正式接受老陆的工作，完成 DearID 的项目。&lt;/p&gt;</content><author><name>Tesla Lee</name></author><summary type="html">最近看了两部有意思的电影。《一日情人》和《三块广告牌》。</summary></entry><entry><title type="html">时间</title><link href="http://www.teslalee.com/2018/01/03/time.html" rel="alternate" type="text/html" title="时间" /><published>2018-01-03T23:05:00+08:00</published><updated>2018-01-03T23:05:00+08:00</updated><id>http://www.teslalee.com/2018/01/03/time</id><content type="html" xml:base="http://www.teslalee.com/2018/01/03/time.html">&lt;p&gt;对于一个人而言，过去的生活到底意味着什么？时间又是什么？&lt;/p&gt;
+&lt;p&gt;关于我的下一步。在考虑了几天之后，我决定正式接受老陆的工作，完成 DearID 的项目。&lt;/p&gt;</content><author><name>Tesla Lee</name></author><summary type="html">最近看了两部有意思的电影。《一日情人》和《三块广告牌》。</summary></entry><entry><title type="html">时间</title><link href="http://localhost:4000/2018/01/03/time.html" rel="alternate" type="text/html" title="时间" /><published>2018-01-03T23:05:00+08:00</published><updated>2018-01-03T23:05:00+08:00</updated><id>http://localhost:4000/2018/01/03/time</id><content type="html" xml:base="http://localhost:4000/2018/01/03/time.html">&lt;p&gt;对于一个人而言，过去的生活到底意味着什么？时间又是什么？&lt;/p&gt;
 
 &lt;p&gt;2016 年我失去了一位很重要的亲人，但是现在去回忆，当时所有的痛苦都变得平淡了。那么，那些原本经历的事情最后变成了什么？&lt;/p&gt;
 
@@ -93,9 +249,9 @@
 
 &lt;p&gt;但是这个“尽力”并不是精疲力劲的意思，精疲力劲实际上意味着透支未来，以一种低效的方式去话费未来的时间。尽力，可以认为是相对努力，已目前能达到的最大状态工作，但又不至于过于疲惫。&lt;/p&gt;
 
-&lt;p&gt;所以，决定“此时此刻”的是未来，但创造未来的，确实“此时此刻”。&lt;/p&gt;</content><author><name>Tesla Lee</name></author><summary type="html">对于一个人而言，过去的生活到底意味着什么？时间又是什么？</summary></entry><entry><title type="html">Deathland Studio 开张</title><link href="http://www.teslalee.com/deathlandstudio/2018/01/01/deathland-studio.html" rel="alternate" type="text/html" title="Deathland Studio 开张" /><published>2018-01-01T15:26:33+08:00</published><updated>2018-01-01T15:26:33+08:00</updated><id>http://www.teslalee.com/deathlandstudio/2018/01/01/deathland-studio</id><content type="html" xml:base="http://www.teslalee.com/deathlandstudio/2018/01/01/deathland-studio.html">&lt;p&gt;今天 2018 年的第一天，Deathland Studio 工作室正式成立。&lt;/p&gt;
+&lt;p&gt;所以，决定“此时此刻”的是未来，但创造未来的，确实“此时此刻”。&lt;/p&gt;</content><author><name>Tesla Lee</name></author><summary type="html">对于一个人而言，过去的生活到底意味着什么？时间又是什么？</summary></entry><entry><title type="html">Deathland Studio 开张</title><link href="http://localhost:4000/deathlandstudio/2018/01/01/deathland-studio.html" rel="alternate" type="text/html" title="Deathland Studio 开张" /><published>2018-01-01T15:26:33+08:00</published><updated>2018-01-01T15:26:33+08:00</updated><id>http://localhost:4000/deathlandstudio/2018/01/01/deathland-studio</id><content type="html" xml:base="http://localhost:4000/deathlandstudio/2018/01/01/deathland-studio.html">&lt;p&gt;今天 2018 年的第一天，Deathland Studio 工作室正式成立。&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/images/deathland_studio_logo.jpeg&quot; alt=&quot;Logo&quot; /&gt;&lt;/p&gt;</content><author><name>Tesla Lee</name></author><summary type="html">今天 2018 年的第一天，Deathland Studio 工作室正式成立。</summary></entry><entry><title type="html">Mac Root Bug</title><link href="http://www.teslalee.com/mac/2017/12/07/mac-root-bug.html" rel="alternate" type="text/html" title="Mac Root Bug" /><published>2017-12-07T10:11:00+08:00</published><updated>2017-12-07T10:11:00+08:00</updated><id>http://www.teslalee.com/mac/2017/12/07/mac-root-bug</id><content type="html" xml:base="http://www.teslalee.com/mac/2017/12/07/mac-root-bug.html">&lt;p&gt;前阵子 Mac 爆出了让人尴尬的安全漏洞：默认情况下，root 用户的密码为空。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/deathland_studio_logo.jpeg&quot; alt=&quot;Logo&quot; /&gt;&lt;/p&gt;</content><author><name>Tesla Lee</name></author><summary type="html">今天 2018 年的第一天，Deathland Studio 工作室正式成立。</summary></entry><entry><title type="html">Mac Root Bug</title><link href="http://localhost:4000/mac/2017/12/07/mac-root-bug.html" rel="alternate" type="text/html" title="Mac Root Bug" /><published>2017-12-07T10:11:00+08:00</published><updated>2017-12-07T10:11:00+08:00</updated><id>http://localhost:4000/mac/2017/12/07/mac-root-bug</id><content type="html" xml:base="http://localhost:4000/mac/2017/12/07/mac-root-bug.html">&lt;p&gt;前阵子 Mac 爆出了让人尴尬的安全漏洞：默认情况下，root 用户的密码为空。&lt;/p&gt;
 
 &lt;!-- more --&gt;
 
@@ -105,7 +261,7 @@
 
 &lt;h3 id=&quot;解决办法&quot;&gt;解决办法&lt;/h3&gt;
 
-&lt;p&gt;修改 root 密码的方法，参看这篇 Apple 的&lt;a href=&quot;https://support.apple.com/kb/PH6515?locale=zh_CN&amp;amp;viewlocale=zh_CN&quot;&gt;文章&lt;/a&gt;&lt;/p&gt;</content><author><name>Tesla Lee</name></author><summary type="html">前阵子 Mac 爆出了让人尴尬的安全漏洞：默认情况下，root 用户的密码为空。</summary></entry><entry><title type="html">塞尔达传说-荒野之息 第一部分</title><link href="http://www.teslalee.com/zelda/2017/12/05/the-legend-of-zelda-part-1.html" rel="alternate" type="text/html" title="塞尔达传说-荒野之息 第一部分" /><published>2017-12-05T10:11:00+08:00</published><updated>2017-12-05T10:11:00+08:00</updated><id>http://www.teslalee.com/zelda/2017/12/05/the-legend-of-zelda-part-1</id><content type="html" xml:base="http://www.teslalee.com/zelda/2017/12/05/the-legend-of-zelda-part-1.html">&lt;p&gt;在玩了《荒野之息》后，才发现自己想要的开放世界是什么样子。这可能是我最近几年，甚至十年来玩的最好的游戏了。&lt;/p&gt;
+&lt;p&gt;修改 root 密码的方法，参看这篇 Apple 的&lt;a href=&quot;https://support.apple.com/kb/PH6515?locale=zh_CN&amp;amp;viewlocale=zh_CN&quot;&gt;文章&lt;/a&gt;&lt;/p&gt;</content><author><name>Tesla Lee</name></author><summary type="html">前阵子 Mac 爆出了让人尴尬的安全漏洞：默认情况下，root 用户的密码为空。</summary></entry><entry><title type="html">塞尔达传说-荒野之息 第一部分</title><link href="http://localhost:4000/zelda/2017/12/05/the-legend-of-zelda-part-1.html" rel="alternate" type="text/html" title="塞尔达传说-荒野之息 第一部分" /><published>2017-12-05T10:11:00+08:00</published><updated>2017-12-05T10:11:00+08:00</updated><id>http://localhost:4000/zelda/2017/12/05/the-legend-of-zelda-part-1</id><content type="html" xml:base="http://localhost:4000/zelda/2017/12/05/the-legend-of-zelda-part-1.html">&lt;p&gt;在玩了《荒野之息》后，才发现自己想要的开放世界是什么样子。这可能是我最近几年，甚至十年来玩的最好的游戏了。&lt;/p&gt;
 
 &lt;p&gt;不过，在玩了几十个小时候，我还是决定收回这句疯狂的赞美，把它列为：最近几年来最让我投入的游戏。&lt;/p&gt;
 
@@ -116,299 +272,4 @@
 想进入每一个可以进入的角落，想和每一个虚拟人物交谈，想进入每一座房子。&lt;/p&gt;
 
 &lt;p&gt;但是，一个开放世界，最大的问题是无论我们花费多少时间去补充游戏的内容，只要玩家遇到一个地方无法通过，或者逻辑上的错误，那种开放世界的真实感就会土崩瓦解。
-所以，目前的技术来说，做出一个完全真实的开放世界，几乎是不可能。&lt;/p&gt;</content><author><name>Tesla Lee</name></author><summary type="html">在玩了《荒野之息》后，才发现自己想要的开放世界是什么样子。这可能是我最近几年，甚至十年来玩的最好的游戏了。</summary></entry><entry><title type="html">一个问题？</title><link href="http://www.teslalee.com/dionsradio/2017/12/04/dionsradio.html" rel="alternate" type="text/html" title="一个问题？" /><published>2017-12-04T20:11:00+08:00</published><updated>2017-12-04T20:11:00+08:00</updated><id>http://www.teslalee.com/dionsradio/2017/12/04/dionsradio</id><content type="html" xml:base="http://www.teslalee.com/dionsradio/2017/12/04/dionsradio.html">&lt;p&gt;1000年后，在科技高度发达的年代里，人类还会相互对抗，发生战争吗？会把目光投向宇宙吗？&lt;/p&gt;</content><author><name>DionsRadio</name></author><summary type="html">1000年后，在科技高度发达的年代里，人类还会相互对抗，发生战争吗？会把目光投向宇宙吗？</summary></entry><entry><title type="html">Ruby Refinements Documented</title><link href="http://www.teslalee.com/ruby/2017/11/22/refinements.html" rel="alternate" type="text/html" title="Ruby Refinements Documented" /><published>2017-11-22T22:53:12+08:00</published><updated>2017-11-22T22:53:12+08:00</updated><id>http://www.teslalee.com/ruby/2017/11/22/refinements</id><content type="html" xml:base="http://www.teslalee.com/ruby/2017/11/22/refinements.html">&lt;p&gt;本文主要记录了 Refinement 使用的一些要点，内容基本来自 Ruby 的官方文档以及 Metaprogramming Ruby 这本书。&lt;/p&gt;
-
-&lt;!--more--&gt;
-
-&lt;p&gt;有时，我们往往会遇到一些情况，需要对系统的类做重新打开的操作，同时再添加一些自己的扩展。Ruby 提供了多种不同的方法来实现，其中之一就是打开类。&lt;/p&gt;
-
-&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;a_new_method&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;但这样的写法有一个问题，这样的修改是全局的，一旦定义，整个系统都会受影响。如果出错，将会是灾难性的。
-那么，有没有什么方法，能够将这个修改只在我需要使用的范围内起作用呢？ Ruby 提供了 Refinement 来帮助你实现。&lt;/p&gt;
-
-&lt;p&gt;先看一段 Ruby 官方文档。来自 Ruby 2.2.4&lt;/p&gt;
-&lt;blockquote&gt;
-  &lt;p&gt;Refinements are designed to reduce the impact of monkey patching on other users of the monkey-patched class.Refinements provide a way to extend a class locally.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;下面下看一个典型的 Refinement 的例子：&lt;/p&gt;
-
-&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;C&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;foo&lt;/span&gt;
-    &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;C#foo&quot;&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;module&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;M&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;refine&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;C&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;foo&lt;/span&gt;
-      &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;C# foo in M&quot;&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;要点：&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Module#refine&lt;/code&gt; 只能接收 class 作为参数&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Module#refine&lt;/code&gt; 会创建一个匿名 module 并且修改包裹在内。在 &lt;code class=&quot;highlighter-rouge&quot;&gt;refine&lt;/code&gt; block 中，&lt;code class=&quot;highlighter-rouge&quot;&gt;self&lt;/code&gt; 指向这个匿名 module&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;作用域&quot;&gt;作用域&lt;/h3&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;You may only activate refinements at top-level, not inside any class, module or method scope. You may activate refinements in a string passed to Kernel#eval that is evaluated at top-level. Refinements are active until the end of the file or the end of the eval string, respectively.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;下面用官方的两个例子来说明 Refinement 的作用域问题&lt;/p&gt;
-
-&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;C&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;module&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;M&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;refine&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;C&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;foo&lt;/span&gt;
-      &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;C#foo in M&quot;&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;call_foo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;foo&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;using&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;M&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;C&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;new&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;foo&lt;/span&gt;       &lt;span class=&quot;c1&quot;&gt;# prints &quot;C#foo in M&quot;&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;call_foo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;#=&amp;gt; raises NoMethodError&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;在这里，当调用 &lt;code class=&quot;highlighter-rouge&quot;&gt;call_foo&lt;/code&gt; 时，控制权从当前作用域（假设叫做 Scope A）进入到了 &lt;code class=&quot;highlighter-rouge&quot;&gt;call_foo&lt;/code&gt; 这个 &lt;code class=&quot;highlighter-rouge&quot;&gt;method&lt;/code&gt; 的作用域（Scope B）中去了。
-所以，根据规则&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;当控制权发生改变，跳出了当前 Refinement 生效的作用域时，Refinement 失效。&lt;/strong&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;接下来第二个例子：&lt;/p&gt;
-
-&lt;p&gt;c.rb:&lt;/p&gt;
-
-&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;C&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;m.rb&lt;/p&gt;
-
-&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;require&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;c&quot;&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;module&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;M&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;refine&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;C&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;foo&lt;/span&gt;
-      &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;C#foo in M&quot;&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;m_user.rb&lt;/p&gt;
-
-&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;require&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;m&quot;&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;using&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;M&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;MUser&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;call_foo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;foo&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;main.rb&lt;/p&gt;
-
-&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;require&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;m_user&quot;&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;C&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;new&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;m_user&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;MUser&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;new&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;m_user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;call_foo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# prints &quot;C#foo in M&quot;&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;foo&lt;/span&gt;              &lt;span class=&quot;c1&quot;&gt;#=&amp;gt; raises NoMethodError&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;我们可以认为，Refinement 生效的作用域只在 m_user.rb 这个文件内。当我们调用 &lt;code class=&quot;highlighter-rouge&quot;&gt;m_user.call_foo(x)&lt;/code&gt; 时，我们进入了 m_user.rb 这个文件的作用域，也就是 Refinement 生效了。而结束后调用后，又回到了 main.rb 这个文件的作用域内，此时 Refinement 已经失效，所以爆了 &lt;code class=&quot;highlighter-rouge&quot;&gt;NoMethodError&lt;/code&gt; 这个 Exception。&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;在定义 Refinement 时，在同一个 module 中的所有 refinements 都是相互生效的。&lt;/strong&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;下面这一条有点奇怪。&lt;/p&gt;
-&lt;blockquote&gt;
-  &lt;p&gt;You may also activate refinements in a class or module definition, in which case the refinements are activated from the point where using is called to the end of the class or module definition:&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;我觉得这段话和上面的那段话&lt;/p&gt;
-&lt;blockquote&gt;
-  &lt;p&gt;You may only activate refinements at top-level, not inside any class, module or method scope. You may activate refinements in a string passed to Kernel#eval that is evaluated at top-level. Refinements are active until the end of the file or the end of the eval string, respectively.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;&lt;strong&gt;有点矛盾，我现在的疑问是，是不是我对于 TOP LEVEL 这个概念理解有偏差。&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;但是对于这个定义，我没有异议。看下面。&lt;/p&gt;
-
-&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;# not activated here&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Foo&lt;/span&gt;
-  &lt;span class=&quot;c1&quot;&gt;# not activated here&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;using&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;M&lt;/span&gt;
-  &lt;span class=&quot;c1&quot;&gt;# activated here&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;foo&lt;/span&gt;
-    &lt;span class=&quot;c1&quot;&gt;# activated here&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-  &lt;span class=&quot;c1&quot;&gt;# activated here&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;# not activated here&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;有一点要注意：M 只在这次的 Scope 中生效，后面再打开 Foo 中，M 也不会生效。&lt;/strong&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;方法查找&quot;&gt;方法查找&lt;/h3&gt;
-
-&lt;p&gt;当在一个类 C 的实体上查找方法时，顺序是这样的&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;如果有多个 Refinement 生效，那么将按照每个 refinement 生效的顺序，反向查找 refinement 内部的方法。
-    &lt;ul&gt;
-      &lt;li&gt;refinement 中 prepend 的 module 中的 method&lt;/li&gt;
-      &lt;li&gt;refinement 中的 method&lt;/li&gt;
-      &lt;li&gt;refinement 中 include 的 module 中的 method&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;prepend 的 module 中的 method&lt;/li&gt;
-  &lt;li&gt;C 中的 method&lt;/li&gt;
-  &lt;li&gt;include 的 module 中的 method
-如果没有，则继续查找 superclass，重复上面的顺序&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;比如下面的代码&lt;/p&gt;
-
-&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;A&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;module&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;M1&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;foo&lt;/span&gt;
-    &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;A foo in M1&quot;&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;module&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;M2&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;foo&lt;/span&gt;
-    &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;A foo in M2&quot;&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;module&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;M3&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;foo&lt;/span&gt;
-    &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;A foo in M3&quot;&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;module&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;M4&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;foo&lt;/span&gt;
-    &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;A foo in M4&quot;&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;module&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;M5&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;foo&lt;/span&gt;
-    &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;A foo in M5&quot;&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;module&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;AExtend&lt;/span&gt; 
-  &lt;span class=&quot;n&quot;&gt;refine&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;A&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
-    &lt;span class=&quot;kp&quot;&gt;include&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;M1&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;prepend&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;M2&lt;/span&gt;
-
-    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;foo&lt;/span&gt;
-      &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;A foo in AExtend&quot;&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;A&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;using&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;AExtend&lt;/span&gt;
-  &lt;span class=&quot;kp&quot;&gt;include&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;M3&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;prepend&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;M4&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-
-&lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;using&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;AExtend&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;A&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;new&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;foo&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# A foo in M2&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;A&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;ancestors&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# [M4, A, M3, Objcet, Kernel, BasicObject]&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;对于第一个输出，其实没有异议。那么为什么此时打印 &lt;code class=&quot;highlighter-rouge&quot;&gt;A.ancestors&lt;/code&gt; 时，却没有 &lt;code class=&quot;highlighter-rouge&quot;&gt;M1&lt;/code&gt; 和 &lt;code class=&quot;highlighter-rouge&quot;&gt;M2&lt;/code&gt; 呢？
-我倾向于认为，因为进入到了 &lt;code class=&quot;highlighter-rouge&quot;&gt;ancestors&lt;/code&gt; 这个函数里，所以控制权已经发生了改变， AExtend 已经失效了。&lt;/p&gt;
-
-&lt;h3 id=&quot;super&quot;&gt;super&lt;/h3&gt;
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;super&lt;/code&gt; 的方法查找&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;查找所有 included modules&lt;/li&gt;
-  &lt;li&gt;如果当前是 refinement class，重复上面步骤&lt;/li&gt;
-  &lt;li&gt;如果当前 class 有 superclass，则在 superclass 上重复上面步骤&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;非直接调用&quot;&gt;非直接调用&lt;/h3&gt;
-&lt;p&gt;目前 refinement 对于 Kernel#send，Kernel#method 以及 Kernel#respond_to? 都不起作用&lt;/p&gt;
-
-&lt;h3 id=&quot;在-include-中的方法查找此处已经被移除&quot;&gt;在 include 中的方法查找【此处已经被移除】&lt;/h3&gt;
-&lt;p&gt;看下面的示例&lt;/p&gt;
-
-&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;A&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;module&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;AExtend1&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;refine&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;A&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;foo&lt;/span&gt;
-      &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;A foo in AExtend1&quot;&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;module&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;AExtend2&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;refine&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;A&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;foo&lt;/span&gt;
-      &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;A foo in AExtend2&quot;&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;module&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;AExtend3&lt;/span&gt;
-  &lt;span class=&quot;kp&quot;&gt;include&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;AExtend2&lt;/span&gt;
-  &lt;span class=&quot;kp&quot;&gt;include&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;AExtend1&lt;/span&gt;
-
-  &lt;span class=&quot;c1&quot;&gt;# refine A do&lt;/span&gt;
-  &lt;span class=&quot;c1&quot;&gt;#   def foo&lt;/span&gt;
-  &lt;span class=&quot;c1&quot;&gt;#     puts &quot;A foo in AExtend3&quot;&lt;/span&gt;
-  &lt;span class=&quot;c1&quot;&gt;#   end&lt;/span&gt;
-  &lt;span class=&quot;c1&quot;&gt;# end&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;A&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;using&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;AExtend3&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;A&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;new&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;foo&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# A foo in AExtend1&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;方法查找的顺序是&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;先查找 AExtend3 中的 refinement&lt;/li&gt;
-  &lt;li&gt;再按照 prepend 以及 include 的顺序来查找，也就是 ancestors 继承链中的顺序从前往后查找。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;总结&quot;&gt;总结&lt;/h3&gt;
-&lt;p&gt;第一次了解 Refinement，感觉还有一点乱，虽然可以用来避免 Monkey Patch 的全局影响问题，但是要想使用好，还需要花时间。&lt;/p&gt;</content><author><name>Tesla Lee</name></author><summary type="html">本文主要记录了 Refinement 使用的一些要点，内容基本来自 Ruby 的官方文档以及 Metaprogramming Ruby 这本书。</summary></entry></feed>
+所以，目前的技术来说，做出一个完全真实的开放世界，几乎是不可能。&lt;/p&gt;</content><author><name>Tesla Lee</name></author><summary type="html">在玩了《荒野之息》后，才发现自己想要的开放世界是什么样子。这可能是我最近几年，甚至十年来玩的最好的游戏了。</summary></entry><entry><title type="html">一个问题？</title><link href="http://localhost:4000/dionsradio/2017/12/04/dionsradio.html" rel="alternate" type="text/html" title="一个问题？" /><published>2017-12-04T20:11:00+08:00</published><updated>2017-12-04T20:11:00+08:00</updated><id>http://localhost:4000/dionsradio/2017/12/04/dionsradio</id><content type="html" xml:base="http://localhost:4000/dionsradio/2017/12/04/dionsradio.html">&lt;p&gt;1000年后，在科技高度发达的年代里，人类还会相互对抗，发生战争吗？会把目光投向宇宙吗？&lt;/p&gt;</content><author><name>DionsRadio</name></author><summary type="html">1000年后，在科技高度发达的年代里，人类还会相互对抗，发生战争吗？会把目光投向宇宙吗？</summary></entry></feed>
