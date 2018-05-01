@@ -1,6 +1,8 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-04-26T18:16:24+08:00</updated><id>http://localhost:4000/</id><title type="html">Code Cube</title><subtitle></subtitle><entry><title type="html">Lexical Analysis</title><link href="http://localhost:4000/2018/04/26/lexical-analysis.html" rel="alternate" type="text/html" title="Lexical Analysis" /><published>2018-04-26T00:00:00+08:00</published><updated>2018-04-26T00:00:00+08:00</updated><id>http://localhost:4000/2018/04/26/lexical-analysis</id><content type="html" xml:base="http://localhost:4000/2018/04/26/lexical-analysis.html">&lt;p&gt;《Modern Compiler Implementation in C》词法分析总结，其中有很多内容都来自书的翻译和记录。&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-05-01T22:18:11+08:00</updated><id>http://localhost:4000/</id><title type="html">Code Cube</title><subtitle></subtitle><entry><title type="html">Chapter 2 - Lexical Analysis</title><link href="http://localhost:4000/compiler/2018/04/26/lexical-analysis.html" rel="alternate" type="text/html" title="Chapter 2 - Lexical Analysis" /><published>2018-04-26T00:00:00+08:00</published><updated>2018-04-26T00:00:00+08:00</updated><id>http://localhost:4000/compiler/2018/04/26/lexical-analysis</id><content type="html" xml:base="http://localhost:4000/compiler/2018/04/26/lexical-analysis.html">&lt;p&gt;『Modern Compiler Implementation in C』词法分析部分笔记和总结。&lt;/p&gt;
 
 &lt;!--more--&gt;
+
+&lt;h2 id=&quot;前言&quot;&gt;前言&lt;/h2&gt;
 
 &lt;blockquote&gt;
   &lt;p&gt;&lt;strong&gt;lex-i-cal&lt;/strong&gt; : of or relating to words or the vocabulary of a language as distinguished from its grammar and construction&lt;/p&gt;
@@ -8,18 +10,36 @@
   &lt;p&gt;— Webster’s Dictionary&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;p&gt;要将程序从一种语言翻译到另一种语言，编译器要先将程序处理成片段，并理解其结构和意义，然后用另一种方式去处理这些片段。编译器的前端负责分析工作，而后端则完成再组合。&lt;/p&gt;
+&lt;p&gt;要将程序从一种语言翻译到另一种语言，编译器要先将程序处理成&lt;strong&gt;片段&lt;/strong&gt;，并理解其&lt;strong&gt;结构&lt;/strong&gt;和&lt;strong&gt;意义&lt;/strong&gt;，然后将片段重新再组合。编译器前端负责&lt;strong&gt;分析&lt;/strong&gt;，而后端负责&lt;strong&gt;整合&lt;/strong&gt;。&lt;/p&gt;
 
-&lt;p&gt;而分析工作主要包含下面几个部分:&lt;/p&gt;
+&lt;p&gt;分析工作主要:&lt;/p&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;词法分析：将输入（程序代码）切分成词&lt;/li&gt;
-  &lt;li&gt;语法分析：分析程序短语&lt;/li&gt;
-  &lt;li&gt;语义分析：计算程序的意义&lt;/li&gt;
+  &lt;li&gt;词法分析（Lexical analysis）：将输入识别成词，既（Token）。&lt;/li&gt;
+  &lt;li&gt;语法分析（Syntax analysis）：分析程序的机构&lt;/li&gt;
+  &lt;li&gt;语义分析（Semantic analysis）：计算出程序的意义&lt;/li&gt;
 &lt;/ul&gt;
 
+&lt;p&gt;词法分析器输入字符流，输出词，关键字，符号等。&lt;/p&gt;
+
 &lt;h2 id=&quot;lexical-tokens&quot;&gt;LEXICAL TOKENS&lt;/h2&gt;
-&lt;p&gt;Lexical token 是组成（编程）语言的最小单位，编译器理解语言总是从将无意义的字符串转化为 Lexical token 开始。那么 Lexical token 是什么呢？又怎么去表示？&lt;/p&gt;
+&lt;p&gt;Lexical token 是一个字符序列，它是一门语言的最小语法元素。一门编程语言的 token 类型，是一个有限集合。&lt;/p&gt;
+
+&lt;h3 id=&quot;例如&quot;&gt;例如：&lt;/h3&gt;
+
+&lt;p&gt;Token 类型 例子&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;ID foo n14, last&lt;/li&gt;
+  &lt;li&gt;NUM 74 0 00 082&lt;/li&gt;
+  &lt;li&gt;REAL 66.1 .5 10. 1e66 5.5e-10&lt;/li&gt;
+  &lt;li&gt;IF if&lt;/li&gt;
+  &lt;li&gt;COMMA ,&lt;/li&gt;
+  &lt;li&gt;NOTEQ !=&lt;/li&gt;
+  &lt;li&gt;LPAREN (&lt;/li&gt;
+  &lt;li&gt;RPAREN )&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;像 if，void，这样的符号，我们称之为&lt;strong&gt;保留字&lt;/strong&gt;，在大部分语言里，保留字不能作为 ID 来使用。&lt;/p&gt;
 
 &lt;p&gt;Lexical token 是最基本的有意义的语法元素。在一般语言中我们都会遇到什么 &lt;strong&gt;ID&lt;/strong&gt;，&lt;strong&gt;IF&lt;/strong&gt;，&lt;strong&gt;CONDITION&lt;/strong&gt; 等等，这些都是语法元素。每一种词法元素都有起描述的规则，用来分析时确定改词法元素。&lt;/p&gt;
 
@@ -154,7 +174,58 @@ A finite-state machine (FSM) or finite-state automaton (FSA, plural: automata), 
 
 &lt;p&gt;我们也可以写成一个状态机转化图：&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/images/state_machine_diagram_2.png&quot; alt=&quot;Fig 2.4&quot; /&gt;&lt;/p&gt;</content><author><name>Tesla Lee</name></author><summary type="html">《Modern Compiler Implementation in C》词法分析总结，其中有很多内容都来自书的翻译和记录。</summary></entry><entry><title type="html">Notes on Machine Learning on Coursera</title><link href="http://localhost:4000/2018/04/25/notes-of-machine-larning-on-coursera.html" rel="alternate" type="text/html" title="Notes on Machine Learning on Coursera" /><published>2018-04-25T00:00:00+08:00</published><updated>2018-04-25T00:00:00+08:00</updated><id>http://localhost:4000/2018/04/25/notes-of-machine-larning-on-coursera</id><content type="html" xml:base="http://localhost:4000/2018/04/25/notes-of-machine-larning-on-coursera.html">&lt;p&gt;I always want to learn Machine Learning and finally I got time.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/state_machine_diagram_2.png&quot; alt=&quot;Fig 2.4&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;exercises&quot;&gt;EXERCISES&lt;/h2&gt;
+
+&lt;p&gt;2.1 Write regular expressions for each of the following.&lt;/p&gt;
+
+&lt;p&gt;a. String over the alphabet $ \{ a,b,c \} $ where the first $a$ precedes the first $b$.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;思路：因为必须第一个 $a$ 出现在第一个 $b$ 后面，所以实际上只有两种情况。&lt;/p&gt;
+  &lt;ol&gt;
+    &lt;li&gt;第一个 $a$ 前面只有 $c$&lt;/li&gt;
+    &lt;li&gt;没有出现 $a$&lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;$ c^\ast a[abc]^\ast \mid [bc]^\ast $&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;b. String over the alphabet {a,b,c} with an even number of a’s.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;思路：需要 $a$ 的个数是偶数个
+同样也分解情况。&lt;/p&gt;
+  &lt;ol&gt;
+    &lt;li&gt;两个 $a$ 连续出现&lt;/li&gt;
+    &lt;li&gt;两个 $a$ 没有连续出现，中间有其他字符&lt;/li&gt;
+    &lt;li&gt;可以为空
+将上面的三种情况组合起来，得到答案&lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;$ (a([bc]^\ast aa[bc]^\ast )^\ast a)^\ast $&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;c. Binary numbers that are multiples of four.&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;$0\mid1^\ast00$&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;d. Binary numbers that are greater than 101001.&lt;/p&gt;
+&lt;blockquote&gt;
+
+&lt;/blockquote&gt;
+
+&lt;p&gt;e. String over the alphabet {a,b,c} that don’t contain the contiguous string baa.&lt;/p&gt;
+
+&lt;p&gt;f. The language of nonnegative integer constants in C, where numbers beginning with 0 are octal constants and other numbers are decimal constants.&lt;/p&gt;
+
+&lt;p&gt;g. Binary numbers n such that there exists an integer solution of $a^n + b^n = c^n$.&lt;/p&gt;</content><author><name>Tesla Lee</name></author><summary type="html">『Modern Compiler Implementation in C』词法分析部分笔记和总结。</summary></entry><entry><title type="html">Notes on Machine Learning on Coursera</title><link href="http://localhost:4000/2018/04/25/notes-of-machine-larning-on-coursera.html" rel="alternate" type="text/html" title="Notes on Machine Learning on Coursera" /><published>2018-04-25T00:00:00+08:00</published><updated>2018-04-25T00:00:00+08:00</updated><id>http://localhost:4000/2018/04/25/notes-of-machine-larning-on-coursera</id><content type="html" xml:base="http://localhost:4000/2018/04/25/notes-of-machine-larning-on-coursera.html">&lt;p&gt;I always want to learn Machine Learning and finally I got time.&lt;/p&gt;
 
 &lt;p&gt;I first started with the open class CS 229 Machine Learning from Stanford by Andrew Ng. But I failed after 2 classes, because Andrew Ng skipped some math detail that I forget the knowledge of calculus and linear algebra.&lt;/p&gt;
 

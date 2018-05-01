@@ -5,19 +5,19 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Begin Jekyll SEO tag v2.3.0 -->
-<title>Lexical Analysis | Code Cube</title>
-<meta property="og:title" content="Lexical Analysis" />
+<title>Chapter 2 - Lexical Analysis | Code Cube</title>
+<meta property="og:title" content="Chapter 2 - Lexical Analysis" />
 <meta name="author" content="Tesla Lee" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="《Modern Compiler Implementation in C》词法分析总结，其中有很多内容都来自书的翻译和记录。" />
-<meta property="og:description" content="《Modern Compiler Implementation in C》词法分析总结，其中有很多内容都来自书的翻译和记录。" />
-<link rel="canonical" href="http://localhost:4000/2018/04/26/lexical-analysis.html" />
-<meta property="og:url" content="http://localhost:4000/2018/04/26/lexical-analysis.html" />
+<meta name="description" content="『Modern Compiler Implementation in C』词法分析部分笔记和总结。" />
+<meta property="og:description" content="『Modern Compiler Implementation in C』词法分析部分笔记和总结。" />
+<link rel="canonical" href="http://localhost:4000/compiler/2018/04/26/lexical-analysis.html" />
+<meta property="og:url" content="http://localhost:4000/compiler/2018/04/26/lexical-analysis.html" />
 <meta property="og:site_name" content="Code Cube" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2018-04-26T00:00:00+08:00" />
 <script type="application/ld+json">
-{"name":null,"description":"《Modern Compiler Implementation in C》词法分析总结，其中有很多内容都来自书的翻译和记录。","author":{"@type":"Person","name":"Tesla Lee"},"@type":"BlogPosting","url":"http://localhost:4000/2018/04/26/lexical-analysis.html","image":null,"publisher":null,"headline":"Lexical Analysis","dateModified":"2018-04-26T00:00:00+08:00","datePublished":"2018-04-26T00:00:00+08:00","sameAs":null,"mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2018/04/26/lexical-analysis.html"},"@context":"http://schema.org"}</script>
+{"name":null,"description":"『Modern Compiler Implementation in C』词法分析部分笔记和总结。","author":{"@type":"Person","name":"Tesla Lee"},"@type":"BlogPosting","url":"http://localhost:4000/compiler/2018/04/26/lexical-analysis.html","image":null,"publisher":null,"headline":"Chapter 2 - Lexical Analysis","dateModified":"2018-04-26T00:00:00+08:00","datePublished":"2018-04-26T00:00:00+08:00","sameAs":null,"mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/compiler/2018/04/26/lexical-analysis.html"},"@context":"http://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
   <!-- <link rel="stylesheet" href="/assets/main.css"> -->
@@ -26,9 +26,13 @@
   <link rel="alternate" type="application/rss+xml" title="Code Cube" href="/feed.xml">
   
   <script type="text/x-mathjax-config">
-    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+    MathJax.Hub.Config({
+      tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+    });
   </script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+  <script type="text/javascript"
+    src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
 </head>
 
   <body>
@@ -68,14 +72,16 @@
           
     <!--Article Header-->
     <header class="article-header">
-      <h1 class="article-header--h1">Lexical Analysis</h1>
+      <h1 class="article-header--h1">Chapter 2 - Lexical Analysis</h1>
     </header>
     
     <!--Article Header-->
     <section class="article-section">
-      <p>《Modern Compiler Implementation in C》词法分析总结，其中有很多内容都来自书的翻译和记录。</p>
+      <p>『Modern Compiler Implementation in C』词法分析部分笔记和总结。</p>
 
 <!--more-->
+
+<h2 id="前言">前言</h2>
 
 <blockquote>
   <p><strong>lex-i-cal</strong> : of or relating to words or the vocabulary of a language as distinguished from its grammar and construction</p>
@@ -83,18 +89,36 @@
   <p>— Webster’s Dictionary</p>
 </blockquote>
 
-<p>要将程序从一种语言翻译到另一种语言，编译器要先将程序处理成片段，并理解其结构和意义，然后用另一种方式去处理这些片段。编译器的前端负责分析工作，而后端则完成再组合。</p>
+<p>要将程序从一种语言翻译到另一种语言，编译器要先将程序处理成<strong>片段</strong>，并理解其<strong>结构</strong>和<strong>意义</strong>，然后将片段重新再组合。编译器前端负责<strong>分析</strong>，而后端负责<strong>整合</strong>。</p>
 
-<p>而分析工作主要包含下面几个部分:</p>
+<p>分析工作主要:</p>
 
 <ul>
-  <li>词法分析：将输入（程序代码）切分成词</li>
-  <li>语法分析：分析程序短语</li>
-  <li>语义分析：计算程序的意义</li>
+  <li>词法分析（Lexical analysis）：将输入识别成词，既（Token）。</li>
+  <li>语法分析（Syntax analysis）：分析程序的机构</li>
+  <li>语义分析（Semantic analysis）：计算出程序的意义</li>
 </ul>
 
+<p>词法分析器输入字符流，输出词，关键字，符号等。</p>
+
 <h2 id="lexical-tokens">LEXICAL TOKENS</h2>
-<p>Lexical token 是组成（编程）语言的最小单位，编译器理解语言总是从将无意义的字符串转化为 Lexical token 开始。那么 Lexical token 是什么呢？又怎么去表示？</p>
+<p>Lexical token 是一个字符序列，它是一门语言的最小语法元素。一门编程语言的 token 类型，是一个有限集合。</p>
+
+<h3 id="例如">例如：</h3>
+
+<p>Token 类型 例子</p>
+<ul>
+  <li>ID foo n14, last</li>
+  <li>NUM 74 0 00 082</li>
+  <li>REAL 66.1 .5 10. 1e66 5.5e-10</li>
+  <li>IF if</li>
+  <li>COMMA ,</li>
+  <li>NOTEQ !=</li>
+  <li>LPAREN (</li>
+  <li>RPAREN )</li>
+</ul>
+
+<p>像 if，void，这样的符号，我们称之为<strong>保留字</strong>，在大部分语言里，保留字不能作为 ID 来使用。</p>
 
 <p>Lexical token 是最基本的有意义的语法元素。在一般语言中我们都会遇到什么 <strong>ID</strong>，<strong>IF</strong>，<strong>CONDITION</strong> 等等，这些都是语法元素。每一种词法元素都有起描述的规则，用来分析时确定改词法元素。</p>
 
@@ -230,6 +254,57 @@ A finite-state machine (FSM) or finite-state automaton (FSA, plural: automata), 
 <p>我们也可以写成一个状态机转化图：</p>
 
 <p><img src="/assets/images/state_machine_diagram_2.png" alt="Fig 2.4" /></p>
+
+<h2 id="exercises">EXERCISES</h2>
+
+<p>2.1 Write regular expressions for each of the following.</p>
+
+<p>a. String over the alphabet $ \{ a,b,c \} $ where the first $a$ precedes the first $b$.</p>
+
+<blockquote>
+  <p>思路：因为必须第一个 $a$ 出现在第一个 $b$ 后面，所以实际上只有两种情况。</p>
+  <ol>
+    <li>第一个 $a$ 前面只有 $c$</li>
+    <li>没有出现 $a$</li>
+  </ol>
+</blockquote>
+
+<blockquote>
+  <p>$ c^\ast a[abc]^\ast \mid [bc]^\ast $</p>
+</blockquote>
+
+<p>b. String over the alphabet {a,b,c} with an even number of a’s.</p>
+
+<blockquote>
+  <p>思路：需要 $a$ 的个数是偶数个
+同样也分解情况。</p>
+  <ol>
+    <li>两个 $a$ 连续出现</li>
+    <li>两个 $a$ 没有连续出现，中间有其他字符</li>
+    <li>可以为空
+将上面的三种情况组合起来，得到答案</li>
+  </ol>
+</blockquote>
+
+<blockquote>
+  <p>$ (a([bc]^\ast aa[bc]^\ast )^\ast a)^\ast $</p>
+</blockquote>
+
+<p>c. Binary numbers that are multiples of four.</p>
+<blockquote>
+  <p>$0\mid1^\ast00$</p>
+</blockquote>
+
+<p>d. Binary numbers that are greater than 101001.</p>
+<blockquote>
+
+</blockquote>
+
+<p>e. String over the alphabet {a,b,c} that don’t contain the contiguous string baa.</p>
+
+<p>f. The language of nonnegative integer constants in C, where numbers beginning with 0 are octal constants and other numbers are decimal constants.</p>
+
+<p>g. Binary numbers n such that there exists an integer solution of $a^n + b^n = c^n$.</p>
 
     </section>
   </article>
