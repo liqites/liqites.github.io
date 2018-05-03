@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- Begin Jekyll SEO tag v2.3.0 -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- Begin Jekyll SEO tag v2.3.0 -->
 <title>Chapter 2 - Lexical Analysis | Code Cube</title>
 <meta property="og:title" content="Chapter 2 - Lexical Analysis" />
 <meta name="author" content="Tesla Lee" />
@@ -20,19 +19,15 @@
 {"name":null,"description":"『Modern Compiler Implementation in C』词法分析部分笔记和总结。","author":{"@type":"Person","name":"Tesla Lee"},"@type":"BlogPosting","url":"http://localhost:4000/compiler/2018/04/26/lexical-analysis.html","image":null,"publisher":null,"headline":"Chapter 2 - Lexical Analysis","dateModified":"2018-04-26T00:00:00+08:00","datePublished":"2018-04-26T00:00:00+08:00","sameAs":null,"mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/compiler/2018/04/26/lexical-analysis.html"},"@context":"http://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
-  <!-- <link rel="stylesheet" href="/assets/main.css"> -->
-  <link rel="stylesheet" href="/assets/app.css">
+    <!-- <link rel="stylesheet" href="/assets/main.css"> -->
+    <link rel="stylesheet" href="/assets/app.css">
 
-  <link rel="alternate" type="application/rss+xml" title="Code Cube" href="/feed.xml">
-  
-  <script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-      tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
-    });
-  </script>
-  <script type="text/javascript"
-    src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script>
+    <link rel="alternate" type="application/rss+xml" title="Code Cube" href="/%20/feed.xml"> 
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({ tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]} });
+    </script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
 </head>
 
   <body>
@@ -55,13 +50,15 @@
   <article class="post-article article-core chinese-punct clearfix" lang="en">
     <!--Publish info-->
 		<aside class="publish-info-card clearfix">
-			<!-- <a class="publish-info-card--avatar-link" href="/cnpolitics">
-        <img class="avatar-circle publish-info-card--avatar" src="images/feed-avatar.jpg" alt="政见">
-        <h4 class="publish-info-card--name">政见</h4>
-      </a> -->
+			<a class="publish-info-card--avatar-link" href="javascript:void(0)">
+        <!-- <img class="avatar-circle publish-info-card--avatar" src="images/feed-avatar.jpg" alt="政见"> -->
+        
+        <h4 class="publish-info-card--name">Tesla Lee</h4>
+        
+      </a>
 			<p class="publish-info-card--meta">
         
-        <a href="#" class="publish-info-card--author-name">Tesla Lee</a><span class="vert-line">｜</span>
+        <!-- <a href="#" class="publish-info-card--author-name">Tesla Lee</a><span class="vert-line">｜</span> -->
         
 				<span class="time-last-modified">
           
@@ -69,12 +66,12 @@
       </span>
 			</p>
 		</aside>
-          
+
     <!--Article Header-->
     <header class="article-header">
       <h1 class="article-header--h1">Chapter 2 - Lexical Analysis</h1>
     </header>
-    
+
     <!--Article Header-->
     <section class="article-section">
       <p>『Modern Compiler Implementation in C』词法分析部分笔记和总结。</p>
@@ -94,54 +91,87 @@
 <p>分析工作主要:</p>
 
 <ul>
-  <li>词法分析（Lexical analysis）：将输入识别成词，既（Token）。</li>
-  <li>语法分析（Syntax analysis）：分析程序的机构</li>
+  <li>词法分析（Lexical analysis）：将输入识别成词素，既（Lexical Token）</li>
+  <li>语法分析（Syntax analysis）：分析程序的结构</li>
   <li>语义分析（Semantic analysis）：计算出程序的意义</li>
 </ul>
 
 <p>词法分析器输入字符流，输出词，关键字，符号等。</p>
 
-<h2 id="lexical-tokens">LEXICAL TOKENS</h2>
+<h2 id="lexical-tokens词素">LEXICAL TOKENS（词素）</h2>
 <p>Lexical token 是一个字符序列，它是一门语言的最小语法元素。一门编程语言的 token 类型，是一个有限集合。</p>
 
 <h3 id="例如">例如：</h3>
 
 <p>Token 类型 例子</p>
 <ul>
-  <li>ID foo n14, last</li>
-  <li>NUM 74 0 00 082</li>
-  <li>REAL 66.1 .5 10. 1e66 5.5e-10</li>
-  <li>IF if</li>
-  <li>COMMA ,</li>
-  <li>NOTEQ !=</li>
-  <li>LPAREN (</li>
-  <li>RPAREN )</li>
+  <li><code class="highlighter-rouge">ID</code> foo n14, last</li>
+  <li><code class="highlighter-rouge">NUM</code> 74 0 00 082</li>
+  <li><code class="highlighter-rouge">REAL</code> 66.1 .5 10. 1e66 5.5e-10</li>
+  <li><code class="highlighter-rouge">IF</code> if</li>
+  <li><code class="highlighter-rouge">COMMA</code> ,</li>
+  <li><code class="highlighter-rouge">NOTEQ</code> !=</li>
+  <li><code class="highlighter-rouge">LPAREN</code> (</li>
+  <li><code class="highlighter-rouge">RPAREN</code> )</li>
 </ul>
 
-<p>像 if，void，这样的符号，我们称之为<strong>保留字</strong>，在大部分语言里，保留字不能作为 ID 来使用。</p>
-
-<p>Lexical token 是最基本的有意义的语法元素。在一般语言中我们都会遇到什么 <strong>ID</strong>，<strong>IF</strong>，<strong>CONDITION</strong> 等等，这些都是语法元素。每一种词法元素都有起描述的规则，用来分析时确定改词法元素。</p>
-
-<p>我们肯定可以使用自然语言来描述词法规则。但一般情况下，我们使用正则表达式来描述词法规则，同时使用 <strong>DFA</strong> 来实现词法分析器。</p>
-
-<p>下面会先复习一些正则的基本知识。</p>
-
-<h2 id="regular-expression">REGULAR EXPRESSION</h2>
-<p>先简单复习一下正则表达式</p>
+<p>像 if，void，这样的符号，我们称之为<strong>保留字</strong>，在大部分语言里，保留字不能作为 ID 来使用。除了上面这些 Token 以外，字符流中还有非 token 内容。例如：</p>
 
 <ul>
-  <li>Symbol（符号）</li>
-  <li>Alternation（选择）</li>
-  <li>Concatenation（连续，连接）</li>
-  <li>Epsilon（空）</li>
-  <li>Repetition（重复）：重复一次，重复多次，至少重复一次</li>
+  <li>注释  /* try again */</li>
+  <li>预处理 #include <stdio.h></stdio.h></li>
+  <li>预处理 #define NUMS 5 , 6</li>
+  <li>宏 NUMS</li>
+  <li>空格，换行，缩进等</li>
+</ul>
+
+<p>弱语言需要有一个宏预处理器，宏预处理去先操作输入流，进行预处理，生成新的字符流输出给词法分析器。当然，也可以直接将宏预处理器集成到词法分析器中去。</p>
+
+<p>比如有这样一段代码：</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/* find a zero */</span>
+<span class="kt">float</span> <span class="nf">match0</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">s</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">strncmp</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="s">"0.0"</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+  <span class="k">return</span> <span class="mi">0</span><span class="p">.;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p>词法分析器在输入这段代码后，会输出：
+<code class="highlighter-rouge">FLOAT</code> <code class="highlighter-rouge">LBRACE</code> <code class="highlighter-rouge">ID(match0)</code> <code class="highlighter-rouge">IF</code> <code class="highlighter-rouge">LPAREN</code> <code class="highlighter-rouge">LPAREN</code> <code class="highlighter-rouge">BANG</code> <code class="highlighter-rouge">CHAR</code> <code class="highlighter-rouge">STAR</code> <code class="highlighter-rouge">ID(strncmp)</code> <code class="highlighter-rouge">ID(s)</code> <code class="highlighter-rouge">LPAREN</code> <code class="highlighter-rouge">RPAREN</code> <code class="highlighter-rouge">ID(s)</code> <code class="highlighter-rouge">COMMA</code> <code class="highlighter-rouge">RETURN</code> <code class="highlighter-rouge">STRING(0.0)</code> <code class="highlighter-rouge">REAL(0.0)</code> <code class="highlighter-rouge">COMMA</code> <code class="highlighter-rouge">NUM(3)</code> <code class="highlighter-rouge">SEMI</code> <code class="highlighter-rouge">RBRACE</code> <code class="highlighter-rouge">EOF</code></p>
+
+<p>从上面的输出我们可以看到，每一个输出的 Token 都有类型。其中，像 <code class="highlighter-rouge">ID</code> 或 <code class="highlighter-rouge">STRING</code> 等会带有值来提供额外的信息。</p>
+
+<p>那么，接下来的问题是，我们用什么来描述 Token 的规则？用什么语言来实现词法分析器？我们完全可以使用自然语言来直接描述规则，比如下面这样的：</p>
+
+<blockquote>
+  <p><code class="highlighter-rouge">标识符（ID）</code>是由字母和数字组成的字符序列，首个字符必须是字母开头。同时 <code class="highlighter-rouge">_</code> 下划线也认为是字母。</p>
+</blockquote>
+
+<p>同时,我们也可以使用任意合适的语言去实现词法分析器。不过，在这里，我们会使用<strong>正则表达式</strong>来描述词法规则，用<strong>确定性有限自动机</strong>来实现，同时，还会使用<strong>数学语言</strong>来将这两者联系起来。</p>
+
+<h2 id="regular-expression正则表达式">REGULAR EXPRESSION（正则表达式）</h2>
+<p>一门语言，是一个字符串的集合；字符串是符号的有限序列；符号来自一个优先符号集合。我们这样描述一门语言时，并没有赋予字符串以任何意义，我们只是去区分字符串是否属于这门语言。为了能够仅仅使用有限的规则来描述一门语言，我们使用<strong>正则表达式</strong>来标记这些规则。每一条<strong>正则表达式</strong>表示一组字符串。</p>
+
+<p>下面是正则表达式的基本规则：</p>
+<ul>
+  <li><strong>Symbol（符号）</strong>：对于每一个符号 <strong>a</strong> ，直接表示字符串 <strong>a</strong></li>
+  <li><strong>Alternation（选择）</strong>：对于 $M \mid N$</li>
+  <li><strong>Concatenation（连续，连接）</strong>：$M \ast N$</li>
+  <li><strong>Epsilon（空）</strong>：$\epsilon$</li>
+  <li><strong>Repetition（重复）</strong>：重复一次，重复多次，至少重复一次</li>
 </ul>
 
 <blockquote>
   <p>Kleene closure: Given a regular expression M, its Kleene closure is $M^*$</p>
 </blockquote>
 
-<p>写法：</p>
+<p>使用以上这些基本规则，我们就可以来表示由 ASCII 字符组成的变成语言了。例如：</p>
+
+<ul>
+  <li>$(0 \mid 1)^\ast \ast 0$ 表示任意能被 2 整除的二进制数</li>
+</ul>
+
+<p>更多写法：</p>
 
 <ul>
   <li>$a$ : 普通字符</li>
@@ -158,20 +188,28 @@
 
 <p>在引入正则表达式后，我们就可以来描述词法规则了</p>
 
-<p>加入有一下词法规则：</p>
+<p>假如有下面这样的 C 代码片段：</p>
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span>
+<span class="p">{</span><span class="k">return</span> <span class="n">IF</span><span class="p">;}</span>
 
-<ul>
-  <li>IF: $if$</li>
-  <li>ID: $[a-z][a-z0-9]^\ast $</li>
-  <li>NUM: $[0-9]^+ $</li>
-  <li>REAL: $([0-9]^+”.”[0-9]^\ast) \mid ([0-9]^\ast”.”[0-9]^+)$</li>
-  <li>do nothing: $(“–“[a–z]^\ast”\n”) \mid (“\space” \mid “\n” \mid “\t”)^\ast$</li>
-  <li>error: $.$</li>
-</ul>
+<span class="p">[</span><span class="n">a</span><span class="o">-</span><span class="n">z</span><span class="p">][</span><span class="n">a</span><span class="o">-</span><span class="n">z0</span><span class="o">-</span><span class="mi">9</span><span class="p">]</span><span class="o">*</span>
+<span class="p">{</span><span class="k">return</span> <span class="n">ID</span><span class="p">;}</span>
 
-<p>有关键字 <strong>if</strong>，标识符 <strong>ID</strong>，数字 <strong>NUM</strong>，以及实数 <strong>REAL</strong>，还定义了注释 『–』开头的单行注释。</p>
+<span class="p">[</span><span class="mi">0</span><span class="o">-</span><span class="mi">9</span><span class="p">]</span><span class="o">+</span>
+<span class="p">{</span><span class="k">return</span> <span class="n">NUM</span><span class="p">;</span> <span class="p">}</span>
 
-<p>但，写到这里，我们很快会注意到一个问题：<strong>IF</strong> 和 <strong>ID</strong> 这两个规则是有交集的。在没有假如更多规则的情况下，我们如何去识别 <em>if</em> 到底是 <strong>ID token</strong> 还是 <strong>IF token</strong>？再比如 <em>if8</em> 是先匹配 <strong>IF</strong> 规则还是先匹配 <strong>ID</strong> 规则？</p>
+<span class="p">([</span><span class="mi">0</span><span class="o">-</span><span class="mi">9</span><span class="p">]</span><span class="o">+</span><span class="s">"."</span><span class="p">[</span><span class="mi">0</span><span class="o">-</span><span class="mi">9</span><span class="p">]</span><span class="o">*</span><span class="p">)</span> <span class="o">|</span> <span class="p">([</span><span class="mi">0</span><span class="o">-</span><span class="mi">9</span><span class="p">]</span><span class="o">*</span><span class="s">"."</span><span class="p">[</span><span class="mi">0</span><span class="o">-</span><span class="mi">9</span><span class="p">]</span><span class="o">+</span><span class="p">)</span>
+<span class="p">{</span><span class="k">return</span> <span class="n">REAL</span><span class="p">;}</span>
+
+<span class="p">(</span><span class="s">"--"</span><span class="p">[</span><span class="n">a</span><span class="o">-</span><span class="n">z</span><span class="p">]</span><span class="o">*</span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">)</span><span class="o">|</span><span class="p">(</span><span class="s">" "</span><span class="o">|</span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="o">|</span><span class="s">"</span><span class="se">\t</span><span class="s">"</span><span class="p">)</span><span class="o">+</span>
+<span class="p">{</span><span class="cm">/* do nothing */</span><span class="p">}</span>
+
+<span class="p">.</span> <span class="p">{</span><span class="n">error</span><span class="p">();}</span>
+</code></pre></div></div>
+
+<p>有关键字 <strong>if</strong>，标识符 <strong>ID</strong>，数字 <strong>NUM</strong>，以及实数 <strong>REAL</strong>，还定义了注释 『–』开头的单行注释。第五行是注释，意味着词法分析器会跳过它们继续执行，同时，词法分析器应该是功能完整的。它应该能够处理所有的符号，包括错误的。</p>
+
+<p>写到这里，我们很快会注意到一个问题：<strong>IF</strong> 和 <strong>ID</strong> 这两个规则是有交集的。在没有假如更多规则的情况下，我们如何去识别 <code class="highlighter-rouge">if</code> 到底是 <strong>ID token</strong> 还是 <strong>IF token</strong>？再比如 <code class="highlighter-rouge">if8</code> 是先匹配 <strong>IF</strong> 规则还是先匹配 <strong>ID</strong> 规则？</p>
 
 <p>下面引入两种常用的去歧义规则：</p>
 
@@ -180,19 +218,19 @@
   <li><strong>Rule priority</strong>：规则优先级原则，对于一个最长子串，第一个能够匹配的规则所表示 token 作为输。这也就意味着，匹配的顺序是有意义且重要的。</li>
 </ul>
 
+<p>在引入了这两个规则之后，我们就可以确定 <code class="highlighter-rouge">if</code> 是 <strong>IF</strong> token 了，因为它最新匹配了 <strong>IF</strong>，同时 <code class="highlighter-rouge">if8</code> 是 <strong>ID</strong> token.</p>
+
 <blockquote>
   <p>好了，到这里可以先简单的做一下总结。一门语言，有其最基本的语法元素，这里是 Lexical token。我们需要描述每一种 token 的规则，当然可以使用自然语言，但要让 Lexer 理解，必须要使用一种能实现成程序的方式。
 于是我们引入了 Regular Expression 来描述词法规则。同时付加了两条消除歧义的规则，<strong>最长匹配</strong>和<strong>匹配优先级</strong>
-那么，到这里我有一个疑问？是不是使用 Regular Expression 来描述，就已经可以实现一个 token 匹配，来生成 Lexical token 了？</p>
+那么，到这里我有一个疑问，<strong>是不是使用 Regular Expression 就足够实现词法分析了？</strong></p>
 </blockquote>
 
 <h2 id="finite-automata">FINITE AUTOMATA</h2>
 
-<p>在前面一段里，我最后有一个问题：因为 Regular Expression 是大多数语言都有的，要实现 token 匹配，是不是就可以使用 Regular Expression 就足够了？</p>
+<p>前面有个问题：有了<strong>正则表达式</strong>，是不是就可以直接使用<strong>正则</strong>来实现词法匹配了？毕竟大多数的语言都有<strong>正则</strong>的实现。对的，用正则来实现词法分析器是完全没有问题的。</p>
 
-<p>我的个人感觉是，如果想要这么做是没有问题的，一定可以实现 token 匹配的功能。但是 Regular Expression 实现 lexing 和 parsing 有其问题，这里我正好在网上搜到了 Rob Pike 一篇文章 <a href="https://commandcenter.blogspot.com/2011/08/regular-expressions-in-lexing-and.html">Regular expression in lexing and parsing</a>。</p>
-
-<p>我这里摘取他的观点放在这里。</p>
+<p>这里我正好在网上搜到了 Rob Pike 一篇文章 <a href="https://commandcenter.blogspot.com/2011/08/regular-expressions-in-lexing-and.html">Regular expression in lexing and parsing</a>。摘取他的观点放在这里。</p>
 
 <blockquote>
   <p>Regular expressions are hard to write, hard to write well, and can be expensive relative to other technologies.</p>
@@ -210,9 +248,7 @@
   <p>Regular expressions are, in my experience, widely misunderstood and abused.</p>
 </blockquote>
 
-<p>我个人对于 Regular Expression 并没有完全精通。但对于他上面提到的几点，基本都赞同。</p>
-
-<p>由此，我们就在这里引入了新的方式 Finite Automata，有限自动机。</p>
+<p>我们这里，是使用有限自动</p>
 
 <h3 id="什么是有限自动机">什么是有限自动机？</h3>
 
@@ -221,11 +257,10 @@
 <p>这里就摘取维基百科对于状态机的定义</p>
 
 <blockquote>
-  <p>Automata theory.svg
-About this image
+  <p>About this image
 Classes of automata
 (Clicking on each layer will take you to an article on that subject)
-A finite-state machine (FSM) or finite-state automaton (FSA, plural: automata), finite automaton, or simply a state machine, is a mathematical model of computation. It is an abstract machine that can be in exactly one of a finite number of states at any given time. The FSM can change from one state to another in response to some external inputs; the change from one state to another is called a transition. An FSM is defined by a list of its states, its initial state, and the conditions for each transition. Finite state machines are of two types - deterministic finite state machines and non-deterministic finite state machines.[1]</p>
+A finite-state machine (FSM) or finite-state automaton (FSA, plural: automata), finite automaton, or simply a state machine, is a mathematical model of computation. It is an abstract machine that can be in exactly one of a finite number of states at any given time. The FSM can change from one state to another in response to some external inputs; the change from one state to another is called a transition. An FSM is defined by a list of its states, its initial state, and the conditions for each transition. Finite state machines are of two types - deterministic finite state machines and non-deterministic finite state machines.</p>
 </blockquote>
 
 <blockquote>

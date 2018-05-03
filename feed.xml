@@ -1,4 +1,32 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-05-01T22:18:11+08:00</updated><id>http://localhost:4000/</id><title type="html">Code Cube</title><subtitle></subtitle><entry><title type="html">Chapter 2 - Lexical Analysis</title><link href="http://localhost:4000/compiler/2018/04/26/lexical-analysis.html" rel="alternate" type="text/html" title="Chapter 2 - Lexical Analysis" /><published>2018-04-26T00:00:00+08:00</published><updated>2018-04-26T00:00:00+08:00</updated><id>http://localhost:4000/compiler/2018/04/26/lexical-analysis</id><content type="html" xml:base="http://localhost:4000/compiler/2018/04/26/lexical-analysis.html">&lt;p&gt;『Modern Compiler Implementation in C』词法分析部分笔记和总结。&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-05-03T19:34:08+08:00</updated><id>http://localhost:4000/</id><title type="html">Code Cube</title><subtitle></subtitle><entry><title type="html">Basic Concept of Elasticsearch</title><link href="http://localhost:4000/elasticsearch/2018/05/03/basic-concept-of-elasticsearch.html" rel="alternate" type="text/html" title="Basic Concept of Elasticsearch" /><published>2018-05-03T00:00:00+08:00</published><updated>2018-05-03T00:00:00+08:00</updated><id>http://localhost:4000/elasticsearch/2018/05/03/basic-concept-of-elasticsearch</id><content type="html" xml:base="http://localhost:4000/elasticsearch/2018/05/03/basic-concept-of-elasticsearch.html">&lt;!--more--&gt;
+
+&lt;h2 id=&quot;基本概念&quot;&gt;基本概念&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Near Realtime(NRT)&lt;/strong&gt;：接近实时，意味着，当你将内容存储到 Elasticsearch 后，大概最多一秒钟后就可以搜索了。&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Cluster&lt;/strong&gt;：集群是一个或多个 &lt;code class=&quot;highlighter-rouge&quot;&gt;Node&lt;/code&gt;，并且在此基础上提供索引与搜索等功能。&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Node&lt;/strong&gt;：一个 &lt;code class=&quot;highlighter-rouge&quot;&gt;Node&lt;/code&gt; 就是一个集群中的单台服务器，它存储数据，参与整个集群的数据索引和搜索功能。一个 &lt;code class=&quot;highlighter-rouge&quot;&gt;Node&lt;/code&gt; 在启动时会加入到指定的集群中去。&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Index&lt;/strong&gt;：&lt;code class=&quot;highlighter-rouge&quot;&gt;Index&lt;/code&gt; 是一组有特定属性的 &lt;code class=&quot;highlighter-rouge&quot;&gt;Documents&lt;/code&gt;。比如，你可以有个 &lt;code class=&quot;highlighter-rouge&quot;&gt;Index&lt;/code&gt; 是存放客户数据的，一个 &lt;code class=&quot;highlighter-rouge&quot;&gt;Index&lt;/code&gt; 是存放产品目录。&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Type&lt;/strong&gt;：对于一个 &lt;code class=&quot;highlighter-rouge&quot;&gt;Index&lt;/code&gt;，你可以指定一个或多个 &lt;code class=&quot;highlighter-rouge&quot;&gt;Type&lt;/code&gt;，对于 &lt;code class=&quot;highlighter-rouge&quot;&gt;Type&lt;/code&gt;，你自己可以赋予它任何意义。一般来说，比如多个 &lt;code class=&quot;highlighter-rouge&quot;&gt;Document&lt;/code&gt; 有相同的几个 &lt;code class=&quot;highlighter-rouge&quot;&gt;Field&lt;/code&gt;，那么它们可以认为是一个 &lt;code class=&quot;highlighter-rouge&quot;&gt;Type&lt;/code&gt;。&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Document&lt;/strong&gt;：&lt;code class=&quot;highlighter-rouge&quot;&gt;Document&lt;/code&gt; 是能够被索引的基本单元。比如，一个客户有一个 &lt;code class=&quot;highlighter-rouge&quot;&gt;Document&lt;/code&gt;。&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Shards &amp;amp; Replicas&lt;/strong&gt;：一个 &lt;code class=&quot;highlighter-rouge&quot;&gt;Index&lt;/code&gt; 存储的数据可能会非常庞大， 以至于单台机器并没有办法存放这些数据。
+    &lt;ul&gt;
+      &lt;li&gt;&lt;strong&gt;Shards&lt;/strong&gt;：为了解决这个问题，所以引入了 &lt;code class=&quot;highlighter-rouge&quot;&gt;Shard&lt;/code&gt; 来将 &lt;code class=&quot;highlighter-rouge&quot;&gt;Index&lt;/code&gt; 分成多个 &lt;code class=&quot;highlighter-rouge&quot;&gt;Shard&lt;/code&gt;，每个 &lt;code class=&quot;highlighter-rouge&quot;&gt;Shard&lt;/code&gt; 可以认为是一个独立的 &lt;code class=&quot;highlighter-rouge&quot;&gt;Index&lt;/code&gt;。我们在创建 &lt;code class=&quot;highlighter-rouge&quot;&gt;Index&lt;/code&gt; 时，可以指定 &lt;code class=&quot;highlighter-rouge&quot;&gt;Shard&lt;/code&gt; 的数量。&lt;code class=&quot;highlighter-rouge&quot;&gt;Shard&lt;/code&gt; 提供了以下两个主要功能：
+        &lt;ul&gt;
+          &lt;li&gt;可以将你的内容平行分割扩展&lt;/li&gt;
+          &lt;li&gt;可以提供分布式并行操作&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Shard&lt;/code&gt; 的管理完全由 Elasticsearch 接手。&lt;/li&gt;
+      &lt;li&gt;&lt;strong&gt;Replica&lt;/strong&gt;：任何系统都需要有失败恢复机制。而 &lt;strong&gt;Replica&lt;/strong&gt; 或者 &lt;strong&gt;Replica Shard&lt;/strong&gt; 就提供这样的功能，它是 &lt;code class=&quot;highlighter-rouge&quot;&gt;Shard&lt;/code&gt; 的备份。它提供两个主要功能。
+        &lt;ul&gt;
+          &lt;li&gt;当一个 &lt;code class=&quot;highlighter-rouge&quot;&gt;Shard/Node&lt;/code&gt; 出错时，依然可以保持功能完整。所以，&lt;code class=&quot;highlighter-rouge&quot;&gt;Replica&lt;/code&gt; 与 原 &lt;code class=&quot;highlighter-rouge&quot;&gt;Shard&lt;/code&gt; 永远不会存放在同一个 &lt;code class=&quot;highlighter-rouge&quot;&gt;Node&lt;/code&gt; 上面。&lt;/li&gt;
+          &lt;li&gt;它可以帮助扩展你的搜索数据量，因为所有的 &lt;code class=&quot;highlighter-rouge&quot;&gt;Shard&lt;/code&gt; 都会被搜索到。&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;</content><author><name>Tesla Lee</name></author><summary type="html"></summary></entry><entry><title type="html">Chapter 2 - Lexical Analysis</title><link href="http://localhost:4000/compiler/2018/04/26/lexical-analysis.html" rel="alternate" type="text/html" title="Chapter 2 - Lexical Analysis" /><published>2018-04-26T00:00:00+08:00</published><updated>2018-04-26T00:00:00+08:00</updated><id>http://localhost:4000/compiler/2018/04/26/lexical-analysis</id><content type="html" xml:base="http://localhost:4000/compiler/2018/04/26/lexical-analysis.html">&lt;p&gt;『Modern Compiler Implementation in C』词法分析部分笔记和总结。&lt;/p&gt;
 
 &lt;!--more--&gt;
 
@@ -15,54 +43,87 @@
 &lt;p&gt;分析工作主要:&lt;/p&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;词法分析（Lexical analysis）：将输入识别成词，既（Token）。&lt;/li&gt;
-  &lt;li&gt;语法分析（Syntax analysis）：分析程序的机构&lt;/li&gt;
+  &lt;li&gt;词法分析（Lexical analysis）：将输入识别成词素，既（Lexical Token）&lt;/li&gt;
+  &lt;li&gt;语法分析（Syntax analysis）：分析程序的结构&lt;/li&gt;
   &lt;li&gt;语义分析（Semantic analysis）：计算出程序的意义&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;词法分析器输入字符流，输出词，关键字，符号等。&lt;/p&gt;
 
-&lt;h2 id=&quot;lexical-tokens&quot;&gt;LEXICAL TOKENS&lt;/h2&gt;
+&lt;h2 id=&quot;lexical-tokens词素&quot;&gt;LEXICAL TOKENS（词素）&lt;/h2&gt;
 &lt;p&gt;Lexical token 是一个字符序列，它是一门语言的最小语法元素。一门编程语言的 token 类型，是一个有限集合。&lt;/p&gt;
 
 &lt;h3 id=&quot;例如&quot;&gt;例如：&lt;/h3&gt;
 
 &lt;p&gt;Token 类型 例子&lt;/p&gt;
 &lt;ul&gt;
-  &lt;li&gt;ID foo n14, last&lt;/li&gt;
-  &lt;li&gt;NUM 74 0 00 082&lt;/li&gt;
-  &lt;li&gt;REAL 66.1 .5 10. 1e66 5.5e-10&lt;/li&gt;
-  &lt;li&gt;IF if&lt;/li&gt;
-  &lt;li&gt;COMMA ,&lt;/li&gt;
-  &lt;li&gt;NOTEQ !=&lt;/li&gt;
-  &lt;li&gt;LPAREN (&lt;/li&gt;
-  &lt;li&gt;RPAREN )&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;ID&lt;/code&gt; foo n14, last&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;NUM&lt;/code&gt; 74 0 00 082&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;REAL&lt;/code&gt; 66.1 .5 10. 1e66 5.5e-10&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;IF&lt;/code&gt; if&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;COMMA&lt;/code&gt; ,&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;NOTEQ&lt;/code&gt; !=&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;LPAREN&lt;/code&gt; (&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;RPAREN&lt;/code&gt; )&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;像 if，void，这样的符号，我们称之为&lt;strong&gt;保留字&lt;/strong&gt;，在大部分语言里，保留字不能作为 ID 来使用。&lt;/p&gt;
-
-&lt;p&gt;Lexical token 是最基本的有意义的语法元素。在一般语言中我们都会遇到什么 &lt;strong&gt;ID&lt;/strong&gt;，&lt;strong&gt;IF&lt;/strong&gt;，&lt;strong&gt;CONDITION&lt;/strong&gt; 等等，这些都是语法元素。每一种词法元素都有起描述的规则，用来分析时确定改词法元素。&lt;/p&gt;
-
-&lt;p&gt;我们肯定可以使用自然语言来描述词法规则。但一般情况下，我们使用正则表达式来描述词法规则，同时使用 &lt;strong&gt;DFA&lt;/strong&gt; 来实现词法分析器。&lt;/p&gt;
-
-&lt;p&gt;下面会先复习一些正则的基本知识。&lt;/p&gt;
-
-&lt;h2 id=&quot;regular-expression&quot;&gt;REGULAR EXPRESSION&lt;/h2&gt;
-&lt;p&gt;先简单复习一下正则表达式&lt;/p&gt;
+&lt;p&gt;像 if，void，这样的符号，我们称之为&lt;strong&gt;保留字&lt;/strong&gt;，在大部分语言里，保留字不能作为 ID 来使用。除了上面这些 Token 以外，字符流中还有非 token 内容。例如：&lt;/p&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;Symbol（符号）&lt;/li&gt;
-  &lt;li&gt;Alternation（选择）&lt;/li&gt;
-  &lt;li&gt;Concatenation（连续，连接）&lt;/li&gt;
-  &lt;li&gt;Epsilon（空）&lt;/li&gt;
-  &lt;li&gt;Repetition（重复）：重复一次，重复多次，至少重复一次&lt;/li&gt;
+  &lt;li&gt;注释  /* try again */&lt;/li&gt;
+  &lt;li&gt;预处理 #include &lt;stdio.h&gt;&lt;/stdio.h&gt;&lt;/li&gt;
+  &lt;li&gt;预处理 #define NUMS 5 , 6&lt;/li&gt;
+  &lt;li&gt;宏 NUMS&lt;/li&gt;
+  &lt;li&gt;空格，换行，缩进等&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;弱语言需要有一个宏预处理器，宏预处理去先操作输入流，进行预处理，生成新的字符流输出给词法分析器。当然，也可以直接将宏预处理器集成到词法分析器中去。&lt;/p&gt;
+
+&lt;p&gt;比如有这样一段代码：&lt;/p&gt;
+
+&lt;div class=&quot;language-c highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cm&quot;&gt;/* find a zero */&lt;/span&gt;
+&lt;span class=&quot;kt&quot;&gt;float&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;match0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;strncmp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;0.0&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;词法分析器在输入这段代码后，会输出：
+&lt;code class=&quot;highlighter-rouge&quot;&gt;FLOAT&lt;/code&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;LBRACE&lt;/code&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;ID(match0)&lt;/code&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;IF&lt;/code&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;LPAREN&lt;/code&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;LPAREN&lt;/code&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;BANG&lt;/code&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;CHAR&lt;/code&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;STAR&lt;/code&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;ID(strncmp)&lt;/code&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;ID(s)&lt;/code&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;LPAREN&lt;/code&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;RPAREN&lt;/code&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;ID(s)&lt;/code&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;COMMA&lt;/code&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;RETURN&lt;/code&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;STRING(0.0)&lt;/code&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;REAL(0.0)&lt;/code&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;COMMA&lt;/code&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;NUM(3)&lt;/code&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;SEMI&lt;/code&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;RBRACE&lt;/code&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;EOF&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;从上面的输出我们可以看到，每一个输出的 Token 都有类型。其中，像 &lt;code class=&quot;highlighter-rouge&quot;&gt;ID&lt;/code&gt; 或 &lt;code class=&quot;highlighter-rouge&quot;&gt;STRING&lt;/code&gt; 等会带有值来提供额外的信息。&lt;/p&gt;
+
+&lt;p&gt;那么，接下来的问题是，我们用什么来描述 Token 的规则？用什么语言来实现词法分析器？我们完全可以使用自然语言来直接描述规则，比如下面这样的：&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;标识符（ID）&lt;/code&gt;是由字母和数字组成的字符序列，首个字符必须是字母开头。同时 &lt;code class=&quot;highlighter-rouge&quot;&gt;_&lt;/code&gt; 下划线也认为是字母。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;同时,我们也可以使用任意合适的语言去实现词法分析器。不过，在这里，我们会使用&lt;strong&gt;正则表达式&lt;/strong&gt;来描述词法规则，用&lt;strong&gt;确定性有限自动机&lt;/strong&gt;来实现，同时，还会使用&lt;strong&gt;数学语言&lt;/strong&gt;来将这两者联系起来。&lt;/p&gt;
+
+&lt;h2 id=&quot;regular-expression正则表达式&quot;&gt;REGULAR EXPRESSION（正则表达式）&lt;/h2&gt;
+&lt;p&gt;一门语言，是一个字符串的集合；字符串是符号的有限序列；符号来自一个优先符号集合。我们这样描述一门语言时，并没有赋予字符串以任何意义，我们只是去区分字符串是否属于这门语言。为了能够仅仅使用有限的规则来描述一门语言，我们使用&lt;strong&gt;正则表达式&lt;/strong&gt;来标记这些规则。每一条&lt;strong&gt;正则表达式&lt;/strong&gt;表示一组字符串。&lt;/p&gt;
+
+&lt;p&gt;下面是正则表达式的基本规则：&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Symbol（符号）&lt;/strong&gt;：对于每一个符号 &lt;strong&gt;a&lt;/strong&gt; ，直接表示字符串 &lt;strong&gt;a&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Alternation（选择）&lt;/strong&gt;：对于 $M \mid N$&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Concatenation（连续，连接）&lt;/strong&gt;：$M \ast N$&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Epsilon（空）&lt;/strong&gt;：$\epsilon$&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Repetition（重复）&lt;/strong&gt;：重复一次，重复多次，至少重复一次&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;blockquote&gt;
   &lt;p&gt;Kleene closure: Given a regular expression M, its Kleene closure is $M^*$&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;p&gt;写法：&lt;/p&gt;
+&lt;p&gt;使用以上这些基本规则，我们就可以来表示由 ASCII 字符组成的变成语言了。例如：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;$(0 \mid 1)^\ast \ast 0$ 表示任意能被 2 整除的二进制数&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;更多写法：&lt;/p&gt;
 
 &lt;ul&gt;
   &lt;li&gt;$a$ : 普通字符&lt;/li&gt;
@@ -79,20 +140,28 @@
 
 &lt;p&gt;在引入正则表达式后，我们就可以来描述词法规则了&lt;/p&gt;
 
-&lt;p&gt;加入有一下词法规则：&lt;/p&gt;
+&lt;p&gt;假如有下面这样的 C 代码片段：&lt;/p&gt;
+&lt;div class=&quot;language-c highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;IF&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;}&lt;/span&gt;
 
-&lt;ul&gt;
-  &lt;li&gt;IF: $if$&lt;/li&gt;
-  &lt;li&gt;ID: $[a-z][a-z0-9]^\ast $&lt;/li&gt;
-  &lt;li&gt;NUM: $[0-9]^+ $&lt;/li&gt;
-  &lt;li&gt;REAL: $([0-9]^+”.”[0-9]^\ast) \mid ([0-9]^\ast”.”[0-9]^+)$&lt;/li&gt;
-  &lt;li&gt;do nothing: $(“–“[a–z]^\ast”\n”) \mid (“\space” \mid “\n” \mid “\t”)^\ast$&lt;/li&gt;
-  &lt;li&gt;error: $.$&lt;/li&gt;
-&lt;/ul&gt;
+&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;z&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;z0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;9&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ID&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;}&lt;/span&gt;
 
-&lt;p&gt;有关键字 &lt;strong&gt;if&lt;/strong&gt;，标识符 &lt;strong&gt;ID&lt;/strong&gt;，数字 &lt;strong&gt;NUM&lt;/strong&gt;，以及实数 &lt;strong&gt;REAL&lt;/strong&gt;，还定义了注释 『–』开头的单行注释。&lt;/p&gt;
+&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;9&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;NUM&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 
-&lt;p&gt;但，写到这里，我们很快会注意到一个问题：&lt;strong&gt;IF&lt;/strong&gt; 和 &lt;strong&gt;ID&lt;/strong&gt; 这两个规则是有交集的。在没有假如更多规则的情况下，我们如何去识别 &lt;em&gt;if&lt;/em&gt; 到底是 &lt;strong&gt;ID token&lt;/strong&gt; 还是 &lt;strong&gt;IF token&lt;/strong&gt;？再比如 &lt;em&gt;if8&lt;/em&gt; 是先匹配 &lt;strong&gt;IF&lt;/strong&gt; 规则还是先匹配 &lt;strong&gt;ID&lt;/strong&gt; 规则？&lt;/p&gt;
+&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;9&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;.&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;9&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;9&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;.&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;9&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;REAL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;}&lt;/span&gt;
+
+&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;--&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;z&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot; &quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\t&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;cm&quot;&gt;/* do nothing */&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;error&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;有关键字 &lt;strong&gt;if&lt;/strong&gt;，标识符 &lt;strong&gt;ID&lt;/strong&gt;，数字 &lt;strong&gt;NUM&lt;/strong&gt;，以及实数 &lt;strong&gt;REAL&lt;/strong&gt;，还定义了注释 『–』开头的单行注释。第五行是注释，意味着词法分析器会跳过它们继续执行，同时，词法分析器应该是功能完整的。它应该能够处理所有的符号，包括错误的。&lt;/p&gt;
+
+&lt;p&gt;写到这里，我们很快会注意到一个问题：&lt;strong&gt;IF&lt;/strong&gt; 和 &lt;strong&gt;ID&lt;/strong&gt; 这两个规则是有交集的。在没有假如更多规则的情况下，我们如何去识别 &lt;code class=&quot;highlighter-rouge&quot;&gt;if&lt;/code&gt; 到底是 &lt;strong&gt;ID token&lt;/strong&gt; 还是 &lt;strong&gt;IF token&lt;/strong&gt;？再比如 &lt;code class=&quot;highlighter-rouge&quot;&gt;if8&lt;/code&gt; 是先匹配 &lt;strong&gt;IF&lt;/strong&gt; 规则还是先匹配 &lt;strong&gt;ID&lt;/strong&gt; 规则？&lt;/p&gt;
 
 &lt;p&gt;下面引入两种常用的去歧义规则：&lt;/p&gt;
 
@@ -101,19 +170,19 @@
   &lt;li&gt;&lt;strong&gt;Rule priority&lt;/strong&gt;：规则优先级原则，对于一个最长子串，第一个能够匹配的规则所表示 token 作为输。这也就意味着，匹配的顺序是有意义且重要的。&lt;/li&gt;
 &lt;/ul&gt;
 
+&lt;p&gt;在引入了这两个规则之后，我们就可以确定 &lt;code class=&quot;highlighter-rouge&quot;&gt;if&lt;/code&gt; 是 &lt;strong&gt;IF&lt;/strong&gt; token 了，因为它最新匹配了 &lt;strong&gt;IF&lt;/strong&gt;，同时 &lt;code class=&quot;highlighter-rouge&quot;&gt;if8&lt;/code&gt; 是 &lt;strong&gt;ID&lt;/strong&gt; token.&lt;/p&gt;
+
 &lt;blockquote&gt;
   &lt;p&gt;好了，到这里可以先简单的做一下总结。一门语言，有其最基本的语法元素，这里是 Lexical token。我们需要描述每一种 token 的规则，当然可以使用自然语言，但要让 Lexer 理解，必须要使用一种能实现成程序的方式。
 于是我们引入了 Regular Expression 来描述词法规则。同时付加了两条消除歧义的规则，&lt;strong&gt;最长匹配&lt;/strong&gt;和&lt;strong&gt;匹配优先级&lt;/strong&gt;
-那么，到这里我有一个疑问？是不是使用 Regular Expression 来描述，就已经可以实现一个 token 匹配，来生成 Lexical token 了？&lt;/p&gt;
+那么，到这里我有一个疑问，&lt;strong&gt;是不是使用 Regular Expression 就足够实现词法分析了？&lt;/strong&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
 
 &lt;h2 id=&quot;finite-automata&quot;&gt;FINITE AUTOMATA&lt;/h2&gt;
 
-&lt;p&gt;在前面一段里，我最后有一个问题：因为 Regular Expression 是大多数语言都有的，要实现 token 匹配，是不是就可以使用 Regular Expression 就足够了？&lt;/p&gt;
+&lt;p&gt;前面有个问题：有了&lt;strong&gt;正则表达式&lt;/strong&gt;，是不是就可以直接使用&lt;strong&gt;正则&lt;/strong&gt;来实现词法匹配了？毕竟大多数的语言都有&lt;strong&gt;正则&lt;/strong&gt;的实现。对的，用正则来实现词法分析器是完全没有问题的。&lt;/p&gt;
 
-&lt;p&gt;我的个人感觉是，如果想要这么做是没有问题的，一定可以实现 token 匹配的功能。但是 Regular Expression 实现 lexing 和 parsing 有其问题，这里我正好在网上搜到了 Rob Pike 一篇文章 &lt;a href=&quot;https://commandcenter.blogspot.com/2011/08/regular-expressions-in-lexing-and.html&quot;&gt;Regular expression in lexing and parsing&lt;/a&gt;。&lt;/p&gt;
-
-&lt;p&gt;我这里摘取他的观点放在这里。&lt;/p&gt;
+&lt;p&gt;这里我正好在网上搜到了 Rob Pike 一篇文章 &lt;a href=&quot;https://commandcenter.blogspot.com/2011/08/regular-expressions-in-lexing-and.html&quot;&gt;Regular expression in lexing and parsing&lt;/a&gt;。摘取他的观点放在这里。&lt;/p&gt;
 
 &lt;blockquote&gt;
   &lt;p&gt;Regular expressions are hard to write, hard to write well, and can be expensive relative to other technologies.&lt;/p&gt;
@@ -131,9 +200,7 @@
   &lt;p&gt;Regular expressions are, in my experience, widely misunderstood and abused.&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;p&gt;我个人对于 Regular Expression 并没有完全精通。但对于他上面提到的几点，基本都赞同。&lt;/p&gt;
-
-&lt;p&gt;由此，我们就在这里引入了新的方式 Finite Automata，有限自动机。&lt;/p&gt;
+&lt;p&gt;我们这里，是使用有限自动&lt;/p&gt;
 
 &lt;h3 id=&quot;什么是有限自动机&quot;&gt;什么是有限自动机？&lt;/h3&gt;
 
@@ -142,11 +209,10 @@
 &lt;p&gt;这里就摘取维基百科对于状态机的定义&lt;/p&gt;
 
 &lt;blockquote&gt;
-  &lt;p&gt;Automata theory.svg
-About this image
+  &lt;p&gt;About this image
 Classes of automata
 (Clicking on each layer will take you to an article on that subject)
-A finite-state machine (FSM) or finite-state automaton (FSA, plural: automata), finite automaton, or simply a state machine, is a mathematical model of computation. It is an abstract machine that can be in exactly one of a finite number of states at any given time. The FSM can change from one state to another in response to some external inputs; the change from one state to another is called a transition. An FSM is defined by a list of its states, its initial state, and the conditions for each transition. Finite state machines are of two types - deterministic finite state machines and non-deterministic finite state machines.[1]&lt;/p&gt;
+A finite-state machine (FSM) or finite-state automaton (FSA, plural: automata), finite automaton, or simply a state machine, is a mathematical model of computation. It is an abstract machine that can be in exactly one of a finite number of states at any given time. The FSM can change from one state to another in response to some external inputs; the change from one state to another is called a transition. An FSM is defined by a list of its states, its initial state, and the conditions for each transition. Finite state machines are of two types - deterministic finite state machines and non-deterministic finite state machines.&lt;/p&gt;
 &lt;/blockquote&gt;
 
 &lt;blockquote&gt;
@@ -343,4 +409,4 @@ A finite-state machine (FSM) or finite-state automaton (FSA, plural: automata), 
 想进入每一个可以进入的角落，想和每一个虚拟人物交谈，想进入每一座房子。&lt;/p&gt;
 
 &lt;p&gt;但是，一个开放世界，最大的问题是无论我们花费多少时间去补充游戏的内容，只要玩家遇到一个地方无法通过，或者逻辑上的错误，那种开放世界的真实感就会土崩瓦解。
-所以，目前的技术来说，做出一个完全真实的开放世界，几乎是不可能。&lt;/p&gt;</content><author><name>Tesla Lee</name></author><summary type="html">在玩了《荒野之息》后，才发现自己想要的开放世界是什么样子。这可能是我最近几年，甚至十年来玩的最好的游戏了。</summary></entry><entry><title type="html">一个问题？</title><link href="http://localhost:4000/dionsradio/2017/12/04/dionsradio.html" rel="alternate" type="text/html" title="一个问题？" /><published>2017-12-04T20:11:00+08:00</published><updated>2017-12-04T20:11:00+08:00</updated><id>http://localhost:4000/dionsradio/2017/12/04/dionsradio</id><content type="html" xml:base="http://localhost:4000/dionsradio/2017/12/04/dionsradio.html">&lt;p&gt;1000年后，在科技高度发达的年代里，人类还会相互对抗，发生战争吗？会把目光投向宇宙吗？&lt;/p&gt;</content><author><name>DionsRadio</name></author><summary type="html">1000年后，在科技高度发达的年代里，人类还会相互对抗，发生战争吗？会把目光投向宇宙吗？</summary></entry></feed>
+所以，目前的技术来说，做出一个完全真实的开放世界，几乎是不可能。&lt;/p&gt;</content><author><name>Tesla Lee</name></author><summary type="html">在玩了《荒野之息》后，才发现自己想要的开放世界是什么样子。这可能是我最近几年，甚至十年来玩的最好的游戏了。</summary></entry></feed>
