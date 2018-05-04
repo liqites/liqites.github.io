@@ -273,7 +273,7 @@ a { color: inherit; touch-action: none; -webkit-tap-highlight-color: rgba(0, 0, 
 
 /*--- Entrance of application for writing END ---*/
 /** Code formatting */
-pre, code { font-size: 12.8px; border: 1px solid #e8e8e8; border-radius: 3px; background-color: #cae6ca; }
+pre, code { font-size: 16px; border: 1px solid #e8e8e8; border-radius: 3px; background-color: #cae6ca; }
 
 code { padding: 1px 5px; }
 
@@ -593,7 +593,7 @@ pre > code { border: 0; padding-right: 0; padding-left: 0; }
   article > section p a:active { color: black; }
   article > section blockquote { color: #8c8c8c; border-left: 2px solid #8c8c8c; padding-left: 34px; margin: 24px 0px 0px -16px; }
   article > section blockquote + blockquote { margin-top: 0px; padding-top: 24px; }
-  article > section blockquote p { font-size: 14.4px; text-indent: 0em; margin: 24px auto 0px auto; color: #8c8c8c; width: 32em; }
+  article > section blockquote p { font-size: 18px; text-indent: 0em; margin: 24px auto 0px auto; color: #8c8c8c; width: 32em; }
   article > section ol, article > section ul { list-style: none; padding: 0; }
   article > section ol > li, article > section ul > li { margin-top: 0px; margin-left: 2em; width: 31em; }
   article > section ol > li li, article > section ul > li li { margin-top: 0px; margin-left: 2em; }
@@ -656,7 +656,7 @@ pre > code { border: 0; padding-right: 0; padding-left: 0; }
   article > section p a { color: #0d86ff; text-decoration: underline; text-decoration-skip: ink; margin-left: 0.075em; margin-right: 0.075em; transition: ease 0.2s; }
   article > section p a:hover { color: #333; transition: ease 0.2s; }
   article > section blockquote { border-left: 3px solid #8c8c8c; padding: 0; margin: 0; }
-  article > section blockquote p { font-size: 14.4px; color: #8c8c8c; margin: 21px 16px 0px 13px; }
+  article > section blockquote p { font-size: 18px; color: #8c8c8c; margin: 21px 16px 0px 13px; }
   article > section ol, article > section ul { list-style: none; padding: 0; margin: 0px 16px 0px 16px; }
   article > section ol ol, article > section ul ol, article > section ol ul, article > section ul ul { margin: 0px 0px 0px -8px; }
   article > section ol > li, article > section ul > li { margin-top: 0px; margin-left: 1.5em; }

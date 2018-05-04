@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-05-03T20:04:34+08:00</updated><id>http://localhost:4000/</id><title type="html">Code Cube</title><subtitle></subtitle><entry><title type="html">Basic Concept of Elasticsearch</title><link href="http://localhost:4000/elasticsearch/2018/05/03/basic-concept-of-elasticsearch.html" rel="alternate" type="text/html" title="Basic Concept of Elasticsearch" /><published>2018-05-03T00:00:00+08:00</published><updated>2018-05-03T00:00:00+08:00</updated><id>http://localhost:4000/elasticsearch/2018/05/03/basic-concept-of-elasticsearch</id><content type="html" xml:base="http://localhost:4000/elasticsearch/2018/05/03/basic-concept-of-elasticsearch.html">&lt;p&gt;Elasticsearch 中的几个基本概念&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-05-04T01:19:29+08:00</updated><id>http://localhost:4000/</id><title type="html">Code Cube</title><subtitle></subtitle><entry><title type="html">Basic Concept of Elasticsearch</title><link href="http://localhost:4000/elasticsearch/2018/05/03/basic-concept-of-elasticsearch.html" rel="alternate" type="text/html" title="Basic Concept of Elasticsearch" /><published>2018-05-03T00:00:00+08:00</published><updated>2018-05-03T00:00:00+08:00</updated><id>http://localhost:4000/elasticsearch/2018/05/03/basic-concept-of-elasticsearch</id><content type="html" xml:base="http://localhost:4000/elasticsearch/2018/05/03/basic-concept-of-elasticsearch.html">&lt;p&gt;Elasticsearch 中的几个基本概念&lt;/p&gt;
 
 &lt;!--more--&gt;
 
@@ -91,7 +91,7 @@
 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 &lt;p&gt;词法分析器在输入这段代码后，会输出：
-&lt;code class=&quot;highlighter-rouge&quot;&gt;FLOAT&lt;/code&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;LBRACE&lt;/code&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;ID(match0)&lt;/code&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;IF&lt;/code&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;LPAREN&lt;/code&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;LPAREN&lt;/code&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;BANG&lt;/code&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;CHAR&lt;/code&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;STAR&lt;/code&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;ID(strncmp)&lt;/code&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;ID(s)&lt;/code&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;LPAREN&lt;/code&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;RPAREN&lt;/code&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;ID(s)&lt;/code&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;COMMA&lt;/code&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;RETURN&lt;/code&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;STRING(0.0)&lt;/code&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;REAL(0.0)&lt;/code&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;COMMA&lt;/code&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;NUM(3)&lt;/code&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;SEMI&lt;/code&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;RBRACE&lt;/code&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;EOF&lt;/code&gt;&lt;/p&gt;
+&lt;code class=&quot;highlighter-rouge&quot;&gt;FLOAT&lt;/code&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;ID(match0)&lt;/code&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;LPAREN&lt;/code&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;CHAR&lt;/code&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;STAR&lt;/code&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;ID(s)&lt;/code&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;RPAREN&lt;/code&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;LBRACE&lt;/code&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;IF&lt;/code&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;LPAREN&lt;/code&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;BAND&lt;/code&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;ID(strncmp)&lt;/code&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;LPAREN&lt;/code&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;ID(s)&lt;/code&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;COMMA&lt;/code&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;STRING(0.0)&lt;/code&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;COMMA&lt;/code&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;NUM(3)&lt;/code&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;RPAREN&lt;/code&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;RPAREN&lt;/code&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;RETURN&lt;/code&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;REAL(0.0)&lt;/code&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;SEMI&lt;/code&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;RBRACE&lt;/code&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;EOF&lt;/code&gt;&lt;/p&gt;
 
 &lt;p&gt;从上面的输出我们可以看到，每一个输出的 Token 都有类型。其中，像 &lt;code class=&quot;highlighter-rouge&quot;&gt;ID&lt;/code&gt; 或 &lt;code class=&quot;highlighter-rouge&quot;&gt;STRING&lt;/code&gt; 等会带有值来提供额外的信息。&lt;/p&gt;
 
@@ -202,19 +202,14 @@
   &lt;p&gt;Regular expressions are, in my experience, widely misunderstood and abused.&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;p&gt;我们这里，是使用有限自动&lt;/p&gt;
+&lt;p&gt;这里我不深入这个问题，后面我会尝试实现一个基于&lt;strong&gt;正则表达式&lt;/strong&gt;的词法分析器。&lt;/p&gt;
 
 &lt;h3 id=&quot;什么是有限自动机&quot;&gt;什么是有限自动机？&lt;/h3&gt;
 
-&lt;p&gt;有限自动机是一种状态机，它通过状态转化来实现接受或者拒绝特定字符串的功能。&lt;/p&gt;
-
-&lt;p&gt;这里就摘取维基百科对于状态机的定义&lt;/p&gt;
+&lt;p&gt;我们这里直接使用有限自动机来实现词法分析的功能。有限自动机由 &lt;strong&gt;状态集&lt;/strong&gt;，&lt;strong&gt;边&lt;/strong&gt;，&lt;strong&gt;符号&lt;/strong&gt; 组成，状态有 &lt;strong&gt;终结状态&lt;/strong&gt; 和 &lt;strong&gt;开始状态&lt;/strong&gt;。有限自动机是一种状态机，它通过状态转化来实现接受或者拒绝特定字符串的功能。这里直接摘取维基百科对于状态机的定义。&lt;/p&gt;
 
 &lt;blockquote&gt;
-  &lt;p&gt;About this image
-Classes of automata
-(Clicking on each layer will take you to an article on that subject)
-A finite-state machine (FSM) or finite-state automaton (FSA, plural: automata), finite automaton, or simply a state machine, is a mathematical model of computation. It is an abstract machine that can be in exactly one of a finite number of states at any given time. The FSM can change from one state to another in response to some external inputs; the change from one state to another is called a transition. An FSM is defined by a list of its states, its initial state, and the conditions for each transition. Finite state machines are of two types - deterministic finite state machines and non-deterministic finite state machines.&lt;/p&gt;
+  &lt;p&gt;A finite-state machine (FSM) or finite-state automaton (FSA, plural: automata), finite automaton, or simply a state machine, is a mathematical model of computation. It is an abstract machine that can be in exactly one of a finite number of states at any given time. The FSM can change from one state to another in response to some external inputs; the change from one state to another is called a transition. An FSM is defined by a list of its states, its initial state, and the conditions for each transition. Finite state machines are of two types - deterministic finite state machines and non-deterministic finite state machines.&lt;/p&gt;
 &lt;/blockquote&gt;
 
 &lt;blockquote&gt;
@@ -328,7 +323,7 @@ A finite-state machine (FSM) or finite-state automaton (FSA, plural: automata), 
 
 &lt;p&gt;2 Sleep early and get up early.&lt;/p&gt;
 
-&lt;p&gt;3 Reading.&lt;/p&gt;</content><author><name></name></author><summary type="html">Things I won’t do in the future</summary></entry><entry><title type="html">两部电影和下一步</title><link href="http://localhost:4000/2018/01/10/recent.html" rel="alternate" type="text/html" title="两部电影和下一步" /><published>2018-01-10T00:15:00+08:00</published><updated>2018-01-10T00:15:00+08:00</updated><id>http://localhost:4000/2018/01/10/recent</id><content type="html" xml:base="http://localhost:4000/2018/01/10/recent.html">&lt;p&gt;最近看了两部有意思的电影。《一日情人》和《三块广告牌》。&lt;/p&gt;
+&lt;p&gt;3 Reading.&lt;/p&gt;</content><author><name>Tesla Lee</name></author><summary type="html">Things I won’t do in the future</summary></entry><entry><title type="html">两部电影和下一步</title><link href="http://localhost:4000/2018/01/10/recent.html" rel="alternate" type="text/html" title="两部电影和下一步" /><published>2018-01-10T00:15:00+08:00</published><updated>2018-01-10T00:15:00+08:00</updated><id>http://localhost:4000/2018/01/10/recent</id><content type="html" xml:base="http://localhost:4000/2018/01/10/recent.html">&lt;p&gt;最近看了两部有意思的电影。《一日情人》和《三块广告牌》。&lt;/p&gt;
 
 &lt;p&gt;《一日情人》是一部法国电影。工作后，就一直没有心思停下来看这样“絮絮叨叨”的电影了，好像，电影里所探讨的问题，琐碎得遥远。&lt;/p&gt;
 

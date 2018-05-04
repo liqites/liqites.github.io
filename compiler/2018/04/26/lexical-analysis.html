@@ -137,7 +137,7 @@
 <span class="p">}</span>
 </code></pre></div></div>
 <p>词法分析器在输入这段代码后，会输出：
-<code class="highlighter-rouge">FLOAT</code> <code class="highlighter-rouge">LBRACE</code> <code class="highlighter-rouge">ID(match0)</code> <code class="highlighter-rouge">IF</code> <code class="highlighter-rouge">LPAREN</code> <code class="highlighter-rouge">LPAREN</code> <code class="highlighter-rouge">BANG</code> <code class="highlighter-rouge">CHAR</code> <code class="highlighter-rouge">STAR</code> <code class="highlighter-rouge">ID(strncmp)</code> <code class="highlighter-rouge">ID(s)</code> <code class="highlighter-rouge">LPAREN</code> <code class="highlighter-rouge">RPAREN</code> <code class="highlighter-rouge">ID(s)</code> <code class="highlighter-rouge">COMMA</code> <code class="highlighter-rouge">RETURN</code> <code class="highlighter-rouge">STRING(0.0)</code> <code class="highlighter-rouge">REAL(0.0)</code> <code class="highlighter-rouge">COMMA</code> <code class="highlighter-rouge">NUM(3)</code> <code class="highlighter-rouge">SEMI</code> <code class="highlighter-rouge">RBRACE</code> <code class="highlighter-rouge">EOF</code></p>
+<code class="highlighter-rouge">FLOAT</code> <code class="highlighter-rouge">ID(match0)</code> <code class="highlighter-rouge">LPAREN</code> <code class="highlighter-rouge">CHAR</code> <code class="highlighter-rouge">STAR</code> <code class="highlighter-rouge">ID(s)</code> <code class="highlighter-rouge">RPAREN</code> <code class="highlighter-rouge">LBRACE</code> <code class="highlighter-rouge">IF</code> <code class="highlighter-rouge">LPAREN</code> <code class="highlighter-rouge">BAND</code> <code class="highlighter-rouge">ID(strncmp)</code> <code class="highlighter-rouge">LPAREN</code> <code class="highlighter-rouge">ID(s)</code> <code class="highlighter-rouge">COMMA</code> <code class="highlighter-rouge">STRING(0.0)</code> <code class="highlighter-rouge">COMMA</code> <code class="highlighter-rouge">NUM(3)</code> <code class="highlighter-rouge">RPAREN</code> <code class="highlighter-rouge">RPAREN</code> <code class="highlighter-rouge">RETURN</code> <code class="highlighter-rouge">REAL(0.0)</code> <code class="highlighter-rouge">SEMI</code> <code class="highlighter-rouge">RBRACE</code> <code class="highlighter-rouge">EOF</code></p>
 
 <p>从上面的输出我们可以看到，每一个输出的 Token 都有类型。其中，像 <code class="highlighter-rouge">ID</code> 或 <code class="highlighter-rouge">STRING</code> 等会带有值来提供额外的信息。</p>
 
@@ -248,19 +248,14 @@
   <p>Regular expressions are, in my experience, widely misunderstood and abused.</p>
 </blockquote>
 
-<p>我们这里，是使用有限自动</p>
+<p>这里我不深入这个问题，后面我会尝试实现一个基于<strong>正则表达式</strong>的词法分析器。</p>
 
 <h3 id="什么是有限自动机">什么是有限自动机？</h3>
 
-<p>有限自动机是一种状态机，它通过状态转化来实现接受或者拒绝特定字符串的功能。</p>
-
-<p>这里就摘取维基百科对于状态机的定义</p>
+<p>我们这里直接使用有限自动机来实现词法分析的功能。有限自动机由 <strong>状态集</strong>，<strong>边</strong>，<strong>符号</strong> 组成，状态有 <strong>终结状态</strong> 和 <strong>开始状态</strong>。有限自动机是一种状态机，它通过状态转化来实现接受或者拒绝特定字符串的功能。这里直接摘取维基百科对于状态机的定义。</p>
 
 <blockquote>
-  <p>About this image
-Classes of automata
-(Clicking on each layer will take you to an article on that subject)
-A finite-state machine (FSM) or finite-state automaton (FSA, plural: automata), finite automaton, or simply a state machine, is a mathematical model of computation. It is an abstract machine that can be in exactly one of a finite number of states at any given time. The FSM can change from one state to another in response to some external inputs; the change from one state to another is called a transition. An FSM is defined by a list of its states, its initial state, and the conditions for each transition. Finite state machines are of two types - deterministic finite state machines and non-deterministic finite state machines.</p>
+  <p>A finite-state machine (FSM) or finite-state automaton (FSA, plural: automata), finite automaton, or simply a state machine, is a mathematical model of computation. It is an abstract machine that can be in exactly one of a finite number of states at any given time. The FSM can change from one state to another in response to some external inputs; the change from one state to another is called a transition. An FSM is defined by a list of its states, its initial state, and the conditions for each transition. Finite state machines are of two types - deterministic finite state machines and non-deterministic finite state machines.</p>
 </blockquote>
 
 <blockquote>
