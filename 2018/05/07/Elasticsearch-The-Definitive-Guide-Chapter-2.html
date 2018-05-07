@@ -4,19 +4,19 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- Begin Jekyll SEO tag v2.3.0 -->
-<title>Notes of Elasticsearch - The Definitive Guide | Code Cube</title>
-<meta property="og:title" content="Notes of Elasticsearch - The Definitive Guide" />
+<title>Elasticsearch - The Definitive Guide - Chapter 2 | Code Cube</title>
+<meta property="og:title" content="Elasticsearch - The Definitive Guide - Chapter 2" />
 <meta name="author" content="Tesla Lee" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="Elasticsearch: 权威指南笔记" />
-<meta property="og:description" content="Elasticsearch: 权威指南笔记" />
-<link rel="canonical" href="http://localhost:4000/2018/05/07/Notes-of-Elasticsearch-The-Definitive-Guide.html" />
-<meta property="og:url" content="http://localhost:4000/2018/05/07/Notes-of-Elasticsearch-The-Definitive-Guide.html" />
+<meta name="description" content="集群内的原理" />
+<meta property="og:description" content="集群内的原理" />
+<link rel="canonical" href="http://localhost:4000/2018/05/07/Elasticsearch-The-Definitive-Guide-Chapter-2.html" />
+<meta property="og:url" content="http://localhost:4000/2018/05/07/Elasticsearch-The-Definitive-Guide-Chapter-2.html" />
 <meta property="og:site_name" content="Code Cube" />
 <meta property="og:type" content="article" />
-<meta property="article:published_time" content="2018-05-07T16:50:10+08:00" />
+<meta property="article:published_time" content="2018-05-07T18:16:46+08:00" />
 <script type="application/ld+json">
-{"name":null,"description":"Elasticsearch: 权威指南笔记","author":{"@type":"Person","name":"Tesla Lee"},"@type":"BlogPosting","url":"http://localhost:4000/2018/05/07/Notes-of-Elasticsearch-The-Definitive-Guide.html","image":null,"publisher":null,"headline":"Notes of Elasticsearch - The Definitive Guide","dateModified":"2018-05-07T16:50:10+08:00","datePublished":"2018-05-07T16:50:10+08:00","sameAs":null,"mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2018/05/07/Notes-of-Elasticsearch-The-Definitive-Guide.html"},"@context":"http://schema.org"}</script>
+{"name":null,"description":"集群内的原理","author":{"@type":"Person","name":"Tesla Lee"},"@type":"BlogPosting","url":"http://localhost:4000/2018/05/07/Elasticsearch-The-Definitive-Guide-Chapter-2.html","image":null,"publisher":null,"headline":"Elasticsearch - The Definitive Guide - Chapter 2","dateModified":"2018-05-07T18:16:46+08:00","datePublished":"2018-05-07T18:16:46+08:00","sameAs":null,"mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2018/05/07/Elasticsearch-The-Definitive-Guide-Chapter-2.html"},"@context":"http://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
     <!-- <link rel="stylesheet" href="/assets/main.css"> -->
@@ -69,43 +69,40 @@
 
     <!--Article Header-->
     <header class="article-header">
-      <h1 class="article-header--h1">Notes of Elasticsearch - The Definitive Guide</h1>
+      <h1 class="article-header--h1">Elasticsearch - The Definitive Guide - Chapter 2</h1>
     </header>
 
     <!--Article Header-->
     <section class="article-section">
-      <p>Elasticsearch: 权威指南笔记
-<!--more--></p>
+      <p>集群内的原理</p>
 
-<blockquote>
-  <p>Elasticsearch 不仅仅是 Lucene，并且也不仅仅只是一个全文搜索引擎。 它可以被下面这样准确的形容：</p>
+<!--more-->
 
-  <p>一个分布式的实时文档存储，每个字段 可以被索引与搜索
-一个分布式实时分析搜索引擎
-能胜任上百个服务节点的扩展，并支持 PB 级别的结构化或者非结构化数据</p>
-</blockquote>
+<p>ElastiSearch天生就是 分布式的 ，它知道如何通过管理多节点来提高扩容性和可用性。</p>
 
-<h2 id="与-elasticsearch-交互">与 Elasticsearch 交互</h2>
+<p>一个运行中的 Elasticsearch 实例称为一个 节点，而集群是由一个或者多个拥有相同 cluster.name 配置的节点组成， 它们共同承担数据和负载的压力。</p>
+
+<h2 id="集群健康">集群健康</h2>
+<p><em>集群健康</em> ， 它在 status 字段中展示为 green 、 yellow 或者 red</p>
 
 <ul>
-  <li>节点客户端（Node client）
-    <ul>
-      <li>节点客户端作为一个非数据节点加入到本地集群中。换句话说，它本身不保存任何数据，但是它知道数据在集群中的哪个节点中，并且可以把请求转发到正确的节点。</li>
-    </ul>
-  </li>
-  <li>传输客户端（Transport client）
-    <ul>
-      <li>轻量级的传输客户端可以将请求发送到远程集群。它本身不加入集群，但是它可以将请求转发到集群中的一个节点上。</li>
-    </ul>
-  </li>
+  <li><code class="highlighter-rouge">green</code>: 所有的主分片和副本分片都正常运行。</li>
+  <li><code class="highlighter-rouge">yellow</code>: 所有的主分片都正常运行，但不是所有的副本分片都正常运行。</li>
+  <li><code class="highlighter-rouge">red</code>: 有主分片没能正常运行。</li>
 </ul>
 
-<p>两个 Java 客户端都是通过 9300 端口并使用 Elasticsearch 的原生 传输 协议和集群交互。集群中的节点通过端口 9300 彼此通信。</p>
+<h2 id="添加索引">添加索引</h2>
+<p>往 Elasticsearch 添加数据时需要用到 索引 —— 保存相关数据的地方。 索引实际上是指向一个或者多个物理 分片 的 逻辑命名空间 。</p>
 
-<p><strong>所有其他语言可以使用 RESTful API 通过端口 9200 和 Elasticsearch 进行通信。</strong></p>
+<blockquote>
+  <p>一个 分片 是一个底层的 工作单元 ，它仅保存了 全部数据中的一部分。</p>
+</blockquote>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl <span class="nt">-X</span>&lt;VERB&gt; <span class="s1">'&lt;PROTOCOL&gt;://&lt;HOST&gt;:&lt;PORT&gt;/&lt;PATH&gt;?&lt;QUERY_STRING&gt;'</span> <span class="nt">-d</span> <span class="s1">'&lt;BODY&gt;'</span>
-</code></pre></div></div>
+<p>Elasticsearch 是利用分片将数据分发到集群内各处的。分片是数据的容器，文档保存在分片内，分片又被分配到集群内的各个节点里。 当你的集群规模扩大或者缩小时， Elasticsearch 会自动的在各节点中迁移分片，使得数据仍然均匀分布在集群里。</p>
+
+<p>一个分片可以是 主 分片或者 副本 分片。 索引内任意一个文档都归属于一个主分片，所以主分片的数目决定着索引能够保存的最大数据量。一个副本分片只是一个主分片的拷贝。</p>
+
+<p>在索引建立的时候就已经确定了主分片数，但是副本分片数可以随时修改。</p>
 
     </section>
   </article>

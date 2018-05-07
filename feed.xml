@@ -1,4 +1,32 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-05-07T17:05:43+08:00</updated><id>http://localhost:4000/</id><title type="html">Code Cube</title><subtitle></subtitle><entry><title type="html">Notes of Elasticsearch - The Definitive Guide</title><link href="http://localhost:4000/2018/05/07/Notes-of-Elasticsearch-The-Definitive-Guide.html" rel="alternate" type="text/html" title="Notes of Elasticsearch - The Definitive Guide" /><published>2018-05-07T16:50:10+08:00</published><updated>2018-05-07T16:50:10+08:00</updated><id>http://localhost:4000/2018/05/07/Notes-of-Elasticsearch:-The-Definitive-Guide</id><content type="html" xml:base="http://localhost:4000/2018/05/07/Notes-of-Elasticsearch-The-Definitive-Guide.html">&lt;p&gt;Elasticsearch: 权威指南笔记
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-05-07T19:27:22+08:00</updated><id>http://localhost:4000/</id><title type="html">Code Cube</title><subtitle></subtitle><entry><title type="html">Elasticsearch - The Definitive Guide - Chapter 2</title><link href="http://localhost:4000/2018/05/07/Elasticsearch-The-Definitive-Guide-Chapter-2.html" rel="alternate" type="text/html" title="Elasticsearch - The Definitive Guide - Chapter 2" /><published>2018-05-07T18:16:46+08:00</published><updated>2018-05-07T18:16:46+08:00</updated><id>http://localhost:4000/2018/05/07/Elasticsearch-The-Definitive-Guide-Chapter-2</id><content type="html" xml:base="http://localhost:4000/2018/05/07/Elasticsearch-The-Definitive-Guide-Chapter-2.html">&lt;p&gt;集群内的原理&lt;/p&gt;
+
+&lt;!--more--&gt;
+
+&lt;p&gt;ElastiSearch天生就是 分布式的 ，它知道如何通过管理多节点来提高扩容性和可用性。&lt;/p&gt;
+
+&lt;p&gt;一个运行中的 Elasticsearch 实例称为一个 节点，而集群是由一个或者多个拥有相同 cluster.name 配置的节点组成， 它们共同承担数据和负载的压力。&lt;/p&gt;
+
+&lt;h2 id=&quot;集群健康&quot;&gt;集群健康&lt;/h2&gt;
+&lt;p&gt;&lt;em&gt;集群健康&lt;/em&gt; ， 它在 status 字段中展示为 green 、 yellow 或者 red&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;green&lt;/code&gt;: 所有的主分片和副本分片都正常运行。&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;yellow&lt;/code&gt;: 所有的主分片都正常运行，但不是所有的副本分片都正常运行。&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;red&lt;/code&gt;: 有主分片没能正常运行。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;添加索引&quot;&gt;添加索引&lt;/h2&gt;
+&lt;p&gt;往 Elasticsearch 添加数据时需要用到 索引 —— 保存相关数据的地方。 索引实际上是指向一个或者多个物理 分片 的 逻辑命名空间 。&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;一个 分片 是一个底层的 工作单元 ，它仅保存了 全部数据中的一部分。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Elasticsearch 是利用分片将数据分发到集群内各处的。分片是数据的容器，文档保存在分片内，分片又被分配到集群内的各个节点里。 当你的集群规模扩大或者缩小时， Elasticsearch 会自动的在各节点中迁移分片，使得数据仍然均匀分布在集群里。&lt;/p&gt;
+
+&lt;p&gt;一个分片可以是 主 分片或者 副本 分片。 索引内任意一个文档都归属于一个主分片，所以主分片的数目决定着索引能够保存的最大数据量。一个副本分片只是一个主分片的拷贝。&lt;/p&gt;
+
+&lt;p&gt;在索引建立的时候就已经确定了主分片数，但是副本分片数可以随时修改。&lt;/p&gt;</content><author><name>Tesla Lee</name></author><summary type="html">集群内的原理</summary></entry><entry><title type="html">Elasticsearch - The Definitive Guide - Chapter 1</title><link href="http://localhost:4000/2018/05/07/Elasticsearch-The-Definitive-Guide-Chapter-1.html" rel="alternate" type="text/html" title="Elasticsearch - The Definitive Guide - Chapter 1" /><published>2018-05-07T16:50:10+08:00</published><updated>2018-05-07T16:50:10+08:00</updated><id>http://localhost:4000/2018/05/07/Elasticsearch-The-Definitive-Guide-Chapter-1</id><content type="html" xml:base="http://localhost:4000/2018/05/07/Elasticsearch-The-Definitive-Guide-Chapter-1.html">&lt;p&gt;你知道的，为了搜索…
 &lt;!--more--&gt;&lt;/p&gt;
 
 &lt;blockquote&gt;
@@ -10,6 +38,8 @@
 &lt;/blockquote&gt;
 
 &lt;h2 id=&quot;与-elasticsearch-交互&quot;&gt;与 Elasticsearch 交互&lt;/h2&gt;
+
+&lt;h3 id=&quot;java-客户端&quot;&gt;JAVA 客户端&lt;/h3&gt;
 
 &lt;ul&gt;
   &lt;li&gt;节点客户端（Node client）
@@ -26,10 +56,185 @@
 
 &lt;p&gt;两个 Java 客户端都是通过 9300 端口并使用 Elasticsearch 的原生 传输 协议和集群交互。集群中的节点通过端口 9300 彼此通信。&lt;/p&gt;
 
+&lt;h3 id=&quot;rest-api&quot;&gt;REST API&lt;/h3&gt;
+
 &lt;p&gt;&lt;strong&gt;所有其他语言可以使用 RESTful API 通过端口 9200 和 Elasticsearch 进行通信。&lt;/strong&gt;&lt;/p&gt;
 
 &lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;curl &lt;span class=&quot;nt&quot;&gt;-X&lt;/span&gt;&amp;lt;VERB&amp;gt; &lt;span class=&quot;s1&quot;&gt;'&amp;lt;PROTOCOL&amp;gt;://&amp;lt;HOST&amp;gt;:&amp;lt;PORT&amp;gt;/&amp;lt;PATH&amp;gt;?&amp;lt;QUERY_STRING&amp;gt;'&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&amp;lt;BODY&amp;gt;'&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Tesla Lee</name></author><summary type="html">Elasticsearch: 权威指南笔记</summary></entry><entry><title type="html">九州</title><link href="http://localhost:4000/%E4%B9%9D%E5%B7%9E/2018/05/07/nine-continents.html" rel="alternate" type="text/html" title="九州" /><published>2018-05-07T00:00:00+08:00</published><updated>2018-05-07T00:00:00+08:00</updated><id>http://localhost:4000/%E4%B9%9D%E5%B7%9E/2018/05/07/nine-continents</id><content type="html" xml:base="http://localhost:4000/%E4%B9%9D%E5%B7%9E/2018/05/07/nine-continents.html">&lt;p&gt;九州设定
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;VERB&lt;/code&gt;: 适当的 HTTP 方法 或 谓词 : &lt;code class=&quot;highlighter-rouge&quot;&gt;GET&lt;/code&gt;、 &lt;code class=&quot;highlighter-rouge&quot;&gt;POST&lt;/code&gt;、 &lt;code class=&quot;highlighter-rouge&quot;&gt;PUT&lt;/code&gt;、 &lt;code class=&quot;highlighter-rouge&quot;&gt;HEAD&lt;/code&gt; 或者 &lt;code class=&quot;highlighter-rouge&quot;&gt;DELETE&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;PROTOCOL&lt;/code&gt;: http 或者 https&lt;code class=&quot;highlighter-rouge&quot;&gt;（如果你在 Elasticsearch 前面有一个 &lt;/code&gt;https 代理）&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;HOST&lt;/code&gt;: Elasticsearch 集群中任意节点的主机名，或者用 &lt;code class=&quot;highlighter-rouge&quot;&gt;localhost&lt;/code&gt; 代表本地机器上的节点&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;PORT&lt;/code&gt;: 运行 Elasticsearch HTTP 服务的端口号，默认是 9200&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;PATH&lt;/code&gt;: API 的终端路径（例如 _count 将返回集群中文档数量）。Path 可能包含多个组件，例如：&lt;code class=&quot;highlighter-rouge&quot;&gt;_cluster/stats&lt;/code&gt; 和 &lt;code class=&quot;highlighter-rouge&quot;&gt;_nodes/stats/jvm&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;QUERY_STRING&lt;/code&gt;:&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;BODY&lt;/code&gt;:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;面向文档&quot;&gt;面向文档&lt;/h2&gt;
+&lt;p&gt;Elasticsearch 使用 JavaScript Object Notation 或者 JSON 作为文档的序列化格式。&lt;/p&gt;
+
+&lt;h2 id=&quot;demo-数据&quot;&gt;DEMO 数据&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;支持包含多值标签、数值、以及全文本的数据&lt;/li&gt;
+  &lt;li&gt;检索任一雇员的完整信息&lt;/li&gt;
+  &lt;li&gt;允许结构化搜索，比如查询 30 岁以上的员工&lt;/li&gt;
+  &lt;li&gt;允许简单的全文搜索以及较复杂的短语搜索&lt;/li&gt;
+  &lt;li&gt;支持在匹配文档内容中高亮显示搜索片段&lt;/li&gt;
+  &lt;li&gt;支持基于数据创建和管理分析仪表盘&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;索引存储雇员文档&quot;&gt;索引（存储）雇员文档&lt;/h2&gt;
+&lt;p&gt;这将会以 雇员文档 的形式存储：一个文档代表一个雇员。&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;你也许已经注意到 索引 这个词在 Elasticsearch 语境中包含多重意思， 所以有必要做一点儿说明：
+索引（名词）：&lt;/p&gt;
+
+  &lt;p&gt;如前所述，一个 索引 类似于传统关系数据库中的一个 数据库 ，是一个存储关系型文档的地方。 索引 (index) 的复数词为 indices 或 indexes 。&lt;/p&gt;
+
+  &lt;p&gt;索引（动词）：&lt;/p&gt;
+
+  &lt;p&gt;索引一个文档 就是存储一个文档到一个 索引 （名词）中以便它可以被检索和查询到。这非常类似于 SQL 语句中的 INSERT 关键词，除了文档已存在时新文档会替换旧文档情况之外。&lt;/p&gt;
+
+  &lt;p&gt;倒排索引：
+关系型数据库通过增加一个 索引 比如一个 B树（B-tree）索引 到指定的列上，以便提升数据检索速度。Elasticsearch 和 Lucene 使用了一个叫做 倒排索引 的结构来达到相同的目的。&lt;/p&gt;
+
+  &lt;p&gt;默认的，一个文档中的每一个属性都是 被索引 的（有一个倒排索引）和可搜索的。一个没有倒排索引的属性是不能被搜索到的。我们将在 倒排索引 讨论倒排索引的更多细节。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;curl &lt;span class=&quot;nt&quot;&gt;-X&lt;/span&gt; PUT &lt;span class=&quot;s2&quot;&gt;&quot;localhost:9200/megacorp/employee/1&quot;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;-H&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'Content-Type: application/json'&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'
+{
+    &quot;first_name&quot; : &quot;John&quot;,
+    &quot;last_name&quot; :  &quot;Smith&quot;,
+    &quot;age&quot; :        25,
+    &quot;about&quot; :      &quot;I love to go rock climbing&quot;,
+    &quot;interests&quot;: [ &quot;sports&quot;, &quot;music&quot; ]
+}
+'&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;轻量搜索&quot;&gt;轻量搜索&lt;/h2&gt;
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;curl &lt;span class=&quot;nt&quot;&gt;-X&lt;/span&gt; GET &lt;span class=&quot;s2&quot;&gt;&quot;localhost:9200/megacorp/employee/_search&quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;curl &lt;span class=&quot;nt&quot;&gt;-X&lt;/span&gt; GET &lt;span class=&quot;s2&quot;&gt;&quot;localhost:9200/megacorp/employee/_search?q=last_name:Smith&quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;查询表达式-query-dsl&quot;&gt;查询表达式 Query DSL&lt;/h2&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;curl &lt;span class=&quot;nt&quot;&gt;-X&lt;/span&gt; GET &lt;span class=&quot;s2&quot;&gt;&quot;localhost:9200/megacorp/employee/_search&quot;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;-H&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'Content-Type: application/json'&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'
+{
+    &quot;query&quot; : {
+        &quot;match&quot; : {
+            &quot;last_name&quot; : &quot;Smith&quot;
+        }
+    }
+}
+'&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;更复杂的搜索&quot;&gt;更复杂的搜索&lt;/h2&gt;
+&lt;p&gt;同样搜索姓氏为 Smith 的雇员，但这次我们只需要年龄大于 30 的。&lt;/p&gt;
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;curl &lt;span class=&quot;nt&quot;&gt;-X&lt;/span&gt; GET &lt;span class=&quot;s2&quot;&gt;&quot;localhost:9200/megacorp/employee/_search&quot;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;-H&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'Content-Type: application/json'&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'
+{
+    &quot;query&quot; : {
+        &quot;bool&quot;: {
+            &quot;must&quot;: {
+                &quot;match&quot; : {
+                    &quot;last_name&quot; : &quot;smith&quot;
+                }
+            },
+            &quot;filter&quot;: {
+                &quot;range&quot; : {
+                    &quot;age&quot; : { &quot;gt&quot; : 30 }
+                }
+            }
+        }
+    }
+}
+'&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;全文搜索&quot;&gt;全文搜索&lt;/h2&gt;
+&lt;p&gt;Elasticsearch 默认按照相关性得分排序，即每个文档跟查询的匹配程度。&lt;/p&gt;
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;curl &lt;span class=&quot;nt&quot;&gt;-X&lt;/span&gt; GET &lt;span class=&quot;s2&quot;&gt;&quot;localhost:9200/megacorp/employee/_search&quot;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;-H&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'Content-Type: application/json'&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'
+{
+    &quot;query&quot; : {
+        &quot;match&quot; : {
+            &quot;about&quot; : &quot;rock climbing&quot;
+        }
+    }
+}
+'&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;短语搜索&quot;&gt;短语搜索&lt;/h2&gt;
+&lt;p&gt;找出一个属性中的独立单词是没有问题的，但有时候想要精确匹配一系列单词或者短语 。&lt;/p&gt;
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;curl &lt;span class=&quot;nt&quot;&gt;-X&lt;/span&gt; GET &lt;span class=&quot;s2&quot;&gt;&quot;localhost:9200/megacorp/employee/_search&quot;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;-H&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'Content-Type: application/json'&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'
+{
+    &quot;query&quot; : {
+        &quot;match_phrase&quot; : {
+            &quot;about&quot; : &quot;rock climbing&quot;
+        }
+    }
+}
+'&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;高亮搜索&quot;&gt;高亮搜索&lt;/h2&gt;
+&lt;p&gt;许多应用都倾向于在每个搜索结果中 高亮 部分文本片段，以便让用户知道为何该文档符合查询条件。在 Elasticsearch 中检索出高亮片段也很容易。&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;curl &lt;span class=&quot;nt&quot;&gt;-X&lt;/span&gt; GET &lt;span class=&quot;s2&quot;&gt;&quot;localhost:9200/megacorp/employee/_search&quot;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;-H&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'Content-Type: application/json'&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'
+{
+    &quot;query&quot; : {
+        &quot;match_phrase&quot; : {
+            &quot;about&quot; : &quot;rock climbing&quot;
+        }
+    },
+    &quot;highlight&quot;: {
+        &quot;fields&quot; : {
+            &quot;about&quot; : {}
+        }
+    }
+}
+'&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;分析&quot;&gt;分析&lt;/h2&gt;
+&lt;p&gt;Elasticsearch 有一个功能叫聚合（aggregations），允许我们基于数据生成一些精细的分析结果。聚合与 SQL 中的 GROUP BY 类似但更强大。&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;curl &lt;span class=&quot;nt&quot;&gt;-X&lt;/span&gt; GET &lt;span class=&quot;s2&quot;&gt;&quot;localhost:9200/megacorp/employee/_search&quot;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;-H&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'Content-Type: application/json'&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'
+{
+  &quot;aggs&quot;: {
+    &quot;all_interests&quot;: {
+      &quot;terms&quot;: { &quot;field&quot;: &quot;interests&quot; }
+    }
+  }
+}
+'&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;分布式特性&quot;&gt;分布式特性&lt;/h2&gt;
+&lt;p&gt;Elasticsearch 尽可能地屏蔽了分布式系统的复杂性。这里列举了一些在后台自动执行的操作：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;分配文档到不同的容器 或 分片 中，文档可以储存在一个或多个节点中&lt;/li&gt;
+  &lt;li&gt;按集群节点来均衡分配这些分片，从而对索引和搜索过程进行负载均衡&lt;/li&gt;
+  &lt;li&gt;复制每个分片以支持数据冗余，从而防止硬件故障导致的数据丢失&lt;/li&gt;
+  &lt;li&gt;将集群中任一节点的请求路由到存有相关数据的节点&lt;/li&gt;
+  &lt;li&gt;集群扩容时无缝整合新节点，重新分配分片以便从离群节点恢复&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>Tesla Lee</name></author><summary type="html">你知道的，为了搜索…</summary></entry><entry><title type="html">九州</title><link href="http://localhost:4000/%E4%B9%9D%E5%B7%9E/2018/05/07/nine-continents.html" rel="alternate" type="text/html" title="九州" /><published>2018-05-07T00:00:00+08:00</published><updated>2018-05-07T00:00:00+08:00</updated><id>http://localhost:4000/%E4%B9%9D%E5%B7%9E/2018/05/07/nine-continents</id><content type="html" xml:base="http://localhost:4000/%E4%B9%9D%E5%B7%9E/2018/05/07/nine-continents.html">&lt;p&gt;九州设定
 &lt;!--more--&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;设定&quot;&gt;设定&lt;/h2&gt;
@@ -543,41 +748,4 @@
 
 &lt;p&gt;同一位导演我还看过另一部作品《在布鲁日》（又名《杀手没有假期》），当时没有看得太明白，只是觉得非常有意思。&lt;/p&gt;
 
-&lt;p&gt;关于我的下一步。在考虑了几天之后，我决定正式接受老陆的工作，完成 DearID 的项目。&lt;/p&gt;</content><author><name>Tesla Lee</name></author><summary type="html">最近看了两部有意思的电影。《一日情人》和《三块广告牌》。</summary></entry><entry><title type="html">时间</title><link href="http://localhost:4000/2018/01/03/time.html" rel="alternate" type="text/html" title="时间" /><published>2018-01-03T23:05:00+08:00</published><updated>2018-01-03T23:05:00+08:00</updated><id>http://localhost:4000/2018/01/03/time</id><content type="html" xml:base="http://localhost:4000/2018/01/03/time.html">&lt;p&gt;对于一个人而言，过去的生活到底意味着什么？时间又是什么？&lt;/p&gt;
-
-&lt;p&gt;2016 年我失去了一位很重要的亲人，但是现在去回忆，当时所有的痛苦都变得平淡了。那么，那些原本经历的事情最后变成了什么？&lt;/p&gt;
-
-&lt;p&gt;时间不是连续的，因为人的大脑和经验不是连续的。时间一旦消失，人对于时间的感知就消失了。反过来也可以认为，对于未来时间的感知实际上也是虚假的。如果我们迫切的希望眼前的时间快速的过去，那意味着对于即将到来的事情而言，此时此刻是不重要的。&lt;/p&gt;
-
-&lt;p&gt;但是，如果此时此刻是不重要的，那为什么即将到来的事情是重要的？我的意思是，为什么可以不在乎此时此刻而更加在乎即将到来的事情？&lt;/p&gt;
-
-&lt;p&gt;但是，假设一种极端情况，如果24小时后我要被枪决，或者我知道自己的生命只剩几个月了。也就是说，将要到来的一件事，不只是非常重要，而是直接结束了一切。那么，此时此刻还重要吗？我以什么样的方式过，做什么事情还重要吗？如果不重要，为什么50年就是重要的？因为时间的长度吗？&lt;/p&gt;
-
-&lt;p&gt;我已经坚信一个结论：时间的长度本身是不重要的。50年和50天之间的区别只在于这段时间内做的事情。如果 50 天我去了马丘比丘，去了埃及，去了复活节岛。而 50 年里，我追求安全感的生活让我什么都没做，想去的地方，想做的事情一件也没有达成。那显然我会选择 50 天。&lt;/p&gt;
-
-&lt;p&gt;但我并不是要去藐视时间，觉得时间（生命）是不重要的，我太希望那位离开的亲人活得更久一点了。&lt;/p&gt;
-
-&lt;p&gt;时间好像是一种介质，它将我们（做的事情，经历）与（我们的）生活联系起来，从而赋予（我们的）生命以意义。所以，“怎么利用时间？”这个问题的重点其实是，在时间中我们做什么？因为时间是没有办法控制的，无论我们做什么，做多做少，时间最后都会消失，能控制的只是“做什么”。&lt;/p&gt;
-
-&lt;p&gt;所以，“现在做什么”比什么都重要。&lt;/p&gt;
-
-&lt;p&gt;下一个问题：怎么决定“现在做什么”？&lt;/p&gt;
-
-&lt;p&gt;前两天看到了贝索斯在亚马逊早起的一个采访。当时亚马逊应该已经是一个有所成就的图书销售网站了，所以，贝索斯可以认为是一个成功的人了，至少再外界看来。所以，在采访中，主持人问贝索斯说，“我以为你会是一个享受当下的人”。贝索斯非常干脆的回答了这个问题，说他不是这样的人，他做事遵循的原则是，“最小后悔原则”。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;最小后悔原则&lt;/strong&gt;，这个词我是第一次听说，当然，一听到就觉得非常有道理。&lt;/p&gt;
-
-&lt;p&gt;但是随之而来产生了几个疑问是：&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;&lt;strong&gt;最小后悔原则&lt;/strong&gt;的目标是什么？&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;最小&lt;/strong&gt;的标准是什么？&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;从采访中，可以看出，至少贝索斯认为现在虽然已经是还算成功的状态了，但是在他能看到的地方，还有更重要的事情去做。所以，为了达到这个目的，此时此刻，享受当下是非常愚蠢的。&lt;/p&gt;
-
-&lt;p&gt;所以，要能看到“未来”。要大概的知道“未来”的样子，然后为之制定一套行为标准，其实并不需要清晰的知道“未来”，因为谁也不可能清楚的预测。但是，通过想象未来的样子，可以看到方向。比如，我并不知道未来具体是什么情景，但是大概知道我想要去日本，所以现在开始学好日语就是一条&lt;strong&gt;最小后悔原则&lt;/strong&gt;。其实，另一个问题也有了：&lt;strong&gt;最小&lt;/strong&gt;的标准是什么？那就是在此时此刻尽力了。&lt;/p&gt;
-
-&lt;p&gt;但是这个“尽力”并不是精疲力劲的意思，精疲力劲实际上意味着透支未来，以一种低效的方式去话费未来的时间。尽力，可以认为是相对努力，已目前能达到的最大状态工作，但又不至于过于疲惫。&lt;/p&gt;
-
-&lt;p&gt;所以，决定“此时此刻”的是未来，但创造未来的，确实“此时此刻”。&lt;/p&gt;</content><author><name>Tesla Lee</name></author><summary type="html">对于一个人而言，过去的生活到底意味着什么？时间又是什么？</summary></entry></feed>
+&lt;p&gt;关于我的下一步。在考虑了几天之后，我决定正式接受老陆的工作，完成 DearID 的项目。&lt;/p&gt;</content><author><name>Tesla Lee</name></author><summary type="html">最近看了两部有意思的电影。《一日情人》和《三块广告牌》。</summary></entry></feed>

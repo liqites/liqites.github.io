@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- Begin Jekyll SEO tag v2.3.0 -->
+<title>Elasticsearch - The Definitive Guide - Chapter 1 | Code Cube</title>
+<meta property="og:title" content="Elasticsearch - The Definitive Guide - Chapter 1" />
+<meta name="author" content="Tesla Lee" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="你知道的，为了搜索…" />
+<meta property="og:description" content="你知道的，为了搜索…" />
+<link rel="canonical" href="http://localhost:4000/2018/05/07/Elasticsearch-The-Definitive-Guide-Chapter-1.html" />
+<meta property="og:url" content="http://localhost:4000/2018/05/07/Elasticsearch-The-Definitive-Guide-Chapter-1.html" />
+<meta property="og:site_name" content="Code Cube" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2018-05-07T16:50:10+08:00" />
+<script type="application/ld+json">
+{"name":null,"description":"你知道的，为了搜索…","author":{"@type":"Person","name":"Tesla Lee"},"@type":"BlogPosting","url":"http://localhost:4000/2018/05/07/Elasticsearch-The-Definitive-Guide-Chapter-1.html","image":null,"publisher":null,"headline":"Elasticsearch - The Definitive Guide - Chapter 1","dateModified":"2018-05-07T16:50:10+08:00","datePublished":"2018-05-07T16:50:10+08:00","sameAs":null,"mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2018/05/07/Elasticsearch-The-Definitive-Guide-Chapter-1.html"},"@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <!-- <link rel="stylesheet" href="/assets/main.css"> -->
+    <link rel="stylesheet" href="/assets/app.css">
+
+    <link rel="alternate" type="application/rss+xml" title="Code Cube" href="/%20/feed.xml"> 
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({ tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]} });
+    </script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
+<script src="http://127.0.0.1:5678/livereload.js"></script></head>
+
+  <body>
+    <nav class="nav-top headroom clearfix">
+	<div class="mzread-entrance">
+		<a href="/">Code Cube</a>
+	</div>
+
+	<ul class="main-nav">
+    
+	</ul>
+
+	<!-- <div class="nav-user">
+    <a class="nav-user-item" href="/login">登录</a>
+    <a class="nav-user-item" href="/signup">注册</a>
+  </div> -->
+</nav>
+
+    <main class="post-container sticky-footer--main-wrap clearfix">
+  <article class="post-article article-core chinese-punct clearfix" lang="en">
+    <!--Publish info-->
+		<aside class="publish-info-card clearfix">
+			<a class="publish-info-card--avatar-link" href="javascript:void(0)">
+        <!-- <img class="avatar-circle publish-info-card--avatar" src="images/feed-avatar.jpg" alt="政见"> -->
+        
+        <h4 class="publish-info-card--name">Tesla Lee</h4>
+        
+      </a>
+			<p class="publish-info-card--meta">
+        
+        <!-- <a href="#" class="publish-info-card--author-name">Tesla Lee</a><span class="vert-line">｜</span> -->
+        
+				<span class="time-last-modified">
+          
+        May 7, 2018
+      </span>
+			</p>
+		</aside>
+
+    <!--Article Header-->
+    <header class="article-header">
+      <h1 class="article-header--h1">Elasticsearch - The Definitive Guide - Chapter 1</h1>
+    </header>
+
+    <!--Article Header-->
+    <section class="article-section">
+      <p>你知道的，为了搜索…
+<!--more--></p>
+
+<blockquote>
+  <p>Elasticsearch 不仅仅是 Lucene，并且也不仅仅只是一个全文搜索引擎。 它可以被下面这样准确的形容：</p>
+
+  <p>一个分布式的实时文档存储，每个字段 可以被索引与搜索
+一个分布式实时分析搜索引擎
+能胜任上百个服务节点的扩展，并支持 PB 级别的结构化或者非结构化数据</p>
+</blockquote>
+
+<h2 id="与-elasticsearch-交互">与 Elasticsearch 交互</h2>
+
+<h3 id="java-客户端">JAVA 客户端</h3>
+
+<ul>
+  <li>节点客户端（Node client）
+    <ul>
+      <li>节点客户端作为一个非数据节点加入到本地集群中。换句话说，它本身不保存任何数据，但是它知道数据在集群中的哪个节点中，并且可以把请求转发到正确的节点。</li>
+    </ul>
+  </li>
+  <li>传输客户端（Transport client）
+    <ul>
+      <li>轻量级的传输客户端可以将请求发送到远程集群。它本身不加入集群，但是它可以将请求转发到集群中的一个节点上。</li>
+    </ul>
+  </li>
+</ul>
+
+<p>两个 Java 客户端都是通过 9300 端口并使用 Elasticsearch 的原生 传输 协议和集群交互。集群中的节点通过端口 9300 彼此通信。</p>
+
+<h3 id="rest-api">REST API</h3>
+
+<p><strong>所有其他语言可以使用 RESTful API 通过端口 9200 和 Elasticsearch 进行通信。</strong></p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl <span class="nt">-X</span>&lt;VERB&gt; <span class="s1">'&lt;PROTOCOL&gt;://&lt;HOST&gt;:&lt;PORT&gt;/&lt;PATH&gt;?&lt;QUERY_STRING&gt;'</span> <span class="nt">-d</span> <span class="s1">'&lt;BODY&gt;'</span>
+</code></pre></div></div>
+
+<ul>
+  <li><code class="highlighter-rouge">VERB</code>: 适当的 HTTP 方法 或 谓词 : <code class="highlighter-rouge">GET</code>、 <code class="highlighter-rouge">POST</code>、 <code class="highlighter-rouge">PUT</code>、 <code class="highlighter-rouge">HEAD</code> 或者 <code class="highlighter-rouge">DELETE</code></li>
+  <li><code class="highlighter-rouge">PROTOCOL</code>: http 或者 https<code class="highlighter-rouge">（如果你在 Elasticsearch 前面有一个 </code>https 代理）</li>
+  <li><code class="highlighter-rouge">HOST</code>: Elasticsearch 集群中任意节点的主机名，或者用 <code class="highlighter-rouge">localhost</code> 代表本地机器上的节点</li>
+  <li><code class="highlighter-rouge">PORT</code>: 运行 Elasticsearch HTTP 服务的端口号，默认是 9200</li>
+  <li><code class="highlighter-rouge">PATH</code>: API 的终端路径（例如 _count 将返回集群中文档数量）。Path 可能包含多个组件，例如：<code class="highlighter-rouge">_cluster/stats</code> 和 <code class="highlighter-rouge">_nodes/stats/jvm</code></li>
+  <li><code class="highlighter-rouge">QUERY_STRING</code>:</li>
+  <li><code class="highlighter-rouge">BODY</code>:</li>
+</ul>
+
+<h2 id="面向文档">面向文档</h2>
+<p>Elasticsearch 使用 JavaScript Object Notation 或者 JSON 作为文档的序列化格式。</p>
+
+<h2 id="demo-数据">DEMO 数据</h2>
+
+<ul>
+  <li>支持包含多值标签、数值、以及全文本的数据</li>
+  <li>检索任一雇员的完整信息</li>
+  <li>允许结构化搜索，比如查询 30 岁以上的员工</li>
+  <li>允许简单的全文搜索以及较复杂的短语搜索</li>
+  <li>支持在匹配文档内容中高亮显示搜索片段</li>
+  <li>支持基于数据创建和管理分析仪表盘</li>
+</ul>
+
+<h2 id="索引存储雇员文档">索引（存储）雇员文档</h2>
+<p>这将会以 雇员文档 的形式存储：一个文档代表一个雇员。</p>
+
+<blockquote>
+  <p>你也许已经注意到 索引 这个词在 Elasticsearch 语境中包含多重意思， 所以有必要做一点儿说明：
+索引（名词）：</p>
+
+  <p>如前所述，一个 索引 类似于传统关系数据库中的一个 数据库 ，是一个存储关系型文档的地方。 索引 (index) 的复数词为 indices 或 indexes 。</p>
+
+  <p>索引（动词）：</p>
+
+  <p>索引一个文档 就是存储一个文档到一个 索引 （名词）中以便它可以被检索和查询到。这非常类似于 SQL 语句中的 INSERT 关键词，除了文档已存在时新文档会替换旧文档情况之外。</p>
+
+  <p>倒排索引：
+关系型数据库通过增加一个 索引 比如一个 B树（B-tree）索引 到指定的列上，以便提升数据检索速度。Elasticsearch 和 Lucene 使用了一个叫做 倒排索引 的结构来达到相同的目的。</p>
+
+  <p>默认的，一个文档中的每一个属性都是 被索引 的（有一个倒排索引）和可搜索的。一个没有倒排索引的属性是不能被搜索到的。我们将在 倒排索引 讨论倒排索引的更多细节。</p>
+</blockquote>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl <span class="nt">-X</span> PUT <span class="s2">"localhost:9200/megacorp/employee/1"</span>
+<span class="nt">-H</span> <span class="s1">'Content-Type: application/json'</span> <span class="nt">-d</span><span class="s1">'
+{
+    "first_name" : "John",
+    "last_name" :  "Smith",
+    "age" :        25,
+    "about" :      "I love to go rock climbing",
+    "interests": [ "sports", "music" ]
+}
+'</span>
+</code></pre></div></div>
+
+<h2 id="轻量搜索">轻量搜索</h2>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl <span class="nt">-X</span> GET <span class="s2">"localhost:9200/megacorp/employee/_search"</span>
+</code></pre></div></div>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl <span class="nt">-X</span> GET <span class="s2">"localhost:9200/megacorp/employee/_search?q=last_name:Smith"</span>
+</code></pre></div></div>
+
+<h2 id="查询表达式-query-dsl">查询表达式 Query DSL</h2>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl <span class="nt">-X</span> GET <span class="s2">"localhost:9200/megacorp/employee/_search"</span>
+<span class="nt">-H</span> <span class="s1">'Content-Type: application/json'</span> <span class="nt">-d</span><span class="s1">'
+{
+    "query" : {
+        "match" : {
+            "last_name" : "Smith"
+        }
+    }
+}
+'</span>
+</code></pre></div></div>
+
+<h2 id="更复杂的搜索">更复杂的搜索</h2>
+<p>同样搜索姓氏为 Smith 的雇员，但这次我们只需要年龄大于 30 的。</p>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl <span class="nt">-X</span> GET <span class="s2">"localhost:9200/megacorp/employee/_search"</span>
+<span class="nt">-H</span> <span class="s1">'Content-Type: application/json'</span> <span class="nt">-d</span><span class="s1">'
+{
+    "query" : {
+        "bool": {
+            "must": {
+                "match" : {
+                    "last_name" : "smith"
+                }
+            },
+            "filter": {
+                "range" : {
+                    "age" : { "gt" : 30 }
+                }
+            }
+        }
+    }
+}
+'</span>
+</code></pre></div></div>
+
+<h2 id="全文搜索">全文搜索</h2>
+<p>Elasticsearch 默认按照相关性得分排序，即每个文档跟查询的匹配程度。</p>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl <span class="nt">-X</span> GET <span class="s2">"localhost:9200/megacorp/employee/_search"</span>
+<span class="nt">-H</span> <span class="s1">'Content-Type: application/json'</span> <span class="nt">-d</span><span class="s1">'
+{
+    "query" : {
+        "match" : {
+            "about" : "rock climbing"
+        }
+    }
+}
+'</span>
+</code></pre></div></div>
+
+<h2 id="短语搜索">短语搜索</h2>
+<p>找出一个属性中的独立单词是没有问题的，但有时候想要精确匹配一系列单词或者短语 。</p>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl <span class="nt">-X</span> GET <span class="s2">"localhost:9200/megacorp/employee/_search"</span>
+<span class="nt">-H</span> <span class="s1">'Content-Type: application/json'</span> <span class="nt">-d</span><span class="s1">'
+{
+    "query" : {
+        "match_phrase" : {
+            "about" : "rock climbing"
+        }
+    }
+}
+'</span>
+</code></pre></div></div>
+
+<h2 id="高亮搜索">高亮搜索</h2>
+<p>许多应用都倾向于在每个搜索结果中 高亮 部分文本片段，以便让用户知道为何该文档符合查询条件。在 Elasticsearch 中检索出高亮片段也很容易。</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl <span class="nt">-X</span> GET <span class="s2">"localhost:9200/megacorp/employee/_search"</span>
+<span class="nt">-H</span> <span class="s1">'Content-Type: application/json'</span> <span class="nt">-d</span><span class="s1">'
+{
+    "query" : {
+        "match_phrase" : {
+            "about" : "rock climbing"
+        }
+    },
+    "highlight": {
+        "fields" : {
+            "about" : {}
+        }
+    }
+}
+'</span>
+</code></pre></div></div>
+
+<h2 id="分析">分析</h2>
+<p>Elasticsearch 有一个功能叫聚合（aggregations），允许我们基于数据生成一些精细的分析结果。聚合与 SQL 中的 GROUP BY 类似但更强大。</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl <span class="nt">-X</span> GET <span class="s2">"localhost:9200/megacorp/employee/_search"</span>
+<span class="nt">-H</span> <span class="s1">'Content-Type: application/json'</span> <span class="nt">-d</span><span class="s1">'
+{
+  "aggs": {
+    "all_interests": {
+      "terms": { "field": "interests" }
+    }
+  }
+}
+'</span>
+</code></pre></div></div>
+
+<h2 id="分布式特性">分布式特性</h2>
+<p>Elasticsearch 尽可能地屏蔽了分布式系统的复杂性。这里列举了一些在后台自动执行的操作：</p>
+
+<ul>
+  <li>分配文档到不同的容器 或 分片 中，文档可以储存在一个或多个节点中</li>
+  <li>按集群节点来均衡分配这些分片，从而对索引和搜索过程进行负载均衡</li>
+  <li>复制每个分片以支持数据冗余，从而防止硬件故障导致的数据丢失</li>
+  <li>将集群中任一节点的请求路由到存有相关数据的节点</li>
+  <li>集群扩容时无缝整合新节点，重新分配分片以便从离群节点恢复</li>
+</ul>
+
+    </section>
+  </article>
+  <footer class="post-footer clearfix">
+  			<div class="clearfix">
+  				<nav class="post-footer--post-nav">
+  					<!-- <a href="#" class="button-capsule post-footer--next-post"><span class="button-label next-post-label">没有“国进民退”，也没有“国家资本主义”这回事儿？</span><span class="button-arrow-right next-post-arrow"></span></a> -->
+  				</nav>
+  			</div>
+  		</footer>
+</main>
+
+    <footer class="sticky-footer">
+  <div class="global-footer">
+    <ul class="global-footer-links">
+      <li>Designed by <a href="http://laerhsif.com/" target="_blank">realfish</a></li>
+    </ul>
+  </div>
+</footer>
+
+  </body>
+  <script type="text/javascript" src="/assets/app-cf635fcf31d244d93ece3ca7f45a686b16696c3d5c02dc04c2ae7cadef7c3aaa.js"></script>
+  <script type="text/javascript">
+    // NProgress configuration
+    NProgress.configure({
+      minimum: 0.10,
+      ease: 'linear',
+      speed: 500,
+      trickleRate: 0.02,
+      trickleSpeed: 200,
+      showSpinner: false
+    });
+
+    NProgress.start();
+
+    $(window).load(function(){
+      NProgress.done();
+    });
+
+    // Headroom configuration
+    $(".headroom").headroom();
+  </script>
+</html>
