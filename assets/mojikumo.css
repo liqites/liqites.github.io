@@ -1,0 +1,117 @@
+@font-face {
+  font-family: 'arkyakumono';
+  src: url("../fonts/arkyakumono.woff") format('woff'), url("../fonts/arkyakumono.ttf") format('truetype'), url("../fonts/arkyakumono.svg#arkicons") format('svg');
+  font-weight: 400;
+  font-style: normal;
+}
+body {
+  font-size: 20px;
+  line-height: 1.8;
+  color: #333;
+  font: 20px/1.8 Georgia, Cambria, "Times New Roman", Times, serif;
+  padding-bottom: 136px;
+}
+article {
+  width: 1000px;
+  margin: 0 auto;
+}
+article a {
+  text-decoration: none;
+  color: #000;
+  font-family: STKaiti, "AR PL UKai", "AR PL KaitiM GB", KaiTi, KaiTi_GB2312, "TW-Kai";
+  opacity: 0.7;
+}
+article a:hover {
+  opacity: 1;
+}
+article footer {
+  text-align: right;
+  font-size: 13px;
+  margin-bottom: 40px;
+}
+.yakumono {
+  text-rendering: optimizeLegibility;
+}
+.yakumono .before {
+  text-rendering: optimizeSpeed;
+  color: #888;
+}
+.yakumono .after {
+  font-family: 'arkyakumono', Georgia, Cambria, "Times New Roman", Times, serif;
+}
+.yakumono .before,
+.yakumono .after {
+  position: relative;
+}
+.yakumono .before:before,
+.yakumono .after:before {
+  content: '';
+  position: absolute;
+  display: block;
+  right: 100%;
+  text-align: right;
+  width: 60px;
+  margin-right: 20px;
+  color: #aaa;
+  border-top: 1px solid rgba(170,170,170,0.4);
+  padding-top: 6px;
+  font-size: 14px;
+}
+.yakumono .before:before {
+  content: 'Before';
+}
+.yakumono .after:before {
+  content: 'After';
+}
+#intro {
+  width: 700px;
+  margin: 0 auto;
+}
+#intro span:hover {
+  cursor: pointer;
+  text-rendering: optimizeSpeed;
+}
+#test {
+  font-family: 'arkyakumono', Georgia, Cambria, "Times New Roman", Times, serif;
+  text-rendering: optimizeLegibility;
+}
+#test ul {
+  list-style: lower-alpha inside;
+}
+#test li {
+  margin-bottom: 30px;
+}
+#test blockquote {
+  font-size: 13px;
+  color: #666;
+  font-weight: 200;
+}
+#test .tab {
+  width: 5em;
+  display: inline-block;
+}
+#test .wrap {
+  margin: 0 1em;
+  display: inline-block;
+  border-bottom: 4px solid #e64c66;
+}
+#test .wrap:hover {
+  cursor: pointer;
+  text-rendering: optimizeSpeed;
+}
+#test .passed {
+  border-color: #1bbc9b;
+}
+#test .result {
+  margin-top: 88px;
+  border-top: 1px solid #dedede;
+  padding-top: 88px;
+  text-align: center;
+}
+#test .result .passed,
+#test .result .failed {
+  border-bottom: 3px solid #e64c66;
+}
+#test .result .passed {
+  border-color: #1bbc9b;
+}

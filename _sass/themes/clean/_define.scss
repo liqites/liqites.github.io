@@ -1,0 +1,118 @@
+$bg-main: #fcfcfc;
+$bg-sub: #f7f7f7;
+
+$text-main: #333;
+$text-sub: #8c8c8c;
+$text-disable: #b3b3b3;
+
+$blue-main: #0d86ff;
+$blue-sub: #0077ed;
+
+$red-main: #ff4040;
+
+$hairline: #e5e5e5;
+
+$spacing-unit: 30px !default;
+$base-font-size: 18px !default;
+
+$grey-color : #828282 !default;
+$grey-color-light: lighten($grey-color, 40%) !default;
+$grey-color-dark : darken($grey-color, 25%) !default;
+@mixin relative-font-size($ratio) {
+  font-size: $base-font-size * $ratio;
+}
+
+/**
+ * Define icon font:
+ * Minerva Glyphs
+ */
+@font-face {
+  font-family: 'Minerva Glyphs';
+  src: url("Minerva-Glyphs.eot");
+  src: url("Minerva-Glyphs.eot?#iefix") format("embedded-opentype"),
+  url("Minerva-Glyphs.ttf") format("truetype"),
+  url("Minerva-Glyphs.woff") format("woff"),
+  url("Minerva-Glyphs.svg#Minerva-Glyphs") format("svg");
+}
+
+@font-face {
+  font-family: 'Minerva Glyphs FALLBACK';
+  src: url("../Minerva-Glyphs.eot");
+  src: url("../Minerva-Glyphs.eot?#iefix") format("embedded-opentype"),
+  url("../Minerva-Glyphs.ttf") format("truetype"),
+  url("../Minerva-Glyphs.woff") format("woff"),
+  url("../Minerva-Glyphs.svg#Minerva-Glyphs") format("svg");
+}
+
+.minerva-glyphs {
+  font-family: "Minerva Glyphs", "Minerva Glyphs FALLBACK";
+  speak: none;
+}
+
+/* Logos */
+
+.glyph-logo-dayan::before {
+  content: "\e001";
+}
+
+/* Composer toolbar buttons */
+
+.glyph-toolbar-bold::before {
+  content: "\e101";
+}
+
+.glyph-toolbar-heading::before {
+  content: "\e111";
+}
+
+.glyph-toolbar-blockquote::before {
+  content: "\e121";
+}
+
+.glyph-toolbar-orderedlist::before {
+  content: "\e122";
+}
+
+.glyph-toolbar-unorderedlist::before {
+  content: "\e123";
+}
+
+.glyph-toolbar-textlink::before {
+  content: "\e131";
+}
+
+.glyph-toolbar-image::before {
+  content: "\e132";
+}
+
+.glyph-toolbar-clearstyles::before {
+  content: "\e191";
+}
+
+/* Poster footer actions */
+
+.glyph-post-fav::before {
+  content: "\e201";
+}
+
+.glyph-post-weibo::before {
+  content: "\e202";
+}
+
+.glyph-post-more::before {
+  content: "\e209";
+}
+
+/* List item buttons */
+
+.glyph-list-fav::before {
+  content: "\e301";
+}
+
+.glyph-list-weibo::before {
+  content: "\e302";
+}
+
+.glyph-list-wechat::before {
+  content: "\e303";
+}

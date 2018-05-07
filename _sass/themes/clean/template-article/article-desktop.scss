@@ -1,17 +1,31 @@
-@media only screen and (min-width: 1024px) {
-  .post-container {
-    width: 54em;
-    margin: 0 auto;
-    padding-top: 126px;
-    
-    min-height: calc(100% - 90px - 126px);
-  }
+/**
+ *	style-article-desktop.less
+ */
+
+
+
+@media only screen
+and (min-width: 1024px) {
+
+
+
+.post-container{
+	width: 54em;
+	margin: 0 auto;
+	padding-top: 126px;
+
+	/* Calculate min-height for the sticky footer */
+	min-height: calc(100% - 90px - 126px);	/* footer margin-top = 90px; */
+}
+
+
 
 /*====== Styles of publish info ======*/
 
 .publish-info-card {
 	width: 216px;
 	height: 54px;
+/*	position: absolute;*/
 	float: left;
 }
 
@@ -83,6 +97,8 @@
 
 /*====== Styles of publish info END ======*/
 
+
+
 /*====== Styles of article ======*/
 
 .post-article {
@@ -120,6 +136,8 @@
 }
 
 /*====== Styles of article END ======*/
+
+
 
 /*====== Styles of article's footer ======*/
 
@@ -287,7 +305,7 @@
 	position: relative;
 	border-top: 1px solid #e5e5e5;
 	padding: 36px 0px 0px 0px;
-	
+
 }
 
 .feed-card--avatar-link {
@@ -358,4 +376,7 @@
 /*--- Styles of feed info card END ---*/
 
 /*====== Styles of article's footer END ======*/
-}
+
+
+
+}	/* End of @media only screen and (min-width: 1024px) */

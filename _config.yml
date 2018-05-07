@@ -16,7 +16,7 @@
 title: Code Cube
 email: leechee89@gmail.com
 description: >- # this means to ignore newlines until "baseurl:"
-  
+
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "http://www.teslalee.com" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: tesla_lee
@@ -36,14 +36,18 @@ plugins:
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list
 # to override the default setting.
-# exclude:
-#   - Gemfile
-#   - Gemfile.lock
-#   - node_modules
-#   - vendor/bundle/
-#   - vendor/cache/
-#   - vendor/gems/
-#   - vendor/ruby/
+exclude:
+  - script
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
+
+livereload: true     # You no longer need to include --livereload
+reload_port: 5678
 
 assets:
   compress:

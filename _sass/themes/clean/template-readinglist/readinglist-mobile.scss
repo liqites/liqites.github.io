@@ -1,0 +1,117 @@
+/**
+ *	style-reading-list-mobile.less
+ */
+
+@media only screen and (max-width: 1023px) {
+  .reading-list-container {
+    width: 100%;
+    margin: 0 auto;
+    max-width: 480px;
+  }
+  /*====== Side navigation ======*/
+  .nav-side {
+    position: relative;
+    height: 48px;
+    margin: 0px 20px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+  }
+  .nav-side--active-indicator {
+    display: block;
+    position: absolute;
+    /*left: 0px;*/
+    bottom: 0px;
+    height: 0px;
+    width: 34%;
+    border-bottom: 1px solid #333333;
+    z-index: 100;
+    -webkit-transition: -webkit-transform ease-in-out 0.25s;
+    -moz-transition: -moz-transform ease-in-out 0.25s;
+    transition: transform ease-in-out 0.25s;
+  }
+  .reading-list-nav {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    height: 47px;
+    border-bottom: 1px solid #e5e5e5;
+  }
+  .reading-list-nav-item {
+    display: block;
+    float: left;
+    width: 33%;
+    height: 12px;
+    padding-top: 24px;
+    font-size: 12px;
+    color: #b3b3b3;
+    line-height: 1;
+    height: 12px;
+    text-align: center;
+  }
+  .reading-list-nav-item a {
+    color: #b3b3b3;
+    text-decoration: none;
+    cursor: pointer;
+    -webkit-transition: color ease 0.2s;
+    -moz-transition: color ease 0.2s;
+    transition: color ease 0.2s;
+  }
+  .reading-list-nav-item a:hover {
+    color: #333333;
+    -webkit-transition: color ease 0.2s;
+    -moz-transition: color ease 0.2s;
+    transition: color ease 0.2s;
+  }
+  .reading-list-nav-item--active a {
+    color: #333333 !important;
+    font-weight: 600 !important;
+  }
+  /*====== Side navigation END ======*/
+  .reading-list-container .nav-side--item {
+    width: 50%;
+  }
+  /*====== Post list styles ======*/
+  .reading-list-container .post-list-item:first-child {
+    border-top: 0;
+  }
+  /*====== Post list styles END ======*/
+}
+
+/* End of @media only screen and (max-width: 768px) */
+
+// @media only screen and (min-width: 619px) and (max-width: 1023px) {
+//   /*--- Scale (factor: 1.125; max-width: 480px) for nav-side ---*/
+//   .nav-side {
+//     margin: 0 -7.5px;
+//     height: 54px;
+//   }
+//   .nav-side--active-indicator {
+//     border-bottom: 1.125px solid #333333;
+//   }
+//   .reading-list-nav {
+//     height: 52.875px;
+//     border-bottom: 1.125px solid #e5e5e5;
+//   }
+//   .reading-list-nav-item {
+//     padding-top: 27px;
+//     height: 13.5px;
+//     font-size: 13.5px;
+//     height: 13.5px;
+//   }
+//   /*--- Scale (factor: 1.125; max-width: 480px) for nav-side END ---*/
+//   .reading-list {
+//     -webkit-transform: scale(1.125);
+//     -moz-transform: scale(1.125);
+//     transform: scale(1.125);
+//     -webkit-transform-origin: top;
+//     -moz-transform-origin: top;
+//     transform-origin: top;
+//     overflow-x: hidden;
+//   }
+//   body {
+//     overflow-x: hidden;
+//   }
+// }
+
+/* End of @media only screen and (min-width: 619px) and (max-width: 1023px) */

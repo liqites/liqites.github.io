@@ -1,0 +1,79 @@
+@media only screen and (min-width: 1024px) {
+  .reading-list-container {
+    width: 45em;
+    margin: 0 auto;
+    padding-top: 126px;
+    /*
+		Calculate min-height for the sticky footer
+		footer margin-top = 90px;
+	*/
+    min-height: calc(100% - 90px - 126px);
+    /*====== Side navigation ======*/
+    /*.nav-side {
+		position: relative;
+		width: 5em;
+		float: left;
+		-webkit-user-select: none;
+		-moz-user-select: none;
+			-ms-user-select: none;
+	}
+	
+	.nav-side--active-indicator {
+		display: block;
+		position: absolute;
+		right: 0px;
+		height: 44px;
+		width: 0px;
+		border-right: 1px solid #333333;
+		z-index: 100;
+		-webkit-transition: -webkit-transform ease-in-out 0.35s;
+		-moz-transition:    -moz-transform ease-in-out 0.35s;
+				transition:         transform ease-in-out 0.35s;
+	}
+	
+	.reading-list-nav {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		border-right: 1px solid #e5e5e5;
+	}
+	
+	.reading-list-nav-item {
+		font-size: 12px;
+		color: #b3b3b3;
+		line-height: 1;
+		text-align: right;
+		height: 44px;
+	}
+	
+	.reading-list-nav-item a {
+		display: block;
+		padding: 16px 18px 16px 0px;
+		color: #b3b3b3;
+		text-decoration: none;
+		cursor: pointer;
+		-webkit-transition: color ease 0.5s;
+		-moz-transition: color ease 0.5s;
+				transition: color ease 0.5s;
+	}
+	
+	.reading-list-nav-item a:hover {
+		color: #333333;
+		-webkit-transition: color ease 0.5s;
+		-moz-transition: color ease 0.5s;
+				transition: color ease 0.5s;
+	}
+	
+	.reading-list-nav-item--active a {
+		color: #333333 !important;
+		font-weight: 600 !important;
+	}*/
+    /*====== Side navigation END ======*/
+    /*====== Post list styles ======*/
+    .reading-list {
+      float: left;
+      margin: -45px 0px 0px 36px;
+    }
+    /*====== Post list styles END ======*/
+  }
+}
