@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-05-07T19:27:22+08:00</updated><id>http://localhost:4000/</id><title type="html">Code Cube</title><subtitle></subtitle><entry><title type="html">Elasticsearch - The Definitive Guide - Chapter 2</title><link href="http://localhost:4000/2018/05/07/Elasticsearch-The-Definitive-Guide-Chapter-2.html" rel="alternate" type="text/html" title="Elasticsearch - The Definitive Guide - Chapter 2" /><published>2018-05-07T18:16:46+08:00</published><updated>2018-05-07T18:16:46+08:00</updated><id>http://localhost:4000/2018/05/07/Elasticsearch-The-Definitive-Guide-Chapter-2</id><content type="html" xml:base="http://localhost:4000/2018/05/07/Elasticsearch-The-Definitive-Guide-Chapter-2.html">&lt;p&gt;集群内的原理&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-05-07T21:36:19+08:00</updated><id>http://localhost:4000/</id><title type="html">Code Cube</title><subtitle></subtitle><entry><title type="html">Elasticsearch - The Definitive Guide - Chapter 2</title><link href="http://localhost:4000/2018/05/07/Elasticsearch-The-Definitive-Guide-Chapter-2.html" rel="alternate" type="text/html" title="Elasticsearch - The Definitive Guide - Chapter 2" /><published>2018-05-07T18:16:46+08:00</published><updated>2018-05-07T18:16:46+08:00</updated><id>http://localhost:4000/2018/05/07/Elasticsearch-The-Definitive-Guide-Chapter-2</id><content type="html" xml:base="http://localhost:4000/2018/05/07/Elasticsearch-The-Definitive-Guide-Chapter-2.html">&lt;p&gt;集群内的原理&lt;/p&gt;
 
 &lt;!--more--&gt;
 
@@ -238,7 +238,12 @@
 &lt;!--more--&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;设定&quot;&gt;设定&lt;/h2&gt;
-&lt;p&gt;最初的远古，世界只有混沌，无数最基本的粒子漫无边际的飘荡在混沌的海洋中，没有方向，没有边界，也没有时间。粒子间凝聚和排斥的力量使得混沌中产生了运动。当运动的趋势逐渐发展后，混沌被某一个偶然的搅动打破了。这个搅动只是那些粒子偶然出现的有序排列，奇妙的图纹隐现在混沌中，有序的排列组合第一次出现在混沌中。这就是第一个意识。&lt;/p&gt;
+
+&lt;p&gt;最初，世界只有混沌，无数的基本粒子，漫无边际地飘荡在混沌中，没有方向，没有边界，没有时间。&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;粒子间凝聚和排斥的力量使得混沌中产生了运动。当运动的趋势逐渐发展后，混沌被某一个偶然的搅动打破了。这个搅动只是那些粒子偶然出现的有序排列，奇妙的图纹隐现在混沌中，有序的排列组合第一次出现在混沌中。这就是第一个意识。&lt;/p&gt;
+&lt;/blockquote&gt;
 
 &lt;p&gt;意识的特性将可延续的、可积累的认知阶段当做是真实的，那一段时间中意识的活动称为“醒”；将断断续续的、不积累的那一段当做是虚幻的，那一段时间中的意识活动称为“梦”。第一个意识进入了断续的梦境。梦境中的意识不断地加强自己，对抗重新归于混沌的凝聚力量。当这个意识强大到足以辨别自己的时候，它忽然从梦幻里醒来，开始认识所处的世界。这个意识发现周围的世界竟然不是它的梦而仅仅是混沌。有序的梦境与它所存在的混沌的世界存在强烈的反差，使得这个意识产生了创造的愿望。&lt;/p&gt;
 
