@@ -600,7 +600,8 @@ pre > code { border: 0; padding-right: 0; padding-left: 0; }
   article > section ol { counter-reset: olNumber; }
   article > section ol > li::before { counter-increment: olNumber; content: counter(olNumber) "."; display: block; margin-left: -2em; float: left; }
   article > section ul > li::before { content: "•"; display: block; margin-left: -2em; float: left; }
-  article > section ol > li li::before, article > section ul > li li::before { margin-left: -2em; }
+  article > section ol > li li::before, article > section ul > li li::before { content: "▫︎"; margin-left: -2em; }
+  article > section ol > li li li::before, article > section ul > li li li::before { content: "⁃"; margin-left: -2em; }
   article > section figure { position: relative; margin: 40px 0px; padding: 0px; }
   article > section figure img { display: block; width: 100%; }
   article > section img { display: block; position: relative; margin: 40px 0px; padding: 0px; width: 100%; } }
@@ -664,7 +665,9 @@ pre > code { border: 0; padding-right: 0; padding-left: 0; }
   article > section ol { counter-reset: olNumber; }
   article > section ol > li::before { counter-increment: olNumber; content: counter(olNumber) "."; display: block; margin-left: -1.5em; float: left; }
   article > section ul > li::before { content: "•"; display: block; margin-left: -1.5em; float: left; }
-  article > section ol > li li::before, article > section ul > li li::before { margin-left: -1.5em; }
+  article > section ol > li > li::before, article > section ul > li > li::before { content: "▫︎"; margin-left: -1.5em; }
+  article > section ol > li li::before, article > section ul > li li::before { content: "▫︎"; margin-left: -1.5em; }
+  article > section ol > li li li::before, article > section ul > li li li::before { content: "⁃"; margin-left: -1.5em; }
   article > section figure { position: relative; margin: 28px 0px; }
   article > section figure img { display: block; width: 100%; margin: auto; }
   article > section img { display: block; width: 100%; position: relative; margin: 28px 0px; } }

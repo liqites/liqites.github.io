@@ -1,4 +1,35 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-05-07T15:41:14+08:00</updated><id>http://localhost:4000/</id><title type="html">Code Cube</title><subtitle></subtitle><entry><title type="html">九州</title><link href="http://localhost:4000/%E4%B9%9D%E5%B7%9E/2018/05/07/nine-continents.html" rel="alternate" type="text/html" title="九州" /><published>2018-05-07T00:00:00+08:00</published><updated>2018-05-07T00:00:00+08:00</updated><id>http://localhost:4000/%E4%B9%9D%E5%B7%9E/2018/05/07/nine-continents</id><content type="html" xml:base="http://localhost:4000/%E4%B9%9D%E5%B7%9E/2018/05/07/nine-continents.html">&lt;p&gt;九州设定
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-05-07T17:05:43+08:00</updated><id>http://localhost:4000/</id><title type="html">Code Cube</title><subtitle></subtitle><entry><title type="html">Notes of Elasticsearch - The Definitive Guide</title><link href="http://localhost:4000/2018/05/07/Notes-of-Elasticsearch-The-Definitive-Guide.html" rel="alternate" type="text/html" title="Notes of Elasticsearch - The Definitive Guide" /><published>2018-05-07T16:50:10+08:00</published><updated>2018-05-07T16:50:10+08:00</updated><id>http://localhost:4000/2018/05/07/Notes-of-Elasticsearch:-The-Definitive-Guide</id><content type="html" xml:base="http://localhost:4000/2018/05/07/Notes-of-Elasticsearch-The-Definitive-Guide.html">&lt;p&gt;Elasticsearch: 权威指南笔记
+&lt;!--more--&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Elasticsearch 不仅仅是 Lucene，并且也不仅仅只是一个全文搜索引擎。 它可以被下面这样准确的形容：&lt;/p&gt;
+
+  &lt;p&gt;一个分布式的实时文档存储，每个字段 可以被索引与搜索
+一个分布式实时分析搜索引擎
+能胜任上百个服务节点的扩展，并支持 PB 级别的结构化或者非结构化数据&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;与-elasticsearch-交互&quot;&gt;与 Elasticsearch 交互&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;节点客户端（Node client）
+    &lt;ul&gt;
+      &lt;li&gt;节点客户端作为一个非数据节点加入到本地集群中。换句话说，它本身不保存任何数据，但是它知道数据在集群中的哪个节点中，并且可以把请求转发到正确的节点。&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;传输客户端（Transport client）
+    &lt;ul&gt;
+      &lt;li&gt;轻量级的传输客户端可以将请求发送到远程集群。它本身不加入集群，但是它可以将请求转发到集群中的一个节点上。&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;两个 Java 客户端都是通过 9300 端口并使用 Elasticsearch 的原生 传输 协议和集群交互。集群中的节点通过端口 9300 彼此通信。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;所有其他语言可以使用 RESTful API 通过端口 9200 和 Elasticsearch 进行通信。&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;curl &lt;span class=&quot;nt&quot;&gt;-X&lt;/span&gt;&amp;lt;VERB&amp;gt; &lt;span class=&quot;s1&quot;&gt;'&amp;lt;PROTOCOL&amp;gt;://&amp;lt;HOST&amp;gt;:&amp;lt;PORT&amp;gt;/&amp;lt;PATH&amp;gt;?&amp;lt;QUERY_STRING&amp;gt;'&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&amp;lt;BODY&amp;gt;'&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Tesla Lee</name></author><summary type="html">Elasticsearch: 权威指南笔记</summary></entry><entry><title type="html">九州</title><link href="http://localhost:4000/%E4%B9%9D%E5%B7%9E/2018/05/07/nine-continents.html" rel="alternate" type="text/html" title="九州" /><published>2018-05-07T00:00:00+08:00</published><updated>2018-05-07T00:00:00+08:00</updated><id>http://localhost:4000/%E4%B9%9D%E5%B7%9E/2018/05/07/nine-continents</id><content type="html" xml:base="http://localhost:4000/%E4%B9%9D%E5%B7%9E/2018/05/07/nine-continents.html">&lt;p&gt;九州设定
 &lt;!--more--&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;设定&quot;&gt;设定&lt;/h2&gt;
@@ -549,6 +580,4 @@
 
 &lt;p&gt;但是这个“尽力”并不是精疲力劲的意思，精疲力劲实际上意味着透支未来，以一种低效的方式去话费未来的时间。尽力，可以认为是相对努力，已目前能达到的最大状态工作，但又不至于过于疲惫。&lt;/p&gt;
 
-&lt;p&gt;所以，决定“此时此刻”的是未来，但创造未来的，确实“此时此刻”。&lt;/p&gt;</content><author><name>Tesla Lee</name></author><summary type="html">对于一个人而言，过去的生活到底意味着什么？时间又是什么？</summary></entry><entry><title type="html">Deathland Studio 开张</title><link href="http://localhost:4000/deathlandstudio/2018/01/01/deathland-studio.html" rel="alternate" type="text/html" title="Deathland Studio 开张" /><published>2018-01-01T15:26:33+08:00</published><updated>2018-01-01T15:26:33+08:00</updated><id>http://localhost:4000/deathlandstudio/2018/01/01/deathland-studio</id><content type="html" xml:base="http://localhost:4000/deathlandstudio/2018/01/01/deathland-studio.html">&lt;p&gt;今天 2018 年的第一天，Deathland Studio 工作室正式成立。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/deathland_studio_logo.jpeg&quot; alt=&quot;Logo&quot; /&gt;&lt;/p&gt;</content><author><name>Tesla Lee</name></author><summary type="html">今天 2018 年的第一天，Deathland Studio 工作室正式成立。</summary></entry></feed>
+&lt;p&gt;所以，决定“此时此刻”的是未来，但创造未来的，确实“此时此刻”。&lt;/p&gt;</content><author><name>Tesla Lee</name></author><summary type="html">对于一个人而言，过去的生活到底意味着什么？时间又是什么？</summary></entry></feed>
