@@ -86,8 +86,84 @@
 </ul>
 
 <blockquote>
-  <p>查询语句的行为会因为在 <code class="highlighter-rouge">query context</code> 或者 <code class="highlighter-rouge">filter context</code> 中使用的不同而结果不同。</p>
+  <p>Query clauses behave differently depending on whether they are used in query context or filter context.</p>
 </blockquote>
+
+<h2 id="query-and-filter-context">Query and filter context</h2>
+
+<p>The behaviour of a query clause depends on whether it is used in query context or in filter context:</p>
+
+<h3 id="query-context">Query context</h3>
+<p>A query clause used in query context answers the question “<strong>How well does this document match this query clause?</strong>”.The query clause also calculates a _score representing how well the document matches, relative to other documents.</p>
+
+<h3 id="filter-context">Filter Context</h3>
+<p>In filter context, a query clause answers the question “<strong>Does this document match this query clause?</strong>”</p>
+
+<p>Frequently used filters will be cached automatically by Elasticsearch, to speed up performance.</p>
+
+<p>Filter context is in effect whenever a query clause is passed to a filter parameter, such as the <code class="highlighter-rouge">filter</code> or <code class="highlighter-rouge">must_not</code> parameters in the <code class="highlighter-rouge">bool</code> query, the filter parameter in the <code class="highlighter-rouge">constant_score</code> query, or the <code class="highlighter-rouge">filter</code> aggregation.</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">GET</span><span class="w"> </span><span class="err">_search</span><span class="w">
+</span><span class="p">{</span><span class="w">
+  </span><span class="s2">"query"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"bool"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"must"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w"> </span><span class="s2">"match"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s2">"title"</span><span class="p">:</span><span class="w">   </span><span class="s2">"Search"</span><span class="w">        </span><span class="p">}},</span><span class="w">
+        </span><span class="p">{</span><span class="w"> </span><span class="s2">"match"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s2">"content"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Elasticsearch"</span><span class="w"> </span><span class="p">}}</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+      </span><span class="s2">"filter"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w"> </span><span class="s2">"term"</span><span class="p">:</span><span class="w">  </span><span class="p">{</span><span class="w"> </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"published"</span><span class="w"> </span><span class="p">}},</span><span class="w">
+        </span><span class="p">{</span><span class="w"> </span><span class="s2">"range"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s2">"publish_date"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s2">"gte"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-01-01"</span><span class="w"> </span><span class="p">}}}</span><span class="w">
+      </span><span class="p">]</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<ul>
+  <li><code class="highlighter-rouge">query</code> 指 <code class="highlighter-rouge">query context</code></li>
+  <li><code class="highlighter-rouge">bool</code> 和两个 <code class="highlighter-rouge">match</code> 是在 <code class="highlighter-rouge">query context</code> 使用，来评价每个 <code class="highlighter-rouge">document</code> 的评分</li>
+  <li><code class="highlighter-rouge">filter</code> 表示 <code class="highlighter-rouge">filter context</code></li>
+  <li><code class="highlighter-rouge">term</code> 和 <code class="highlighter-rouge">range</code> 语句是在 <code class="highlighter-rouge">filter context</code> 中使用，他们用来筛选 <code class="highlighter-rouge">document</code></li>
+</ul>
+
+<blockquote>
+  <p>问题：<code class="highlighter-rouge">Filter context</code> 是在计算 score 前执行还是在计算 score 后执行？</p>
+</blockquote>
+
+<h2 id="match-all-query">Match all query</h2>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="s2">"match_all"</span><span class="p">:</span><span class="w"> </span><span class="p">{}}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>匹配所有的 <code class="highlighter-rouge">document</code>，并且给它们一个默认分数 <code class="highlighter-rouge">1.0</code></p>
+
+<h2 id="full-text-queries">Full text queries</h2>
+<p>The high-level full text queries are usually used for running full text queries on full text fields like the body of an email.They understand how the field being queried is analyzed and will apply each field’s analyzer (or search_analyzer) to the query string before executing.</p>
+
+<ul>
+  <li><code class="highlighter-rouge">match</code> query: 单个基础全文搜索，包括模糊、短语或近似查询</li>
+  <li><code class="highlighter-rouge">multi_match</code> query: 多个字段的 <code class="highlighter-rouge">match</code> 查询</li>
+  <li><code class="highlighter-rouge">common_terms</code> query: 更特殊的查询，用于处理一些不常用的词</li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td><code class="highlighter-rouge">query_string</code> query: Supports the compact Lucene query string syntax, allowing you to specify AND</td>
+          <td>OR</td>
+          <td>NOT conditions and multi-field search within a single query string. For expert users only.</td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li><code class="highlighter-rouge">simple_query_string</code>: A simpler, more robust version of the query_string syntax suitable for exposing directly to users.</li>
+</ul>
+
+<h3 id="match-query">Match Query</h3>
+
+<h4 id="boolean">boolean</h4>
+
+<p>默认的 <code class="highlighter-rouge">match</code> 查询是 <code class="highlighter-rouge">boolean</code></p>
 
     </section>
   </article>

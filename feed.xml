@@ -1,4 +1,77 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-05-07T14:14:04+08:00</updated><id>http://localhost:4000/</id><title type="html">Code Cube</title><subtitle></subtitle><entry><title type="html">Query DSL of Elasticsearch</title><link href="http://localhost:4000/elasticsearch/2018/05/04/query-dsl-of-elasticsearch.html" rel="alternate" type="text/html" title="Query DSL of Elasticsearch" /><published>2018-05-04T00:00:00+08:00</published><updated>2018-05-04T00:00:00+08:00</updated><id>http://localhost:4000/elasticsearch/2018/05/04/query-dsl-of-elasticsearch</id><content type="html" xml:base="http://localhost:4000/elasticsearch/2018/05/04/query-dsl-of-elasticsearch.html">&lt;p&gt;Elasticsearch 查询 DSL 基础知识&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-05-07T15:41:14+08:00</updated><id>http://localhost:4000/</id><title type="html">Code Cube</title><subtitle></subtitle><entry><title type="html">九州</title><link href="http://localhost:4000/%E4%B9%9D%E5%B7%9E/2018/05/07/nine-continents.html" rel="alternate" type="text/html" title="九州" /><published>2018-05-07T00:00:00+08:00</published><updated>2018-05-07T00:00:00+08:00</updated><id>http://localhost:4000/%E4%B9%9D%E5%B7%9E/2018/05/07/nine-continents</id><content type="html" xml:base="http://localhost:4000/%E4%B9%9D%E5%B7%9E/2018/05/07/nine-continents.html">&lt;p&gt;九州设定
+&lt;!--more--&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;设定&quot;&gt;设定&lt;/h2&gt;
+&lt;p&gt;最初的远古，世界只有混沌，无数最基本的粒子漫无边际的飘荡在混沌的海洋中，没有方向，没有边界，也没有时间。粒子间凝聚和排斥的力量使得混沌中产生了运动。当运动的趋势逐渐发展后，混沌被某一个偶然的搅动打破了。这个搅动只是那些粒子偶然出现的有序排列，奇妙的图纹隐现在混沌中，有序的排列组合第一次出现在混沌中。这就是第一个意识。&lt;/p&gt;
+
+&lt;p&gt;意识的特性将可延续的、可积累的认知阶段当做是真实的，那一段时间中意识的活动称为“醒”；将断断续续的、不积累的那一段当做是虚幻的，那一段时间中的意识活动称为“梦”。第一个意识进入了断续的梦境。梦境中的意识不断地加强自己，对抗重新归于混沌的凝聚力量。当这个意识强大到足以辨别自己的时候，它忽然从梦幻里醒来，开始认识所处的世界。这个意识发现周围的世界竟然不是它的梦而仅仅是混沌。有序的梦境与它所存在的混沌的世界存在强烈的反差，使得这个意识产生了创造的愿望。&lt;/p&gt;
+
+&lt;p&gt;在世界初始的那一段时间里，第一个意识不断的加强自己，对抗重新归于混沌的凝聚力量。&lt;/p&gt;
+
+&lt;p&gt;这个意识被称作世界的第一个主神“墟”。而混沌本身则产生了对应的概念上的主神“荒”。荒代表无所不在的强大凝聚力，可是他没有意识。&lt;/p&gt;
+
+&lt;p&gt;墟是精神的主神，荒是物质的主神。&lt;/p&gt;
+
+&lt;p&gt;荒想要重新回复到混沌状态，而墟不允许荒破坏他的创造，于是他奋力撞击在混沌的中心，从而导致整个混沌产生了空前绝后的大爆炸，荒的一部分身体被震碎为尘埃，他的主体却被凝聚力牢牢地抓住，形成了一个被称作大地的球体。而墟在撞击中完全粉碎，他精神的碎片化成无数星辰瞬间飞出了混沌，却被凝聚的力量抓在环绕在球体的周围。星辰的精神也成为第一批有独立意识的次神。&lt;/p&gt;
+
+&lt;p&gt;次神是墟的碎片，他们微弱地回忆起主神墟的意志是阻止世界重新凝聚为混沌。可是荒所具有的强大凝聚力依然在吸引周围的物质碎片。这一力量最终将会导致星辰诸神被吸聚回主神荒，回到混沌状态。&lt;/p&gt;
+
+&lt;p&gt;惊恐的诸神于是在荒的身体上施展一个法术，他们用荒的碎片中的精华物质制造了捆绑束缚荒的封印，布满主神荒的身体，以阻止荒的凝聚，并且不惜把自己的一部分精神加入这些封印图纹，使之具有意识。这就是生命的诞生。&lt;/p&gt;
+
+&lt;p&gt;这些生物中，得到了较多精神力的，逐渐发展成为具有文明的智慧种族。&lt;/p&gt;
+
+&lt;p&gt;诸神明白只有精神的力量才能阻止荒的凝聚，因此他们把这些生物放置在大地的四方，并赋予它们自由意识所具有的一切矛盾特性：对秩序的向往和争战的本能。诸神希望各种冲突力量阻止这些种族走到一起，从而荒的碎片不会彻底融合，也就不会有新的混沌。&lt;/p&gt;
+
+&lt;p&gt;任何精神体都是矛盾的，墟希望通过最终战争实现一个完全由他意识建立的有序世界，而荒则默默的行使力量把世界重新凝聚成一个无序的混沌整体。当今世界只是墟依照无尽梦幻中的体验而创造的模型，墟从当今的世界中汲取创造的经验，希望战胜荒后建立完美的世界。而荒的唯一目的就是毁灭世界归于混沌。&lt;/p&gt;
+
+&lt;p&gt;精神和物质，混乱和秩序，构成了这个世界的终级冲突，并成为一切生物意识中的烙印。&lt;/p&gt;
+
+&lt;h2 id=&quot;地理&quot;&gt;地理&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/九州地图.jpg&quot; alt=&quot;九州地图&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;九州的已知世界由三块大陆组成，按照上古的传说划分为九个州，这正是九州名称的来源。&lt;/p&gt;
+
+&lt;h3 id=&quot;北陆&quot;&gt;北陆&lt;/h3&gt;
+
+&lt;h4 id=&quot;殇州&quot;&gt;殇州&lt;/h4&gt;
+&lt;p&gt;殇州位于北陆西部，二面临海，向北是茫茫雪山冰原的寒冷大陆。东部与翰州以火雷原为界。面积约十万拓。殇州主要分为三大地形带：北部为殇州高原，东起蛮古山脉，西至天池山脉，其中蛮古山脉为北陆最高部分，平均海拔超过1万尺。中部和东部地区地势趋于平缓，长期的剥蚀作用形成了数片广阔而起伏平缓的平原，其间分布有一些小山和丘陵。西南部地区是一条火山带，统称为冰炎地海，分布有数十座较大的火山和更多小型或休眠的火山。更西面在浩瀚洋中分布有火山岛群。
+这是一片冰与火的大陆，相应的气候分布也多变。殇州高原气候寒冷，夏季普遍气温低，降水丰沛，无论冬季还是夏季，都是既能下雨，也能下雪。该地区不适于乔木生长，灌木丛和苔原是殇州高原的常见植被。西南部地热资源丰富，可见到木本植物组成的小林，在背风的地方或热泉附近分布着杂草草甸。中东部的平原区气候状况比瀚州平原略复杂，以森林植被为主，针叶林的分布最为广泛，阔叶树的种类较少，森林草原和草原分布在与瀚州的交界处。&lt;/p&gt;
+
+&lt;h4 id=&quot;瀚州&quot;&gt;瀚州&lt;/h4&gt;
+&lt;p&gt;瀚州位于北陆中部，东连宁州，西接殇州，总面积约十五万拓。西南是涣海，下端指向滁潦海。西部受到殇州高原地形带的影响，平均海拔较高。中部地区地势平坦，一马平川。东部由极宽的天拓大江与中州隔开。西端由霍零江与云州隔开。 瀚州大部分地区降水量不足，森林不能自然生长，以草原为主，自然植被主要是丛生禾草，并混生有多种双子叶杂草。东部彤云山地区则由森林草原逐渐向混交林区过渡。溟朦海位于翰州中部草原，是北陆最大的湖泊，周围形成形成大片的绿州沃野。&lt;/p&gt;
+
+&lt;h4 id=&quot;宁州&quot;&gt;宁州&lt;/h4&gt;
+&lt;p&gt;宁州位于北陆最东部，三面临海，面积约十一万拓，其东南部为丘陵地带，分布森林和森林草原，乌鬼山横越其北，三昧河自此向南入海口时，变成了三条纵横交错的宽阔河道，因为土质和藻类的不同，分别呈青绿，淡紫和绛红三种颜色。宁州西部多为荒漠戈壁，众多破碎的丘陵一路连向虎皮山脉。极西端与瀚州间隔勾弋山，勾弋山高万仞，因为山峰终年积雪，云开雾散之际银光闪闪，又被称为”月亮山脉”，其主峰为北陆最高山。宁州北部多为厚厚的冰川层覆盖，这块巨大冰原的面积几乎相当于四分之一的宁州，主要植被是在短暂的夏季中长满的苔藓和草本植物。&lt;/p&gt;
+
+&lt;h3 id=&quot;东陆&quot;&gt;东陆&lt;/h3&gt;
+&lt;h4 id=&quot;澜州&quot;&gt;澜州&lt;/h4&gt;
+&lt;p&gt;澜州位于东陆东块，东部临海，西接中州，南部与越州为邻。面积约十五万拓。整个澜州形势如弓，销金河如弦横跨南北，东陆最高峰的擎梁山就架在弓脊上。澜州平均海拔超过3000尺，是东陆平均海拔最高的地区，地堑性的中央低地把澜州分割为东北和西南两部。东北的夜北高原是一个地垒性地块，西南与越州交界处由于降水较多，是大片的沼泽地和森林。 整个夜北高原土地凉薄，兼之气候不利，一年中冬季长达5个月，除了寒地的针叶林生长颇速，农作物生长却非常不利，重要的粮食产区仅在西南小部分地域。沼泽地和森林带人迹稀少，树木林冠稠密，层次很多，且多藤本和附生植物。&lt;/p&gt;
+
+&lt;h4 id=&quot;中州&quot;&gt;中州&lt;/h4&gt;
+&lt;p&gt;中州位于东陆的北块，南接宛州，东靠澜州。面积约十五万拓，是东陆第一大州。中州地形以山脉和平原为主，从澜州夜北高原延伸下东西走向的两条隆起带和二条沉降带，隆起带主要为山地地形，沉降带则形成为盆地和平原。 中州的风向、降水均随季节而有明显的更替，自然植被以森林为主，既有冷湿性森林、森林草原景观，又有半湿润半干旱夏绿林、森林草原景观，混有落叶阔叶林。&lt;/p&gt;
+
+&lt;h4 id=&quot;宛州&quot;&gt;宛州&lt;/h4&gt;
+&lt;p&gt;宛州位于东陆西块，北与中州交界，东与越州相邻。面积约十二万拓。宛州地形受到建水与西江以及诸多小河流的切割，大部分呈丘陵状，只有与中州交接的平原才是宛州的平坦部分。宛州东部受到雷眼山脉和北邙山脉影响，地势较复杂，雁返湖是宛州大部分河流的发源地。 宛州气候温和的，冬不太冷，夏不太热，降水适中，大多数地区没有干旱的感觉。这种气候条件适宜于木本植物的生长，阔叶林是本区的地带性植被。&lt;/p&gt;
+
+&lt;h4 id=&quot;越州&quot;&gt;越州&lt;/h4&gt;
+&lt;p&gt;越州位于东陆南块，面积约十二万拓，在东陆四州中列于第三。越州中部和西部地区以丘陵和低山为主，雷眼、北邙山脉诸多延伸山脉呈绵延不断的岭脊，主要是块状山，峰峦耸立，山坡陡峭，岩石裸露，地形十分崎岖，山岭间错纵地分布着面积不大的山谷和盆地，盆地中水源丰富，东部和北部沿岸为海岸平原，沿海沙洲、潟湖较多，东南部还有珊瑚礁海岸。 越州的基本植被是硬叶常绿群落，不限于分布在沿海和平原地区，并沿河谷深入到山地内部，由于越州是人口最稀少的地区，全境森林覆盖率达到60％至70％。&lt;/p&gt;
+
+&lt;h3 id=&quot;西陆&quot;&gt;西陆&lt;/h3&gt;
+&lt;h4 id=&quot;云州&quot;&gt;云州&lt;/h4&gt;
+&lt;p&gt;面积均约十二万拓，与雷州以中部被称为沉沙海的海湾为界。由于云州西部为高耸的赤华山脉，东部有丘陵群，地势较高，天高云远，所以中部有连片沙漠，与山谷交错着。&lt;/p&gt;
+
+&lt;h3 id=&quot;雷州&quot;&gt;雷州&lt;/h3&gt;
+&lt;p&gt;面积约十三万拓。与云州截然不同，气候调和，植物茂盛多样，两边临海，气候多雨潮湿，森林茂密。&lt;/p&gt;
+
+&lt;h2 id=&quot;种族&quot;&gt;种族&lt;/h2&gt;
+
+&lt;h3 id=&quot;人族&quot;&gt;人族&lt;/h3&gt;
+&lt;h3 id=&quot;羽族&quot;&gt;羽族&lt;/h3&gt;
+&lt;h3 id=&quot;夸父&quot;&gt;夸父&lt;/h3&gt;
+&lt;h3 id=&quot;河络&quot;&gt;河络&lt;/h3&gt;
+&lt;h3 id=&quot;鲛人&quot;&gt;鲛人&lt;/h3&gt;
+&lt;h3 id=&quot;魅族&quot;&gt;魅族&lt;/h3&gt;</content><author><name>Tesla Lee</name></author><summary type="html">九州设定</summary></entry><entry><title type="html">Query DSL of Elasticsearch</title><link href="http://localhost:4000/elasticsearch/2018/05/04/query-dsl-of-elasticsearch.html" rel="alternate" type="text/html" title="Query DSL of Elasticsearch" /><published>2018-05-04T00:00:00+08:00</published><updated>2018-05-04T00:00:00+08:00</updated><id>http://localhost:4000/elasticsearch/2018/05/04/query-dsl-of-elasticsearch</id><content type="html" xml:base="http://localhost:4000/elasticsearch/2018/05/04/query-dsl-of-elasticsearch.html">&lt;p&gt;Elasticsearch 查询 DSL 基础知识&lt;/p&gt;
 
 &lt;!--more--&gt;
 
@@ -10,8 +83,84 @@
 &lt;/ul&gt;
 
 &lt;blockquote&gt;
-  &lt;p&gt;查询语句的行为会因为在 &lt;code class=&quot;highlighter-rouge&quot;&gt;query context&lt;/code&gt; 或者 &lt;code class=&quot;highlighter-rouge&quot;&gt;filter context&lt;/code&gt; 中使用的不同而结果不同。&lt;/p&gt;
-&lt;/blockquote&gt;</content><author><name>Tesla Lee</name></author><summary type="html">Elasticsearch 查询 DSL 基础知识</summary></entry><entry><title type="html">Basic Concept of Elasticsearch</title><link href="http://localhost:4000/elasticsearch/2018/05/03/basic-concept-of-elasticsearch.html" rel="alternate" type="text/html" title="Basic Concept of Elasticsearch" /><published>2018-05-03T00:00:00+08:00</published><updated>2018-05-03T00:00:00+08:00</updated><id>http://localhost:4000/elasticsearch/2018/05/03/basic-concept-of-elasticsearch</id><content type="html" xml:base="http://localhost:4000/elasticsearch/2018/05/03/basic-concept-of-elasticsearch.html">&lt;p&gt;Elasticsearch 中的几个基本概念&lt;/p&gt;
+  &lt;p&gt;Query clauses behave differently depending on whether they are used in query context or filter context.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;query-and-filter-context&quot;&gt;Query and filter context&lt;/h2&gt;
+
+&lt;p&gt;The behaviour of a query clause depends on whether it is used in query context or in filter context:&lt;/p&gt;
+
+&lt;h3 id=&quot;query-context&quot;&gt;Query context&lt;/h3&gt;
+&lt;p&gt;A query clause used in query context answers the question “&lt;strong&gt;How well does this document match this query clause?&lt;/strong&gt;”.The query clause also calculates a _score representing how well the document matches, relative to other documents.&lt;/p&gt;
+
+&lt;h3 id=&quot;filter-context&quot;&gt;Filter Context&lt;/h3&gt;
+&lt;p&gt;In filter context, a query clause answers the question “&lt;strong&gt;Does this document match this query clause?&lt;/strong&gt;”&lt;/p&gt;
+
+&lt;p&gt;Frequently used filters will be cached automatically by Elasticsearch, to speed up performance.&lt;/p&gt;
+
+&lt;p&gt;Filter context is in effect whenever a query clause is passed to a filter parameter, such as the &lt;code class=&quot;highlighter-rouge&quot;&gt;filter&lt;/code&gt; or &lt;code class=&quot;highlighter-rouge&quot;&gt;must_not&lt;/code&gt; parameters in the &lt;code class=&quot;highlighter-rouge&quot;&gt;bool&lt;/code&gt; query, the filter parameter in the &lt;code class=&quot;highlighter-rouge&quot;&gt;constant_score&lt;/code&gt; query, or the &lt;code class=&quot;highlighter-rouge&quot;&gt;filter&lt;/code&gt; aggregation.&lt;/p&gt;
+
+&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;err&quot;&gt;GET&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;_search&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;query&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;bool&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+      &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;must&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;match&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;title&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;   &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Search&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;        &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;match&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;content&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Elasticsearch&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+      &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+      &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;filter&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;term&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;status&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;published&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;range&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;publish_date&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;gte&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;2015-01-01&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}}}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+      &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;query&lt;/code&gt; 指 &lt;code class=&quot;highlighter-rouge&quot;&gt;query context&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;bool&lt;/code&gt; 和两个 &lt;code class=&quot;highlighter-rouge&quot;&gt;match&lt;/code&gt; 是在 &lt;code class=&quot;highlighter-rouge&quot;&gt;query context&lt;/code&gt; 使用，来评价每个 &lt;code class=&quot;highlighter-rouge&quot;&gt;document&lt;/code&gt; 的评分&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;filter&lt;/code&gt; 表示 &lt;code class=&quot;highlighter-rouge&quot;&gt;filter context&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;term&lt;/code&gt; 和 &lt;code class=&quot;highlighter-rouge&quot;&gt;range&lt;/code&gt; 语句是在 &lt;code class=&quot;highlighter-rouge&quot;&gt;filter context&lt;/code&gt; 中使用，他们用来筛选 &lt;code class=&quot;highlighter-rouge&quot;&gt;document&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;问题：&lt;code class=&quot;highlighter-rouge&quot;&gt;Filter context&lt;/code&gt; 是在计算 score 前执行还是在计算 score 后执行？&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;match-all-query&quot;&gt;Match all query&lt;/h2&gt;
+
+&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;match_all&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{}}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;匹配所有的 &lt;code class=&quot;highlighter-rouge&quot;&gt;document&lt;/code&gt;，并且给它们一个默认分数 &lt;code class=&quot;highlighter-rouge&quot;&gt;1.0&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;full-text-queries&quot;&gt;Full text queries&lt;/h2&gt;
+&lt;p&gt;The high-level full text queries are usually used for running full text queries on full text fields like the body of an email.They understand how the field being queried is analyzed and will apply each field’s analyzer (or search_analyzer) to the query string before executing.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;match&lt;/code&gt; query: 单个基础全文搜索，包括模糊、短语或近似查询&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;multi_match&lt;/code&gt; query: 多个字段的 &lt;code class=&quot;highlighter-rouge&quot;&gt;match&lt;/code&gt; 查询&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;common_terms&lt;/code&gt; query: 更特殊的查询，用于处理一些不常用的词&lt;/li&gt;
+  &lt;li&gt;
+    &lt;table&gt;
+      &lt;tbody&gt;
+        &lt;tr&gt;
+          &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;query_string&lt;/code&gt; query: Supports the compact Lucene query string syntax, allowing you to specify AND&lt;/td&gt;
+          &lt;td&gt;OR&lt;/td&gt;
+          &lt;td&gt;NOT conditions and multi-field search within a single query string. For expert users only.&lt;/td&gt;
+        &lt;/tr&gt;
+      &lt;/tbody&gt;
+    &lt;/table&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;simple_query_string&lt;/code&gt;: A simpler, more robust version of the query_string syntax suitable for exposing directly to users.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;match-query&quot;&gt;Match Query&lt;/h3&gt;
+
+&lt;h4 id=&quot;boolean&quot;&gt;boolean&lt;/h4&gt;
+
+&lt;p&gt;默认的 &lt;code class=&quot;highlighter-rouge&quot;&gt;match&lt;/code&gt; 查询是 &lt;code class=&quot;highlighter-rouge&quot;&gt;boolean&lt;/code&gt;&lt;/p&gt;</content><author><name>Tesla Lee</name></author><summary type="html">Elasticsearch 查询 DSL 基础知识</summary></entry><entry><title type="html">Basic Concept of Elasticsearch</title><link href="http://localhost:4000/elasticsearch/2018/05/03/basic-concept-of-elasticsearch.html" rel="alternate" type="text/html" title="Basic Concept of Elasticsearch" /><published>2018-05-03T00:00:00+08:00</published><updated>2018-05-03T00:00:00+08:00</updated><id>http://localhost:4000/elasticsearch/2018/05/03/basic-concept-of-elasticsearch</id><content type="html" xml:base="http://localhost:4000/elasticsearch/2018/05/03/basic-concept-of-elasticsearch.html">&lt;p&gt;Elasticsearch 中的几个基本概念&lt;/p&gt;
 
 &lt;!--more--&gt;
 
@@ -320,7 +469,11 @@
 
 &lt;p&gt;它瞬间把我拉回了童年，那个在一群人在家里，围着游戏机一起通关的场景。&lt;/p&gt;
 
-&lt;p&gt;之所以喜悦是因为那种久违的感觉，而忧伤是，你知道永远也不会再回去了。&lt;/p&gt;</content><author><name>Tesla Lee</name></author><summary type="html">看完《头号玩家》后，有一个问题一直在脑海里盘旋： 『到底是什么触动了我，让我在看完电影后感到那么喜悦却又有点忧伤？』</summary></entry><entry><title type="html">My New Rules of Life</title><link href="http://localhost:4000/2018/03/02/my-new-rules-of-life.html" rel="alternate" type="text/html" title="My New Rules of Life" /><published>2018-03-02T13:56:00+08:00</published><updated>2018-03-02T13:56:00+08:00</updated><id>http://localhost:4000/2018/03/02/my-new-rules-of-life</id><content type="html" xml:base="http://localhost:4000/2018/03/02/my-new-rules-of-life.html">&lt;h4 id=&quot;things-i-wont-do-in-the-future&quot;&gt;Things I won’t do in the future&lt;/h4&gt;
+&lt;p&gt;之所以喜悦是因为那种久违的感觉，而忧伤是，你知道永远也不会再回去了。&lt;/p&gt;</content><author><name>Tesla Lee</name></author><summary type="html">看完《头号玩家》后，有一个问题一直在脑海里盘旋： 『到底是什么触动了我，让我在看完电影后感到那么喜悦却又有点忧伤？』</summary></entry><entry><title type="html">My New Rules of Life</title><link href="http://localhost:4000/2018/03/02/my-new-rules-of-life.html" rel="alternate" type="text/html" title="My New Rules of Life" /><published>2018-03-02T13:56:00+08:00</published><updated>2018-03-02T13:56:00+08:00</updated><id>http://localhost:4000/2018/03/02/my-new-rules-of-life</id><content type="html" xml:base="http://localhost:4000/2018/03/02/my-new-rules-of-life.html">&lt;p&gt;Rules&lt;/p&gt;
+
+&lt;!--more--&gt;
+
+&lt;h4 id=&quot;things-i-wont-do-in-the-future&quot;&gt;Things I won’t do in the future&lt;/h4&gt;
 
 &lt;p&gt;1 Alchohol.&lt;/p&gt;
 
@@ -336,7 +489,7 @@
 
 &lt;p&gt;2 Sleep early and get up early.&lt;/p&gt;
 
-&lt;p&gt;3 Reading.&lt;/p&gt;</content><author><name>Tesla Lee</name></author><summary type="html">Things I won’t do in the future</summary></entry><entry><title type="html">两部电影和下一步</title><link href="http://localhost:4000/2018/01/10/recent.html" rel="alternate" type="text/html" title="两部电影和下一步" /><published>2018-01-10T00:15:00+08:00</published><updated>2018-01-10T00:15:00+08:00</updated><id>http://localhost:4000/2018/01/10/recent</id><content type="html" xml:base="http://localhost:4000/2018/01/10/recent.html">&lt;p&gt;最近看了两部有意思的电影。《一日情人》和《三块广告牌》。&lt;/p&gt;
+&lt;p&gt;3 Reading.&lt;/p&gt;</content><author><name>Tesla Lee</name></author><summary type="html">Rules</summary></entry><entry><title type="html">两部电影和下一步</title><link href="http://localhost:4000/2018/01/10/recent.html" rel="alternate" type="text/html" title="两部电影和下一步" /><published>2018-01-10T00:15:00+08:00</published><updated>2018-01-10T00:15:00+08:00</updated><id>http://localhost:4000/2018/01/10/recent</id><content type="html" xml:base="http://localhost:4000/2018/01/10/recent.html">&lt;p&gt;最近看了两部有意思的电影。《一日情人》和《三块广告牌》。&lt;/p&gt;
 
 &lt;p&gt;《一日情人》是一部法国电影。工作后，就一直没有心思停下来看这样“絮絮叨叨”的电影了，好像，电影里所探讨的问题，琐碎得遥远。&lt;/p&gt;
 
@@ -398,14 +551,4 @@
 
 &lt;p&gt;所以，决定“此时此刻”的是未来，但创造未来的，确实“此时此刻”。&lt;/p&gt;</content><author><name>Tesla Lee</name></author><summary type="html">对于一个人而言，过去的生活到底意味着什么？时间又是什么？</summary></entry><entry><title type="html">Deathland Studio 开张</title><link href="http://localhost:4000/deathlandstudio/2018/01/01/deathland-studio.html" rel="alternate" type="text/html" title="Deathland Studio 开张" /><published>2018-01-01T15:26:33+08:00</published><updated>2018-01-01T15:26:33+08:00</updated><id>http://localhost:4000/deathlandstudio/2018/01/01/deathland-studio</id><content type="html" xml:base="http://localhost:4000/deathlandstudio/2018/01/01/deathland-studio.html">&lt;p&gt;今天 2018 年的第一天，Deathland Studio 工作室正式成立。&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/images/deathland_studio_logo.jpeg&quot; alt=&quot;Logo&quot; /&gt;&lt;/p&gt;</content><author><name>Tesla Lee</name></author><summary type="html">今天 2018 年的第一天，Deathland Studio 工作室正式成立。</summary></entry><entry><title type="html">Mac Root Bug</title><link href="http://localhost:4000/mac/2017/12/07/mac-root-bug.html" rel="alternate" type="text/html" title="Mac Root Bug" /><published>2017-12-07T10:11:00+08:00</published><updated>2017-12-07T10:11:00+08:00</updated><id>http://localhost:4000/mac/2017/12/07/mac-root-bug</id><content type="html" xml:base="http://localhost:4000/mac/2017/12/07/mac-root-bug.html">&lt;p&gt;前阵子 Mac 爆出了让人尴尬的安全漏洞：默认情况下，root 用户的密码为空。&lt;/p&gt;
-
-&lt;!-- more --&gt;
-
-&lt;h3 id=&quot;现象&quot;&gt;现象&lt;/h3&gt;
-
-&lt;p&gt;这个漏洞的现象是：在任何地方需要管理员授权时，输入 root 用户名，密码为空，连续输入三次后，就获得了 root 权限。&lt;/p&gt;
-
-&lt;h3 id=&quot;解决办法&quot;&gt;解决办法&lt;/h3&gt;
-
-&lt;p&gt;修改 root 密码的方法，参看这篇 Apple 的&lt;a href=&quot;https://support.apple.com/kb/PH6515?locale=zh_CN&amp;amp;viewlocale=zh_CN&quot;&gt;文章&lt;/a&gt;&lt;/p&gt;</content><author><name>Tesla Lee</name></author><summary type="html">前阵子 Mac 爆出了让人尴尬的安全漏洞：默认情况下，root 用户的密码为空。</summary></entry></feed>
+&lt;p&gt;&lt;img src=&quot;/assets/images/deathland_studio_logo.jpeg&quot; alt=&quot;Logo&quot; /&gt;&lt;/p&gt;</content><author><name>Tesla Lee</name></author><summary type="html">今天 2018 年的第一天，Deathland Studio 工作室正式成立。</summary></entry></feed>
