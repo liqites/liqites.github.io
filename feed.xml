@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-05-08T16:34:30+08:00</updated><id>http://localhost:4000/</id><title type="html">Code Cube</title><subtitle></subtitle><entry><title type="html">Elasticsearch - The Definitive Guide - Chapter 3</title><link href="http://localhost:4000/2018/05/08/Elasticsearch-The-Definitive-Guide-Chapter-3.html" rel="alternate" type="text/html" title="Elasticsearch - The Definitive Guide - Chapter 3" /><published>2018-05-08T15:09:15+08:00</published><updated>2018-05-08T15:09:15+08:00</updated><id>http://localhost:4000/2018/05/08/Elasticsearch-The-Definitive-Guide-Chapter-3</id><content type="html" xml:base="http://localhost:4000/2018/05/08/Elasticsearch-The-Definitive-Guide-Chapter-3.html">&lt;p&gt;数据输入和输出&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://www.teslalee.com/feed.xml" rel="self" type="application/atom+xml" /><link href="http://www.teslalee.com/" rel="alternate" type="text/html" /><updated>2018-05-08T16:50:09+08:00</updated><id>http://www.teslalee.com/</id><title type="html">Code Cube</title><subtitle></subtitle><entry><title type="html">Elasticsearch - The Definitive Guide - Chapter 3</title><link href="http://www.teslalee.com/2018/05/08/Elasticsearch-The-Definitive-Guide-Chapter-3.html" rel="alternate" type="text/html" title="Elasticsearch - The Definitive Guide - Chapter 3" /><published>2018-05-08T15:09:15+08:00</published><updated>2018-05-08T15:09:15+08:00</updated><id>http://www.teslalee.com/2018/05/08/Elasticsearch-The-Definitive-Guide-Chapter-3</id><content type="html" xml:base="http://www.teslalee.com/2018/05/08/Elasticsearch-The-Definitive-Guide-Chapter-3.html">&lt;p&gt;数据输入和输出&lt;/p&gt;
 
 &lt;!--more--&gt;
 
@@ -10,7 +10,7 @@
 
 &lt;h2 id=&quot;什么是文档&quot;&gt;什么是文档？&lt;/h2&gt;
 
-&lt;p&gt;我们使用的术语 对象 和 文档 是可以互相替换的。不过，有一个区别： 一个对象仅仅是类似于 hash 、 hashmap 、字典或者关联数组的 JSON 对象，对象中也可以嵌套其他的对象。 对象可能包含了另外一些对象。在 Elasticsearch 中，术语 文档 有着特定的含义。它是指&lt;strong&gt;最顶层&lt;/strong&gt;或者&lt;strong&gt;根对象&lt;/strong&gt;, 这个根对象被&lt;strong&gt;序列化成 JSON&lt;/strong&gt;并存储到 Elasticsearch 中，指定了唯一 ID。&lt;/p&gt;</content><author><name>Tesla Lee</name></author><summary type="html">数据输入和输出</summary></entry><entry><title type="html">Elasticsearch - The Definitive Guide - Chapter 2</title><link href="http://localhost:4000/2018/05/07/Elasticsearch-The-Definitive-Guide-Chapter-2.html" rel="alternate" type="text/html" title="Elasticsearch - The Definitive Guide - Chapter 2" /><published>2018-05-07T18:16:46+08:00</published><updated>2018-05-07T18:16:46+08:00</updated><id>http://localhost:4000/2018/05/07/Elasticsearch-The-Definitive-Guide-Chapter-2</id><content type="html" xml:base="http://localhost:4000/2018/05/07/Elasticsearch-The-Definitive-Guide-Chapter-2.html">&lt;p&gt;集群内的原理&lt;/p&gt;
+&lt;p&gt;我们使用的术语 对象 和 文档 是可以互相替换的。不过，有一个区别： 一个对象仅仅是类似于 hash 、 hashmap 、字典或者关联数组的 JSON 对象，对象中也可以嵌套其他的对象。 对象可能包含了另外一些对象。在 Elasticsearch 中，术语 文档 有着特定的含义。它是指&lt;strong&gt;最顶层&lt;/strong&gt;或者&lt;strong&gt;根对象&lt;/strong&gt;, 这个根对象被&lt;strong&gt;序列化成 JSON&lt;/strong&gt;并存储到 Elasticsearch 中，指定了唯一 ID。&lt;/p&gt;</content><author><name>Tesla Lee</name></author><summary type="html">数据输入和输出</summary></entry><entry><title type="html">Elasticsearch - The Definitive Guide - Chapter 2</title><link href="http://www.teslalee.com/2018/05/07/Elasticsearch-The-Definitive-Guide-Chapter-2.html" rel="alternate" type="text/html" title="Elasticsearch - The Definitive Guide - Chapter 2" /><published>2018-05-07T18:16:46+08:00</published><updated>2018-05-07T18:16:46+08:00</updated><id>http://www.teslalee.com/2018/05/07/Elasticsearch-The-Definitive-Guide-Chapter-2</id><content type="html" xml:base="http://www.teslalee.com/2018/05/07/Elasticsearch-The-Definitive-Guide-Chapter-2.html">&lt;p&gt;集群内的原理&lt;/p&gt;
 
 &lt;!--more--&gt;
 
@@ -55,7 +55,7 @@
 
 &lt;h2 id=&quot;应对故障&quot;&gt;应对故障&lt;/h2&gt;
 &lt;p&gt;我们关闭的节点是一个主节点。而集群必须拥有一个主节点来保证正常工作，所以发生的第一件事情就是选举一个新的主节点： Node 2 。
-所以新的主节点立即将这些分片在 Node 2 和 Node 3 上对应的副本分片提升为主分片。&lt;/p&gt;</content><author><name>Tesla Lee</name></author><summary type="html">集群内的原理</summary></entry><entry><title type="html">Elasticsearch - The Definitive Guide - Chapter 1</title><link href="http://localhost:4000/2018/05/07/Elasticsearch-The-Definitive-Guide-Chapter-1.html" rel="alternate" type="text/html" title="Elasticsearch - The Definitive Guide - Chapter 1" /><published>2018-05-07T16:50:10+08:00</published><updated>2018-05-07T16:50:10+08:00</updated><id>http://localhost:4000/2018/05/07/Elasticsearch-The-Definitive-Guide-Chapter-1</id><content type="html" xml:base="http://localhost:4000/2018/05/07/Elasticsearch-The-Definitive-Guide-Chapter-1.html">&lt;p&gt;你知道的，为了搜索…
+所以新的主节点立即将这些分片在 Node 2 和 Node 3 上对应的副本分片提升为主分片。&lt;/p&gt;</content><author><name>Tesla Lee</name></author><summary type="html">集群内的原理</summary></entry><entry><title type="html">Elasticsearch - The Definitive Guide - Chapter 1</title><link href="http://www.teslalee.com/2018/05/07/Elasticsearch-The-Definitive-Guide-Chapter-1.html" rel="alternate" type="text/html" title="Elasticsearch - The Definitive Guide - Chapter 1" /><published>2018-05-07T16:50:10+08:00</published><updated>2018-05-07T16:50:10+08:00</updated><id>http://www.teslalee.com/2018/05/07/Elasticsearch-The-Definitive-Guide-Chapter-1</id><content type="html" xml:base="http://www.teslalee.com/2018/05/07/Elasticsearch-The-Definitive-Guide-Chapter-1.html">&lt;p&gt;你知道的，为了搜索…
 &lt;!--more--&gt;&lt;/p&gt;
 
 &lt;blockquote&gt;
@@ -263,7 +263,7 @@
   &lt;li&gt;复制每个分片以支持数据冗余，从而防止硬件故障导致的数据丢失&lt;/li&gt;
   &lt;li&gt;将集群中任一节点的请求路由到存有相关数据的节点&lt;/li&gt;
   &lt;li&gt;集群扩容时无缝整合新节点，重新分配分片以便从离群节点恢复&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>Tesla Lee</name></author><summary type="html">你知道的，为了搜索…</summary></entry><entry><title type="html">九州</title><link href="http://localhost:4000/%E4%B9%9D%E5%B7%9E/2018/05/07/nine-continents.html" rel="alternate" type="text/html" title="九州" /><published>2018-05-07T00:00:00+08:00</published><updated>2018-05-07T00:00:00+08:00</updated><id>http://localhost:4000/%E4%B9%9D%E5%B7%9E/2018/05/07/nine-continents</id><content type="html" xml:base="http://localhost:4000/%E4%B9%9D%E5%B7%9E/2018/05/07/nine-continents.html">&lt;p&gt;九州设定
+&lt;/ul&gt;</content><author><name>Tesla Lee</name></author><summary type="html">你知道的，为了搜索…</summary></entry><entry><title type="html">九州</title><link href="http://www.teslalee.com/%E4%B9%9D%E5%B7%9E/2018/05/07/nine-continents.html" rel="alternate" type="text/html" title="九州" /><published>2018-05-07T00:00:00+08:00</published><updated>2018-05-07T00:00:00+08:00</updated><id>http://www.teslalee.com/%E4%B9%9D%E5%B7%9E/2018/05/07/nine-continents</id><content type="html" xml:base="http://www.teslalee.com/%E4%B9%9D%E5%B7%9E/2018/05/07/nine-continents.html">&lt;p&gt;九州设定
 &lt;!--more--&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;设定&quot;&gt;设定&lt;/h2&gt;
@@ -343,7 +343,7 @@
 &lt;h3 id=&quot;夸父&quot;&gt;夸父&lt;/h3&gt;
 &lt;h3 id=&quot;河络&quot;&gt;河络&lt;/h3&gt;
 &lt;h3 id=&quot;鲛人&quot;&gt;鲛人&lt;/h3&gt;
-&lt;h3 id=&quot;魅族&quot;&gt;魅族&lt;/h3&gt;</content><author><name>Tesla Lee</name></author><summary type="html">九州设定</summary></entry><entry><title type="html">Query DSL of Elasticsearch</title><link href="http://localhost:4000/elasticsearch/2018/05/04/query-dsl-of-elasticsearch.html" rel="alternate" type="text/html" title="Query DSL of Elasticsearch" /><published>2018-05-04T00:00:00+08:00</published><updated>2018-05-04T00:00:00+08:00</updated><id>http://localhost:4000/elasticsearch/2018/05/04/query-dsl-of-elasticsearch</id><content type="html" xml:base="http://localhost:4000/elasticsearch/2018/05/04/query-dsl-of-elasticsearch.html">&lt;p&gt;Elasticsearch 查询 DSL 基础知识&lt;/p&gt;
+&lt;h3 id=&quot;魅族&quot;&gt;魅族&lt;/h3&gt;</content><author><name>Tesla Lee</name></author><summary type="html">九州设定</summary></entry><entry><title type="html">Query DSL of Elasticsearch</title><link href="http://www.teslalee.com/elasticsearch/2018/05/04/query-dsl-of-elasticsearch.html" rel="alternate" type="text/html" title="Query DSL of Elasticsearch" /><published>2018-05-04T00:00:00+08:00</published><updated>2018-05-04T00:00:00+08:00</updated><id>http://www.teslalee.com/elasticsearch/2018/05/04/query-dsl-of-elasticsearch</id><content type="html" xml:base="http://www.teslalee.com/elasticsearch/2018/05/04/query-dsl-of-elasticsearch.html">&lt;p&gt;Elasticsearch 查询 DSL 基础知识&lt;/p&gt;
 
 &lt;!--more--&gt;
 
@@ -432,7 +432,7 @@
 
 &lt;h4 id=&quot;boolean&quot;&gt;boolean&lt;/h4&gt;
 
-&lt;p&gt;默认的 &lt;code class=&quot;highlighter-rouge&quot;&gt;match&lt;/code&gt; 查询是 &lt;code class=&quot;highlighter-rouge&quot;&gt;boolean&lt;/code&gt;&lt;/p&gt;</content><author><name>Tesla Lee</name></author><summary type="html">Elasticsearch 查询 DSL 基础知识</summary></entry><entry><title type="html">Basic Concept of Elasticsearch</title><link href="http://localhost:4000/elasticsearch/2018/05/03/basic-concept-of-elasticsearch.html" rel="alternate" type="text/html" title="Basic Concept of Elasticsearch" /><published>2018-05-03T00:00:00+08:00</published><updated>2018-05-03T00:00:00+08:00</updated><id>http://localhost:4000/elasticsearch/2018/05/03/basic-concept-of-elasticsearch</id><content type="html" xml:base="http://localhost:4000/elasticsearch/2018/05/03/basic-concept-of-elasticsearch.html">&lt;p&gt;Elasticsearch 中的几个基本概念&lt;/p&gt;
+&lt;p&gt;默认的 &lt;code class=&quot;highlighter-rouge&quot;&gt;match&lt;/code&gt; 查询是 &lt;code class=&quot;highlighter-rouge&quot;&gt;boolean&lt;/code&gt;&lt;/p&gt;</content><author><name>Tesla Lee</name></author><summary type="html">Elasticsearch 查询 DSL 基础知识</summary></entry><entry><title type="html">Basic Concept of Elasticsearch</title><link href="http://www.teslalee.com/elasticsearch/2018/05/03/basic-concept-of-elasticsearch.html" rel="alternate" type="text/html" title="Basic Concept of Elasticsearch" /><published>2018-05-03T00:00:00+08:00</published><updated>2018-05-03T00:00:00+08:00</updated><id>http://www.teslalee.com/elasticsearch/2018/05/03/basic-concept-of-elasticsearch</id><content type="html" xml:base="http://www.teslalee.com/elasticsearch/2018/05/03/basic-concept-of-elasticsearch.html">&lt;p&gt;Elasticsearch 中的几个基本概念&lt;/p&gt;
 
 &lt;!--more--&gt;
 
@@ -462,7 +462,7 @@
       &lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
-&lt;/ul&gt;</content><author><name>Tesla Lee</name></author><summary type="html">Elasticsearch 中的几个基本概念</summary></entry><entry><title type="html">Chapter 2 - Lexical Analysis</title><link href="http://localhost:4000/compiler/2018/04/26/lexical-analysis.html" rel="alternate" type="text/html" title="Chapter 2 - Lexical Analysis" /><published>2018-04-26T00:00:00+08:00</published><updated>2018-04-26T00:00:00+08:00</updated><id>http://localhost:4000/compiler/2018/04/26/lexical-analysis</id><content type="html" xml:base="http://localhost:4000/compiler/2018/04/26/lexical-analysis.html">&lt;p&gt;『Modern Compiler Implementation in C』词法分析部分笔记和总结。&lt;/p&gt;
+&lt;/ul&gt;</content><author><name>Tesla Lee</name></author><summary type="html">Elasticsearch 中的几个基本概念</summary></entry><entry><title type="html">Chapter 2 - Lexical Analysis</title><link href="http://www.teslalee.com/compiler/2018/04/26/lexical-analysis.html" rel="alternate" type="text/html" title="Chapter 2 - Lexical Analysis" /><published>2018-04-26T00:00:00+08:00</published><updated>2018-04-26T00:00:00+08:00</updated><id>http://www.teslalee.com/compiler/2018/04/26/lexical-analysis</id><content type="html" xml:base="http://www.teslalee.com/compiler/2018/04/26/lexical-analysis.html">&lt;p&gt;『Modern Compiler Implementation in C』词法分析部分笔记和总结。&lt;/p&gt;
 
 &lt;!--more--&gt;
 
@@ -722,7 +722,7 @@
 
 &lt;p&gt;f. The language of nonnegative integer constants in C, where numbers beginning with 0 are octal constants and other numbers are decimal constants.&lt;/p&gt;
 
-&lt;p&gt;g. Binary numbers n such that there exists an integer solution of $a^n + b^n = c^n$.&lt;/p&gt;</content><author><name>Tesla Lee</name></author><summary type="html">『Modern Compiler Implementation in C』词法分析部分笔记和总结。</summary></entry><entry><title type="html">Notes on Machine Learning on Coursera</title><link href="http://localhost:4000/2018/04/25/notes-of-machine-larning-on-coursera.html" rel="alternate" type="text/html" title="Notes on Machine Learning on Coursera" /><published>2018-04-25T00:00:00+08:00</published><updated>2018-04-25T00:00:00+08:00</updated><id>http://localhost:4000/2018/04/25/notes-of-machine-larning-on-coursera</id><content type="html" xml:base="http://localhost:4000/2018/04/25/notes-of-machine-larning-on-coursera.html">&lt;p&gt;I always want to learn Machine Learning and finally I got time.&lt;/p&gt;
+&lt;p&gt;g. Binary numbers n such that there exists an integer solution of $a^n + b^n = c^n$.&lt;/p&gt;</content><author><name>Tesla Lee</name></author><summary type="html">『Modern Compiler Implementation in C』词法分析部分笔记和总结。</summary></entry><entry><title type="html">Notes on Machine Learning on Coursera</title><link href="http://www.teslalee.com/2018/04/25/notes-of-machine-larning-on-coursera.html" rel="alternate" type="text/html" title="Notes on Machine Learning on Coursera" /><published>2018-04-25T00:00:00+08:00</published><updated>2018-04-25T00:00:00+08:00</updated><id>http://www.teslalee.com/2018/04/25/notes-of-machine-larning-on-coursera</id><content type="html" xml:base="http://www.teslalee.com/2018/04/25/notes-of-machine-larning-on-coursera.html">&lt;p&gt;I always want to learn Machine Learning and finally I got time.&lt;/p&gt;
 
 &lt;p&gt;I first started with the open class CS 229 Machine Learning from Stanford by Andrew Ng. But I failed after 2 classes, because Andrew Ng skipped some math detail that I forget the knowledge of calculus and linear algebra.&lt;/p&gt;
 
@@ -732,7 +732,7 @@
 
 &lt;p&gt;So if you want to learning machine learning, I highly recommend you try this course. All you want to know is the basic knowledge of calculus and linear algebra, which also covered in the course.&lt;/p&gt;
 
-&lt;p&gt;Yeah!&lt;/p&gt;</content><author><name>Tesla Lee</name></author><summary type="html">I always want to learn Machine Learning and finally I got time.</summary></entry><entry><title type="html">《头号玩家》</title><link href="http://localhost:4000/2018/04/02/ready-player-one.html" rel="alternate" type="text/html" title="《头号玩家》" /><published>2018-04-02T00:00:00+08:00</published><updated>2018-04-02T00:00:00+08:00</updated><id>http://localhost:4000/2018/04/02/ready-player-one</id><content type="html" xml:base="http://localhost:4000/2018/04/02/ready-player-one.html">&lt;p&gt;看完《头号玩家》后，有一个问题一直在脑海里盘旋：
+&lt;p&gt;Yeah!&lt;/p&gt;</content><author><name>Tesla Lee</name></author><summary type="html">I always want to learn Machine Learning and finally I got time.</summary></entry><entry><title type="html">《头号玩家》</title><link href="http://www.teslalee.com/2018/04/02/ready-player-one.html" rel="alternate" type="text/html" title="《头号玩家》" /><published>2018-04-02T00:00:00+08:00</published><updated>2018-04-02T00:00:00+08:00</updated><id>http://www.teslalee.com/2018/04/02/ready-player-one</id><content type="html" xml:base="http://www.teslalee.com/2018/04/02/ready-player-one.html">&lt;p&gt;看完《头号玩家》后，有一个问题一直在脑海里盘旋：
 『到底是什么触动了我，让我在看完电影后感到那么喜悦却又有点忧伤？』&lt;/p&gt;
 
 &lt;p&gt;到刚才，在微博上看到梅原大吾用隆完全格挡春丽的大招时，我才忽然明白。&lt;/p&gt;
@@ -741,7 +741,7 @@
 
 &lt;p&gt;它瞬间把我拉回了童年，那个在一群人在家里，围着游戏机一起通关的场景。&lt;/p&gt;
 
-&lt;p&gt;之所以喜悦是因为那种久违的感觉，而忧伤是，你知道永远也不会再回去了。&lt;/p&gt;</content><author><name>Tesla Lee</name></author><summary type="html">看完《头号玩家》后，有一个问题一直在脑海里盘旋： 『到底是什么触动了我，让我在看完电影后感到那么喜悦却又有点忧伤？』</summary></entry><entry><title type="html">My New Rules of Life</title><link href="http://localhost:4000/2018/03/02/my-new-rules-of-life.html" rel="alternate" type="text/html" title="My New Rules of Life" /><published>2018-03-02T13:56:00+08:00</published><updated>2018-03-02T13:56:00+08:00</updated><id>http://localhost:4000/2018/03/02/my-new-rules-of-life</id><content type="html" xml:base="http://localhost:4000/2018/03/02/my-new-rules-of-life.html">&lt;p&gt;Rules&lt;/p&gt;
+&lt;p&gt;之所以喜悦是因为那种久违的感觉，而忧伤是，你知道永远也不会再回去了。&lt;/p&gt;</content><author><name>Tesla Lee</name></author><summary type="html">看完《头号玩家》后，有一个问题一直在脑海里盘旋： 『到底是什么触动了我，让我在看完电影后感到那么喜悦却又有点忧伤？』</summary></entry><entry><title type="html">My New Rules of Life</title><link href="http://www.teslalee.com/2018/03/02/my-new-rules-of-life.html" rel="alternate" type="text/html" title="My New Rules of Life" /><published>2018-03-02T13:56:00+08:00</published><updated>2018-03-02T13:56:00+08:00</updated><id>http://www.teslalee.com/2018/03/02/my-new-rules-of-life</id><content type="html" xml:base="http://www.teslalee.com/2018/03/02/my-new-rules-of-life.html">&lt;p&gt;Rules&lt;/p&gt;
 
 &lt;!--more--&gt;
 
