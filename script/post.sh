@@ -12,9 +12,6 @@ FILE_NAME=$(echo "$FILE_NAME" | sed 's/\__/_/g' | sed 's/_/-/g')
 
 FILE_NAME="$DATE-$FILE_NAME.md"
 
-echo "文件名: $FILE_NAME"
-echo "文章标题: $TRUE_TITLE"
-
 (touch ./_posts/$FILE_NAME)
 echo "---
 layout: post
@@ -23,3 +20,6 @@ author: Tesla Lee
 date: $CREATED_TIME
 categories:
 ---" > ./_posts/$FILE_NAME
+
+echo "文件名: $FILE_NAME"
+echo "文章标题: $TRUE_TITLE"
