@@ -22,5 +22,5 @@ echo "【`date +%T`】开始发布"
 git add .
 git add -u
 git commit -m "Deployed at `date`"
-git push origin master
+# git push origin master
 echo "【`date +%T`】发布网站成功"
