@@ -28,20 +28,20 @@ $grey-color-dark : darken($grey-color, 25%) !default;
  */
 @font-face {
   font-family: 'Minerva Glyphs';
-  src: url("Minerva-Glyphs.eot");
-  src: url("Minerva-Glyphs.eot?#iefix") format("embedded-opentype"),
-  url("Minerva-Glyphs.ttf") format("truetype"),
-  url("Minerva-Glyphs.woff") format("woff"),
-  url("Minerva-Glyphs.svg#Minerva-Glyphs") format("svg");
+  src: url("/assets/fonts/Minerva-Glyphs.eot");
+  src: url("/assets/fonts/Minerva-Glyphs.eot?#iefix") format("embedded-opentype"),
+  url("/assets/fonts/Minerva-Glyphs.ttf") format("truetype"),
+  url("/assets/fonts/Minerva-Glyphs.woff") format("woff"),
+  url("/assets/fonts/Minerva-Glyphs.svg#Minerva-Glyphs") format("svg");
 }
 
 @font-face {
   font-family: 'Minerva Glyphs FALLBACK';
-  src: url("../Minerva-Glyphs.eot");
-  src: url("../Minerva-Glyphs.eot?#iefix") format("embedded-opentype"),
-  url("../Minerva-Glyphs.ttf") format("truetype"),
-  url("../Minerva-Glyphs.woff") format("woff"),
-  url("../Minerva-Glyphs.svg#Minerva-Glyphs") format("svg");
+  src: url("/assets/fonts/Minerva-Glyphs.eot");
+  src: url("/assets/fonts/Minerva-Glyphs.eot?#iefix") format("embedded-opentype"),
+  url("/assets/fonts/Minerva-Glyphs.ttf") format("truetype"),
+  url("/assets/fonts/Minerva-Glyphs.woff") format("woff"),
+  url("/assets/fonts/Minerva-Glyphs.svg#Minerva-Glyphs") format("svg");
 }
 
 .minerva-glyphs {

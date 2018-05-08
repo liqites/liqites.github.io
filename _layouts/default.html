@@ -7,24 +7,64 @@
     {% include footer.html %}
   </body>
   {% js app %}
-  <script type="text/javascript">
-    // NProgress configuration
-    NProgress.configure({
-      minimum: 0.10,
-      ease: 'linear',
-      speed: 500,
-      trickleRate: 0.02,
-      trickleSpeed: 200,
-      showSpinner: false
-    });
+  <script>
+  		// NProgress configuration
+  		NProgress.configure({
+  			minimum: 0.10,
+  			ease: 'linear',
+  			speed: 500,
+  			trickleRate: 0.02,
+  			trickleSpeed: 200,
+  			showSpinner: false
+  		});
 
-    NProgress.start();
+  		NProgress.start();
 
-    $(window).load(function(){
-      NProgress.done();
-    });
+  		$(window).load(function(){
+  			NProgress.done();
+  		});
 
-    // Headroom configuration
-    $(".headroom").headroom();
-  </script>
+  		// Headroom configuration
+  		$(".headroom").headroom();
+
+  		// Hover optimization for mobile webkit
+  		document.addEventListener("touchstart", function(){}, true);
+
+  		// Scroll-to-top button
+  		$('.scroll-to-top').click(function(){
+  			$('html, body').animate({
+  				scrollTop: 0}, 1000);
+  			return false;
+  		});
+
+  		// Positioning of `button.apply-for-write`
+  		$(function(){
+  			if($(window).width() > 1023){
+  				var offset = $('main').offset().top + parseInt($('main').css('padding-top').replace("px", "")) + 8;
+
+  				$('.apply-for-write').css({
+  					'top': offset + 'px'
+  				});
+  			}
+  		});
+
+  		$(window).resize(function(){
+  			if($(window).width() > 1023){
+  				var offset = $('main').offset().top + parseInt($('main').css('padding-top').replace("px", "")) + 8;
+
+  				$('.apply-for-write').css({
+  					'top': offset + 'px'
+  				});
+  			}
+  		});
+
+  		// State toggle of `is-active`
+  		$('.post-footer--action-fav').click(function(){
+  			$(this).toggleClass('is-active');
+  		});
+
+  		$('.button-subscribe').click(function(){
+  			$(this).toggleClass('is-active');
+  		});
+  	</script>
 </html>
