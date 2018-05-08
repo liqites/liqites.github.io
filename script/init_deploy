@@ -1,0 +1,12 @@
+#!/bin/bash
+deploypath="./_deploy"
+
+if [ -d $deploypath ]; then
+  rm -rf $deploypath
+  if [ $? -eq 0]; then
+    echo "【`date +%T`】删除 ${deploypath} 成功"
+  else
+    echo "【`date +%T`】删除 ${deploypath} 失败"
+  fi
+fi
+git clone git@github.com:liqites/liqites.github.io.git -b master _deploy --single-branch
