@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://www.teslalee.com/feed.xml" rel="self" type="application/atom+xml" /><link href="http://www.teslalee.com/" rel="alternate" type="text/html" /><updated>2018-05-08T16:50:56+08:00</updated><id>http://www.teslalee.com/</id><title type="html">Code Cube</title><subtitle></subtitle><entry><title type="html">Elasticsearch - The Definitive Guide - Chapter 3</title><link href="http://www.teslalee.com/2018/05/08/Elasticsearch-The-Definitive-Guide-Chapter-3.html" rel="alternate" type="text/html" title="Elasticsearch - The Definitive Guide - Chapter 3" /><published>2018-05-08T15:09:15+08:00</published><updated>2018-05-08T15:09:15+08:00</updated><id>http://www.teslalee.com/2018/05/08/Elasticsearch-The-Definitive-Guide-Chapter-3</id><content type="html" xml:base="http://www.teslalee.com/2018/05/08/Elasticsearch-The-Definitive-Guide-Chapter-3.html">&lt;p&gt;数据输入和输出&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://www.teslalee.com/feed.xml" rel="self" type="application/atom+xml" /><link href="http://www.teslalee.com/" rel="alternate" type="text/html" /><updated>2018-05-08T18:56:21+08:00</updated><id>http://www.teslalee.com/</id><title type="html">Code Cube</title><subtitle></subtitle><entry><title type="html">Elasticsearch - The Definitive Guide - Chapter 3</title><link href="http://www.teslalee.com/2018/05/08/Elasticsearch-The-Definitive-Guide-Chapter-3.html" rel="alternate" type="text/html" title="Elasticsearch - The Definitive Guide - Chapter 3" /><published>2018-05-08T15:09:15+08:00</published><updated>2018-05-08T15:09:15+08:00</updated><id>http://www.teslalee.com/2018/05/08/Elasticsearch-The-Definitive-Guide-Chapter-3</id><content type="html" xml:base="http://www.teslalee.com/2018/05/08/Elasticsearch-The-Definitive-Guide-Chapter-3.html">&lt;p&gt;数据输入和输出&lt;/p&gt;
 
 &lt;!--more--&gt;
 
@@ -10,7 +10,272 @@
 
 &lt;h2 id=&quot;什么是文档&quot;&gt;什么是文档？&lt;/h2&gt;
 
-&lt;p&gt;我们使用的术语 对象 和 文档 是可以互相替换的。不过，有一个区别： 一个对象仅仅是类似于 hash 、 hashmap 、字典或者关联数组的 JSON 对象，对象中也可以嵌套其他的对象。 对象可能包含了另外一些对象。在 Elasticsearch 中，术语 文档 有着特定的含义。它是指&lt;strong&gt;最顶层&lt;/strong&gt;或者&lt;strong&gt;根对象&lt;/strong&gt;, 这个根对象被&lt;strong&gt;序列化成 JSON&lt;/strong&gt;并存储到 Elasticsearch 中，指定了唯一 ID。&lt;/p&gt;</content><author><name>Tesla Lee</name></author><summary type="html">数据输入和输出</summary></entry><entry><title type="html">Elasticsearch - The Definitive Guide - Chapter 2</title><link href="http://www.teslalee.com/2018/05/07/Elasticsearch-The-Definitive-Guide-Chapter-2.html" rel="alternate" type="text/html" title="Elasticsearch - The Definitive Guide - Chapter 2" /><published>2018-05-07T18:16:46+08:00</published><updated>2018-05-07T18:16:46+08:00</updated><id>http://www.teslalee.com/2018/05/07/Elasticsearch-The-Definitive-Guide-Chapter-2</id><content type="html" xml:base="http://www.teslalee.com/2018/05/07/Elasticsearch-The-Definitive-Guide-Chapter-2.html">&lt;p&gt;集群内的原理&lt;/p&gt;
+&lt;p&gt;我们使用的术语 对象 和 文档 是可以互相替换的。不过，有一个区别： 一个对象仅仅是类似于 hash 、 hashmap 、字典或者关联数组的 JSON 对象，对象中也可以嵌套其他的对象。 对象可能包含了另外一些对象。在 Elasticsearch 中，术语 文档 有着特定的含义。它是指&lt;strong&gt;最顶层&lt;/strong&gt;或者&lt;strong&gt;根对象&lt;/strong&gt;, 这个根对象被&lt;strong&gt;序列化成 JSON&lt;/strong&gt;并存储到 Elasticsearch 中，指定了唯一 ID。&lt;/p&gt;
+
+&lt;h2 id=&quot;文档元数据&quot;&gt;文档元数据&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;_index&lt;/code&gt;: 文档存放在那里&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;_type&lt;/code&gt;: 文档表示的对象类型&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;_id&lt;/code&gt;: 文档唯一标识&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;_index&quot;&gt;_index&lt;/h3&gt;
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;索引&lt;/code&gt;应该是因共同的特性被分组到一起的文档集合。&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;我们的数据是被存储和索引在 分片 中，而一个索引仅仅是逻辑上的命名空间， 这个命名空间由一个或者多个分片组合在一起。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&quot;_type&quot;&gt;_type&lt;/h3&gt;
+&lt;p&gt;数据可能在索引中只是松散的组合在一起。Elasticsearch 公开了一个称为 types （类型）的特性，它允许您在索引中对数据进行逻辑分区。&lt;/p&gt;
+
+&lt;h3 id=&quot;_id&quot;&gt;_id&lt;/h3&gt;
+&lt;p&gt;ID 是一个字符串， 当它和 _index 以及 _type 组合就可以唯一确定 Elasticsearch 中的一个文档。&lt;/p&gt;
+
+&lt;h3 id=&quot;索引文档&quot;&gt;索引文档&lt;/h3&gt;
+&lt;p&gt;通过使用 &lt;code class=&quot;highlighter-rouge&quot;&gt;index&lt;/code&gt; API ，文档可以被 索引 —— 存储和使文档可被搜索 。&lt;/p&gt;
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;PUT /&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;index&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;/&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;/&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;id&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;s2&quot;&gt;&quot;field&quot;&lt;/span&gt;: &lt;span class=&quot;s2&quot;&gt;&quot;value&quot;&lt;/span&gt;,
+  ...
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;h3 id=&quot;使用自己的-id&quot;&gt;使用自己的 ID&lt;/h3&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;curl &lt;span class=&quot;nt&quot;&gt;-X&lt;/span&gt; PUT &lt;span class=&quot;s2&quot;&gt;&quot;localhost:9200/website/blog/123&quot;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;-H&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'Content-Type: application/json'&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'
+{
+  &quot;title&quot;: &quot;My first blog entry&quot;,
+  &quot;text&quot;:  &quot;Just trying this out...&quot;,
+  &quot;date&quot;:  &quot;2014/01/01&quot;
+}
+'&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;h3 id=&quot;自增-id&quot;&gt;自增 ID&lt;/h3&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;curl &lt;span class=&quot;nt&quot;&gt;-X&lt;/span&gt; POST &lt;span class=&quot;s2&quot;&gt;&quot;localhost:9200/website/blog/&quot;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;-H&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'Content-Type: application/json'&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'
+{
+  &quot;title&quot;: &quot;My second blog entry&quot;,
+  &quot;text&quot;:  &quot;Still trying this out...&quot;,
+  &quot;date&quot;:  &quot;2014/01/01&quot;
+}
+'&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;取回文档&quot;&gt;取回文档&lt;/h2&gt;
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;curl &lt;span class=&quot;nt&quot;&gt;-X&lt;/span&gt; GET &lt;span class=&quot;s2&quot;&gt;&quot;localhost:9200/website/blog/123?pretty&quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;返回&lt;/p&gt;
+&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;_index&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;   &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;website&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;_type&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;blog&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;_id&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;      &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;123&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;_version&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;found&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;    &lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;_source&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+      &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;title&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;My first blog entry&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+      &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;text&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Just trying this out...&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+      &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;date&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;2014/01/01&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;返回文档的一部分&quot;&gt;返回文档的一部分&lt;/h3&gt;
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;curl &lt;span class=&quot;nt&quot;&gt;-X&lt;/span&gt; GET &lt;span class=&quot;s2&quot;&gt;&quot;localhost:9200/website/blog/123?_source=title,text&quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;检查文档是否存在&quot;&gt;检查文档是否存在&lt;/h2&gt;
+&lt;p&gt;如果只想检查一个文档是否存在 –根本不想关心内容–那么用 HEAD 方法来代替 GET 方法。 HEAD 请求没有返回体，只返回一个 HTTP 请求报头：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;200&lt;/code&gt; 存在&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;404&lt;/code&gt; 不存在&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;更新整个文档&quot;&gt;更新整个文档&lt;/h2&gt;
+&lt;p&gt;在 Elasticsearch 中文档是 不可改变 的，不能修改它们。如果想要更新现有的文档，需要 重建索引 或者进行替换。&lt;/p&gt;
+
+&lt;p&gt;使用下面的命令&lt;/p&gt;
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;curl &lt;span class=&quot;nt&quot;&gt;-X&lt;/span&gt; PUT &lt;span class=&quot;s2&quot;&gt;&quot;localhost:9200/website/blog/123&quot;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;-H&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'Content-Type: application/json'&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'
+{
+  &quot;title&quot;: &quot;My first blog entry&quot;,
+  &quot;text&quot;:  &quot;I am starting to get the hang of this...&quot;,
+  &quot;date&quot;:  &quot;2014/01/02&quot;
+}
+'&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;我们看到文档的 &lt;code class=&quot;highlighter-rouge&quot;&gt;_version&lt;/code&gt; 已经变成 2 ，说明文档更新成功了。但实际上是，将就得&lt;strong&gt;文档&lt;/strong&gt;标记为删除，同时新建了一个&lt;strong&gt;文档&lt;/strong&gt;。
+更新一个文档时，Elasticsearch 内部的执行过程大概是&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;从旧文档构建 JSON&lt;/li&gt;
+  &lt;li&gt;更改该 JSON&lt;/li&gt;
+  &lt;li&gt;删除旧文档&lt;/li&gt;
+  &lt;li&gt;索引一个新文档&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;创建新文档&quot;&gt;创建新文档&lt;/h2&gt;
+&lt;p&gt;当我们索引一个文档， 怎么确认我们正在创建一个完全新的文档，而不是覆盖现有的呢？&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;请记住， &lt;code class=&quot;highlighter-rouge&quot;&gt;_index&lt;/code&gt; 、 &lt;code class=&quot;highlighter-rouge&quot;&gt;_type&lt;/code&gt; 和 &lt;code class=&quot;highlighter-rouge&quot;&gt;_id&lt;/code&gt; 的组合可以唯一标识一个文档。&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;POST /website/blog/
+&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; ... &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;自增 ID&lt;/p&gt;
+
+&lt;p&gt;第一种方法使用 op_type 查询 -字符串参数：&lt;/p&gt;
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;PUT /website/blog/123?op_type&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;create
+&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; ... &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;第二种方法是在 URL 末端使用 /_create :&lt;/p&gt;
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;PUT /website/blog/123/_create
+&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; ... &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;如果创建新文档的请求成功执行，Elasticsearch 会返回元数据和一个 201 Created 的 HTTP 响应码。&lt;/p&gt;
+
+&lt;p&gt;另一方面，如果具有相同的 _index 、 _type 和 _id 的文档已经存在，Elasticsearch 将会返回 409 Conflict 响应码。&lt;/p&gt;
+
+&lt;h2 id=&quot;删除文档&quot;&gt;删除文档&lt;/h2&gt;
+&lt;p&gt;删除文档 的语法和我们所知道的规则相同，只是 使用 DELETE 方法：&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;curl &lt;span class=&quot;nt&quot;&gt;-X&lt;/span&gt; DELETE &lt;span class=&quot;s2&quot;&gt;&quot;localhost:9200/website/blog/123&quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;如果找到该文档，Elasticsearch 将要返回一个 200 ok 的 HTTP 响应码，如果文档没有 找到，我们将得到 404 Not Found 的响应码和类似这样的响应体。&lt;/p&gt;
+
+&lt;p&gt;即使文档不存在（ Found 是 false ）， &lt;code class=&quot;highlighter-rouge&quot;&gt;_version&lt;/code&gt; 值仍然会增加。&lt;/p&gt;
+
+&lt;h2 id=&quot;处理冲突&quot;&gt;处理冲突&lt;/h2&gt;
+&lt;p&gt;当我们使用 index API 更新文档 ，可以一次性读取原始文档，做我们的修改，然后重新索引 整个文档 。 最近的索引请求将获胜：无论最后哪一个文档被索引，都将被唯一存储在 Elasticsearch 中。如果其他人同时更改这个文档，他们的更改将丢失。&lt;/p&gt;
+
+&lt;h3 id=&quot;悲观并发控制&quot;&gt;悲观并发控制&lt;/h3&gt;
+&lt;p&gt;这种方法被关系型数据库广泛使用，它假定有变更冲突可能发生，因此阻塞访问资源以防止冲突。 一个典型的例子是读取一行数据之前先将其锁住，确保只有放置锁的线程能够对这行数据进行修改。&lt;/p&gt;
+
+&lt;h3 id=&quot;乐观并发控制&quot;&gt;乐观并发控制&lt;/h3&gt;
+&lt;p&gt;Elasticsearch 中使用的这种方法假定冲突是不可能发生的，并且不会阻塞正在尝试的操作。 然而，如果源数据在读写当中被修改，更新将会失败。应用程序接下来将决定该如何解决冲突。 例如，可以重试更新、使用新的数据、或者将相关情况报告给用户。&lt;/p&gt;
+
+&lt;h2 id=&quot;乐观并发控制-1&quot;&gt;乐观并发控制&lt;/h2&gt;
+&lt;p&gt;Elasticsearch 是分布式的。当文档创建、更新或删除时， 新版本的文档必须复制到集群中的其他节点。Elasticsearch 也是异步和并发的，这意味着这些复制请求被并行发送，并且到达目的地时也许 顺序是乱的 。 Elasticsearch 需要一种方法确保文档的旧版本不会覆盖新的版本。&lt;/p&gt;
+
+&lt;p&gt;Elasticsearch 使用这个 _version 号来确保变更以正确顺序得到执行。如果旧版本的文档在新版本之后到达，它可以被简单的忽略。&lt;/p&gt;
+
+&lt;p&gt;所有文档的更新或删除 API，都可以接受 version 参数，这允许你在代码中使用乐观的并发控制，这是一种明智的做法。&lt;/p&gt;
+
+&lt;h3 id=&quot;通过外部系统使用版本控制&quot;&gt;通过外部系统使用版本控制&lt;/h3&gt;
+&lt;p&gt;一个常见的设置是使用其它数据库作为主要的数据存储，使用 Elasticsearch 做数据检索， 这意味着主数据库的所有更改发生时都需要被复制到 Elasticsearch ，如果多个进程负责这一数据同步，你可能遇到类似于之前描述的并发问题。&lt;/p&gt;
+
+&lt;p&gt;如果你的主数据库已经有了版本号 — 或一个能作为版本号的字段值比如 timestamp — 那么你就可以在 Elasticsearch 中通过增加 version_type=external 到查询字符串的方式重用这些相同的版本号， 版本号必须是大于零的整数， 且小于 9.2E+18 — 一个 Java 中 long 类型的正值。&lt;/p&gt;
+
+&lt;p&gt;外部版本号的处理方式和我们之前讨论的内部版本号的处理方式有些不同， Elasticsearch 不是检查当前 _version 和请求中指定的版本号是否相同， 而是检查当前 _version 是否 小于 指定的版本号。 如果请求成功，外部的版本号作为文档的新 _version 进行存储。&lt;/p&gt;
+
+&lt;p&gt;外部版本号不仅在索引和删除请求是可以指定，而且在 创建 新文档时也可以指定。&lt;/p&gt;
+
+&lt;h2 id=&quot;文档的部分更新&quot;&gt;文档的部分更新&lt;/h2&gt;
+&lt;p&gt;在 更新整个文档 , 我们已经介绍过 更新一个文档的方法是检索并修改它，然后重新索引整个文档，这的确如此。然而，使用 update API 我们还可以部分更新文档，例如在某个请求时对计数器进行累加。&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;curl &lt;span class=&quot;nt&quot;&gt;-X&lt;/span&gt; POST &lt;span class=&quot;s2&quot;&gt;&quot;localhost:9200/website/blog/1/_update&quot;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;-H&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'Content-Type: application/json'&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'
+{
+   &quot;doc&quot; : {
+      &quot;tags&quot; : [ &quot;testing&quot; ],
+      &quot;views&quot;: 0
+   }
+}
+'&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;使用脚本部分更新文档那个&quot;&gt;使用脚本部分更新文档那个&lt;/h3&gt;
+&lt;p&gt;脚本可以在 update API中用来改变 _source 的字段内容， 它在更新脚本中称为 ctx._source 。 例如，我们可以使用脚本来增加博客文章中 views 的数量：&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;curl &lt;span class=&quot;nt&quot;&gt;-X&lt;/span&gt; POST &lt;span class=&quot;s2&quot;&gt;&quot;localhost:9200/website/blog/1/_update&quot;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;-H&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'Content-Type: application/json'&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'
+{
+   &quot;script&quot; : &quot;ctx._source.views+=1&quot;
+}
+'&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;curl &lt;span class=&quot;nt&quot;&gt;-X&lt;/span&gt; POST &lt;span class=&quot;s2&quot;&gt;&quot;localhost:9200/website/blog/1/_update&quot;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;-H&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'Content-Type: application/json'&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'
+{
+   &quot;script&quot; : &quot;ctx._source.tags+=new_tag&quot;,
+   &quot;params&quot; : {
+      &quot;new_tag&quot; : &quot;search&quot;
+   }
+}
+'&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;更新的文档可能尚不存在&quot;&gt;更新的文档可能尚不存在&lt;/h3&gt;
+&lt;p&gt;使用 &lt;code class=&quot;highlighter-rouge&quot;&gt;upsert&lt;/code&gt; 参数&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;curl &lt;span class=&quot;nt&quot;&gt;-X&lt;/span&gt; POST &lt;span class=&quot;s2&quot;&gt;&quot;localhost:9200/website/pageviews/1/_update&quot;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;-H&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'Content-Type: application/json'&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'
+{
+   &quot;script&quot; : &quot;ctx._source.views+=1&quot;,
+   &quot;upsert&quot;: {
+       &quot;views&quot;: 1
+   }
+}
+'&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;更新和冲突&quot;&gt;更新和冲突&lt;/h3&gt;
+&lt;p&gt;检索 和 重建索引 步骤的间隔越小，变更冲突的机会越小。 但是它并不能完全消除冲突的可能性。 还是有可能在 &lt;code class=&quot;highlighter-rouge&quot;&gt;update&lt;/code&gt; 设法重新索引之前，来自另一进程的请求修改了文档。&lt;/p&gt;
+
+&lt;p&gt;为了避免数据丢失， &lt;code class=&quot;highlighter-rouge&quot;&gt;update&lt;/code&gt; API 在 检索 步骤时检索得到文档当前的 &lt;code class=&quot;highlighter-rouge&quot;&gt;_version&lt;/code&gt; 号，并传递版本号到 重建索引 步骤的 &lt;code class=&quot;highlighter-rouge&quot;&gt;index&lt;/code&gt; 请求。 如果另一个进程修改了处于检索和重新索引步骤之间的文档，那么 &lt;code class=&quot;highlighter-rouge&quot;&gt;_version&lt;/code&gt; 号将不匹配，更新请求将会失败。&lt;/p&gt;
+
+&lt;p&gt;设置参数 &lt;code class=&quot;highlighter-rouge&quot;&gt;retry_on_conflict&lt;/code&gt; 来在发现冲突时重试更新操作。&lt;/p&gt;
+
+&lt;h2 id=&quot;取回多个文档&quot;&gt;取回多个文档&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;mget API 要求有一个 docs 数组作为参数，每个 元素包含需要检索文档的元数据， 包括 _index 、 _type 和 _id 。&lt;/li&gt;
+  &lt;li&gt;如果想检索的数据都在相同的 _index 中（甚至相同的 _type 中），则可以在 URL 中指定默认的 /_index 或者默认的 /_index/_type 。&lt;/li&gt;
+  &lt;li&gt;如果所有文档的 _index 和 _type 都是相同的，你可以只传一个 ids 数组，而不是整个 docs 数组。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;即使有某个文档没有找到，上述请求的 HTTP 状态码仍然是 200 。事实上，即使请求 没有 找到任何文档，它的状态码依然是 200 –因为 mget 请求本身已经成功执行。 为了确定某个文档查找是成功或者失败，你需要检查 found 标记。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;代价较小的批量操作&quot;&gt;代价较小的批量操作&lt;/h2&gt;
+&lt;p&gt;与 mget 可以使我们一次取回多个文档同样的方式， bulk API 允许在单个步骤中进行多次 create 、 index 、 update 或 delete 请求。 如果你需要索引一个数据流比如日志事件，它可以排队和索引数百或数千批次。&lt;/p&gt;
+
+&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;action&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;metadata&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}}&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;request&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;body&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;        &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;action&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;metadata&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}}&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;request&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;body&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;        &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;ul&gt;
+  &lt;li&gt;每行一定要以换行符(\n)结尾， 包括最后一行。&lt;/li&gt;
+  &lt;li&gt;这些行不能包含未转义的换行符，因为他们将会对解析造成干扰。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;一个完整的 bulk 操作：&lt;/p&gt;
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;curl &lt;span class=&quot;nt&quot;&gt;-X&lt;/span&gt; POST &lt;span class=&quot;s2&quot;&gt;&quot;localhost:9200/_bulk&quot;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;-H&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'Content-Type: application/json'&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'
+{ &quot;delete&quot;: { &quot;_index&quot;: &quot;website&quot;, &quot;_type&quot;: &quot;blog&quot;, &quot;_id&quot;: &quot;123&quot; }}
+{ &quot;create&quot;: { &quot;_index&quot;: &quot;website&quot;, &quot;_type&quot;: &quot;blog&quot;, &quot;_id&quot;: &quot;123&quot; }}
+{ &quot;title&quot;:    &quot;My first blog post&quot; }
+{ &quot;index&quot;:  { &quot;_index&quot;: &quot;website&quot;, &quot;_type&quot;: &quot;blog&quot; }}
+{ &quot;title&quot;:    &quot;My second blog post&quot; }
+{ &quot;update&quot;: { &quot;_index&quot;: &quot;website&quot;, &quot;_type&quot;: &quot;blog&quot;, &quot;_id&quot;: &quot;123&quot;, &quot;_retry_on_conflict&quot; : 3} }
+{ &quot;doc&quot; : {&quot;title&quot; : &quot;My updated blog post&quot;} }
+'&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;每个子请求都是独立执行，因此某个子请求的失败不会对其他子请求的成功与否造成影响。&lt;/strong&gt;这也意味着 bulk 请求不是原子的： 不能用它来实现事务控制。每个请求是单独处理的，因此一个请求的成功或失败不会影响其他的请求。&lt;/p&gt;
+
+&lt;h3 id=&quot;多大是太大了&quot;&gt;多大是太大了？&lt;/h3&gt;
+&lt;p&gt;整个批量请求都需要由接收到请求的节点加载到内存中，因此该请求越大，其他请求所能获得的内存就越少。&lt;/p&gt;
+
+&lt;p&gt;通过批量索引典型文档，并不断增加批量大小进行尝试。 当性能开始下降，那么你的批量大小就太大了。一个好的办法是开始时将 1,000 到 5,000 个文档作为一个批次, 如果你的文档非常大，那么就减少批量的文档个数。&lt;/p&gt;
+
+&lt;p&gt;密切关注你的批量请求的物理大小往往非常有用，一千个 1KB 的文档是完全不同于一千个 1MB 文档所占的物理大小。 一个好的批量大小在开始处理后所占用的物理大小约为 5-15 MB。&lt;/p&gt;</content><author><name>Tesla Lee</name></author><summary type="html">数据输入和输出</summary></entry><entry><title type="html">Elasticsearch - The Definitive Guide - Chapter 2</title><link href="http://www.teslalee.com/2018/05/07/Elasticsearch-The-Definitive-Guide-Chapter-2.html" rel="alternate" type="text/html" title="Elasticsearch - The Definitive Guide - Chapter 2" /><published>2018-05-07T18:16:46+08:00</published><updated>2018-05-07T18:16:46+08:00</updated><id>http://www.teslalee.com/2018/05/07/Elasticsearch-The-Definitive-Guide-Chapter-2</id><content type="html" xml:base="http://www.teslalee.com/2018/05/07/Elasticsearch-The-Definitive-Guide-Chapter-2.html">&lt;p&gt;集群内的原理&lt;/p&gt;
 
 &lt;!--more--&gt;
 
