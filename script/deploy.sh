@@ -14,7 +14,8 @@ if [ -d $deploypath ]; then
   fi
 fi
 
-git clone -b master ./_deploy --single-branch
+git clone -b master . _deploy --single-branch
+cd _deploy
 bundle exec jekyll build --config _config_prod.yml --destination ./_deploy
 echo "【`date +%T`】生成网站成功"
 echo "【`date +%T`】开始发布"
