@@ -22,7 +22,7 @@ url: "http://www.teslalee.com" # the base hostname & protocol for your site, e.g
 twitter_username: tesla_lee
 github_username:  liqites
 
-environment: dev
+environment: prod
 google_analytics: UA-83593915-2
 
 # Build settings
