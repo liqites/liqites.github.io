@@ -283,7 +283,7 @@ pre > code { border: 0; padding-right: 0; padding-left: 0; }
 .highlight { margin-bottom: 15px; }
 
 /*====== Hide elements for mobile ======*/
-@media only screen and (max-width: 1023px) { .global-footer, .logo, .apply-for-write { display: none; } }
+@media only screen and (max-width: 1023px) { .nav-top, .global-footer, .logo, .apply-for-write { display: none; } }
 /*====== Hide elements for mobile END ======*/
 /** Syntax highlighting styles */
 .highlight { background: #fff; }

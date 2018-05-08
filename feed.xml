@@ -1,10 +1,28 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-05-07T22:34:24+08:00</updated><id>http://localhost:4000/</id><title type="html">Code Cube</title><subtitle></subtitle><entry><title type="html">Elasticsearch - The Definitive Guide - Chapter 2</title><link href="http://localhost:4000/2018/05/07/Elasticsearch-The-Definitive-Guide-Chapter-2.html" rel="alternate" type="text/html" title="Elasticsearch - The Definitive Guide - Chapter 2" /><published>2018-05-07T18:16:46+08:00</published><updated>2018-05-07T18:16:46+08:00</updated><id>http://localhost:4000/2018/05/07/Elasticsearch-The-Definitive-Guide-Chapter-2</id><content type="html" xml:base="http://localhost:4000/2018/05/07/Elasticsearch-The-Definitive-Guide-Chapter-2.html">&lt;p&gt;集群内的原理&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-05-08T15:24:03+08:00</updated><id>http://localhost:4000/</id><title type="html">Code Cube</title><subtitle></subtitle><entry><title type="html">Elasticsearch - The Definitive Guide - Chapter 3</title><link href="http://localhost:4000/2018/05/08/Elasticsearch-The-Definitive-Guide-Chapter-3.html" rel="alternate" type="text/html" title="Elasticsearch - The Definitive Guide - Chapter 3" /><published>2018-05-08T15:09:15+08:00</published><updated>2018-05-08T15:09:15+08:00</updated><id>http://localhost:4000/2018/05/08/Elasticsearch-The-Definitive-Guide-Chapter-3</id><content type="html" xml:base="http://localhost:4000/2018/05/08/Elasticsearch-The-Definitive-Guide-Chapter-3.html">&lt;p&gt;数据输入和输出&lt;/p&gt;
+
+&lt;!--more--&gt;
+
+&lt;p&gt;一个 对象 是基于特定语言的内存的数据结构。 为了通过网络发送或者存储它，我们需要将它表示成某种标准的格式。 JSON 是一种以人可读的文本表示对象的方法。 它已经变成 NoSQL 世界交换数据的事实标准。当一个对象被序列化成为 JSON，它被称为一个 JSON 文档 。&lt;/p&gt;
+
+&lt;p&gt;Elastcisearch 是分布式的 文档 存储。它能存储和检索复杂的数据结构–序列化成为JSON文档–以 实时 的方式。 换句话说，一旦一个文档被存储在 Elasticsearch 中，它就是可以被集群中的任意节点检索到。&lt;/p&gt;
+
+&lt;p&gt;在 Elasticsearch 中， 每个字段的所有数据 都是 默认被索引的 。 即每个字段都有为了快速检索设置的专用倒排索引。&lt;/p&gt;
+
+&lt;h2 id=&quot;什么是文档&quot;&gt;什么是文档？&lt;/h2&gt;
+
+&lt;p&gt;我们使用的术语 对象 和 文档 是可以互相替换的。不过，有一个区别： 一个对象仅仅是类似于 hash 、 hashmap 、字典或者关联数组的 JSON 对象，对象中也可以嵌套其他的对象。 对象可能包含了另外一些对象。在 Elasticsearch 中，术语 文档 有着特定的含义。它是指&lt;strong&gt;最顶层&lt;/strong&gt;或者&lt;strong&gt;根对象&lt;/strong&gt;, 这个根对象被&lt;strong&gt;序列化成 JSON&lt;/strong&gt;并存储到 Elasticsearch 中，指定了唯一 ID。&lt;/p&gt;</content><author><name>Tesla Lee</name></author><summary type="html">数据输入和输出</summary></entry><entry><title type="html">Elasticsearch - The Definitive Guide - Chapter 2</title><link href="http://localhost:4000/2018/05/07/Elasticsearch-The-Definitive-Guide-Chapter-2.html" rel="alternate" type="text/html" title="Elasticsearch - The Definitive Guide - Chapter 2" /><published>2018-05-07T18:16:46+08:00</published><updated>2018-05-07T18:16:46+08:00</updated><id>http://localhost:4000/2018/05/07/Elasticsearch-The-Definitive-Guide-Chapter-2</id><content type="html" xml:base="http://localhost:4000/2018/05/07/Elasticsearch-The-Definitive-Guide-Chapter-2.html">&lt;p&gt;集群内的原理&lt;/p&gt;
 
 &lt;!--more--&gt;
 
 &lt;p&gt;ElastiSearch天生就是 分布式的 ，它知道如何通过管理多节点来提高扩容性和可用性。&lt;/p&gt;
 
 &lt;p&gt;一个运行中的 Elasticsearch 实例称为一个 节点，而集群是由一个或者多个拥有相同 cluster.name 配置的节点组成， 它们共同承担数据和负载的压力。&lt;/p&gt;
+
+&lt;h2 id=&quot;空集群&quot;&gt;空集群&lt;/h2&gt;
+
+&lt;p&gt;一个运行中的 Elasticsearch 实例称为一个 节点，而集群是由一个或者多个拥有相同 &lt;code class=&quot;highlighter-rouge&quot;&gt;cluster.name&lt;/code&gt; 配置的节点组成， 它们共同承担数据和负载的压力。当一个节点被选举成为 主 节点时， 它将负责管理集群范围内的所有变更，例如增加、删除索引，或者增加、删除节点等。主节点并不需要涉及到&lt;strong&gt;文档级别&lt;/strong&gt;的变更和搜索等操作。&lt;/p&gt;
+
+&lt;p&gt;可以将请求发送到 集群中的任何节点 ，包括主节点。&lt;/p&gt;
 
 &lt;h2 id=&quot;集群健康&quot;&gt;集群健康&lt;/h2&gt;
 &lt;p&gt;&lt;em&gt;集群健康&lt;/em&gt; ， 它在 status 字段中展示为 green 、 yellow 或者 red&lt;/p&gt;
@@ -26,7 +44,18 @@
 
 &lt;p&gt;一个分片可以是 主 分片或者 副本 分片。 索引内任意一个文档都归属于一个主分片，所以主分片的数目决定着索引能够保存的最大数据量。一个副本分片只是一个主分片的拷贝。&lt;/p&gt;
 
-&lt;p&gt;在索引建立的时候就已经确定了主分片数，但是副本分片数可以随时修改。&lt;/p&gt;</content><author><name>Tesla Lee</name></author><summary type="html">集群内的原理</summary></entry><entry><title type="html">Elasticsearch - The Definitive Guide - Chapter 1</title><link href="http://localhost:4000/2018/05/07/Elasticsearch-The-Definitive-Guide-Chapter-1.html" rel="alternate" type="text/html" title="Elasticsearch - The Definitive Guide - Chapter 1" /><published>2018-05-07T16:50:10+08:00</published><updated>2018-05-07T16:50:10+08:00</updated><id>http://localhost:4000/2018/05/07/Elasticsearch-The-Definitive-Guide-Chapter-1</id><content type="html" xml:base="http://localhost:4000/2018/05/07/Elasticsearch-The-Definitive-Guide-Chapter-1.html">&lt;p&gt;你知道的，为了搜索…
+&lt;p&gt;在索引建立的时候就已经确定了主分片数，但是副本分片数可以随时修改。&lt;/p&gt;
+
+&lt;h2 id=&quot;水平扩容&quot;&gt;水平扩容&lt;/h2&gt;
+&lt;p&gt;分片是一个功能完整的搜索引擎，它拥有使用一个节点上的所有资源的能力。 我们这个拥有6个分片（3个主分片和3个副本分片）的索引可以最大扩容到6个节点，每个节点上存在一个分片，并且每个分片拥有所在节点的全部资源。&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;主分片的数目在索引创建时 就已经确定了下来。实际上，这个数目定义了这个索引能够 存储 的最大数据量。（实际大小取决于你的数据、硬件和使用场景。） 但是，读操作——搜索和返回数据——可以同时被主分片 或 副本分片所处理，所以当你拥有越多的副本分片时，也将拥有越高的吞吐量。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;应对故障&quot;&gt;应对故障&lt;/h2&gt;
+&lt;p&gt;我们关闭的节点是一个主节点。而集群必须拥有一个主节点来保证正常工作，所以发生的第一件事情就是选举一个新的主节点： Node 2 。
+所以新的主节点立即将这些分片在 Node 2 和 Node 3 上对应的副本分片提升为主分片。&lt;/p&gt;</content><author><name>Tesla Lee</name></author><summary type="html">集群内的原理</summary></entry><entry><title type="html">Elasticsearch - The Definitive Guide - Chapter 1</title><link href="http://localhost:4000/2018/05/07/Elasticsearch-The-Definitive-Guide-Chapter-1.html" rel="alternate" type="text/html" title="Elasticsearch - The Definitive Guide - Chapter 1" /><published>2018-05-07T16:50:10+08:00</published><updated>2018-05-07T16:50:10+08:00</updated><id>http://localhost:4000/2018/05/07/Elasticsearch-The-Definitive-Guide-Chapter-1</id><content type="html" xml:base="http://localhost:4000/2018/05/07/Elasticsearch-The-Definitive-Guide-Chapter-1.html">&lt;p&gt;你知道的，为了搜索…
 &lt;!--more--&gt;&lt;/p&gt;
 
 &lt;blockquote&gt;
@@ -306,6 +335,10 @@
 &lt;h2 id=&quot;种族&quot;&gt;种族&lt;/h2&gt;
 
 &lt;h3 id=&quot;人族&quot;&gt;人族&lt;/h3&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;人是最平均也最复杂的种族，他们没有关夸父的高大，河络的技术，羽族的轻灵，鲛人的善水，魅的魔力。但他们有最庞大的人口和最完善的制度文明。人族有北陆，东陆，西陆三大文明带。北陆人为游牧文明，东陆人为农业文明，西陆的城邦文明则因为瘟疫而淹没在沙漠密林之后，成为探险发现的天堂。&lt;/p&gt;
+&lt;/blockquote&gt;
+
 &lt;h3 id=&quot;羽族&quot;&gt;羽族&lt;/h3&gt;
 &lt;h3 id=&quot;夸父&quot;&gt;夸父&lt;/h3&gt;
 &lt;h3 id=&quot;河络&quot;&gt;河络&lt;/h3&gt;
@@ -728,27 +761,4 @@
 
 &lt;p&gt;2 Sleep early and get up early.&lt;/p&gt;
 
-&lt;p&gt;3 Reading.&lt;/p&gt;</content><author><name>Tesla Lee</name></author><summary type="html">Rules</summary></entry><entry><title type="html">两部电影和下一步</title><link href="http://localhost:4000/2018/01/10/recent.html" rel="alternate" type="text/html" title="两部电影和下一步" /><published>2018-01-10T00:15:00+08:00</published><updated>2018-01-10T00:15:00+08:00</updated><id>http://localhost:4000/2018/01/10/recent</id><content type="html" xml:base="http://localhost:4000/2018/01/10/recent.html">&lt;p&gt;最近看了两部有意思的电影。《一日情人》和《三块广告牌》。&lt;/p&gt;
-
-&lt;p&gt;《一日情人》是一部法国电影。工作后，就一直没有心思停下来看这样“絮絮叨叨”的电影了，好像，电影里所探讨的问题，琐碎得遥远。&lt;/p&gt;
-
-&lt;p&gt;7 分吧，推荐喜欢这类电影的人看一看。&lt;/p&gt;
-
-&lt;p&gt;这里放上几张好看的剧照：&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/p2457077051.jpg&quot; alt=&quot;剧照1&quot; /&gt;
-&lt;img src=&quot;/assets/images/p2457077066.jpg&quot; alt=&quot;剧照2&quot; /&gt;
-&lt;img src=&quot;/assets/images/p2494758206.jpg&quot; alt=&quot;剧照3&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;而另一部电影《三块广告牌》，则是刚刚过去的75届金球奖最佳剧情片得主。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/p2510412903.jpg&quot; alt=&quot;海报1&quot; /&gt;
-&lt;img src=&quot;/assets/images/p2510431925.jpg&quot; alt=&quot;剧照1&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;这部电影的剧情结构让我想起了几年前看的《Crash》。多个人物之间的冲突，以及人物，情节与大环境之间的相互影响，都像极了《Crash》。&lt;/p&gt;
-
-&lt;p&gt;9 分推荐。&lt;/p&gt;
-
-&lt;p&gt;同一位导演我还看过另一部作品《在布鲁日》（又名《杀手没有假期》），当时没有看得太明白，只是觉得非常有意思。&lt;/p&gt;
-
-&lt;p&gt;关于我的下一步。在考虑了几天之后，我决定正式接受老陆的工作，完成 DearID 的项目。&lt;/p&gt;</content><author><name>Tesla Lee</name></author><summary type="html">最近看了两部有意思的电影。《一日情人》和《三块广告牌》。</summary></entry></feed>
+&lt;p&gt;3 Reading.&lt;/p&gt;</content><author><name>Tesla Lee</name></author><summary type="html">Rules</summary></entry></feed>
