@@ -1,4 +1,41 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://www.teslalee.com/feed.xml" rel="self" type="application/atom+xml" /><link href="http://www.teslalee.com/" rel="alternate" type="text/html" /><updated>2018-05-08T18:56:21+08:00</updated><id>http://www.teslalee.com/</id><title type="html">Code Cube</title><subtitle></subtitle><entry><title type="html">Elasticsearch - The Definitive Guide - Chapter 3</title><link href="http://www.teslalee.com/2018/05/08/Elasticsearch-The-Definitive-Guide-Chapter-3.html" rel="alternate" type="text/html" title="Elasticsearch - The Definitive Guide - Chapter 3" /><published>2018-05-08T15:09:15+08:00</published><updated>2018-05-08T15:09:15+08:00</updated><id>http://www.teslalee.com/2018/05/08/Elasticsearch-The-Definitive-Guide-Chapter-3</id><content type="html" xml:base="http://www.teslalee.com/2018/05/08/Elasticsearch-The-Definitive-Guide-Chapter-3.html">&lt;p&gt;数据输入和输出&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://www.teslalee.com/feed.xml" rel="self" type="application/atom+xml" /><link href="http://www.teslalee.com/" rel="alternate" type="text/html" /><updated>2018-05-08T21:01:02+08:00</updated><id>http://www.teslalee.com/</id><title type="html">Code Cube</title><subtitle></subtitle><entry><title type="html">Elasticsearch - The Definitive Guide - Chapter 4</title><link href="http://www.teslalee.com/elasticsearch/2018/05/08/Elasticsearch-The-Definitive-Guide-Chapter-4.html" rel="alternate" type="text/html" title="Elasticsearch - The Definitive Guide - Chapter 4" /><published>2018-05-08T19:03:50+08:00</published><updated>2018-05-08T19:03:50+08:00</updated><id>http://www.teslalee.com/elasticsearch/2018/05/08/Elasticsearch-The-Definitive-Guide-Chapter-4</id><content type="html" xml:base="http://www.teslalee.com/elasticsearch/2018/05/08/Elasticsearch-The-Definitive-Guide-Chapter-4.html">&lt;p&gt;分布式文档存储&lt;/p&gt;
+
+&lt;!--more--&gt;
+
+&lt;h2 id=&quot;路由一个文档到一个分片中&quot;&gt;路由一个文档到一个分片中&lt;/h2&gt;
+&lt;p&gt;当索引一个文档的时候，文档会被存储到一个主分片中。&lt;/p&gt;
+
+&lt;p&gt;如何决定存储在哪个分片中？&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;shard = hash(routing) % number_of_primary_shards&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;routing&lt;/code&gt; 是一个可变值，默认是文档的 _id ，也可以设置成一个自定义的值。 &lt;code class=&quot;highlighter-rouge&quot;&gt;routing&lt;/code&gt; 通过 &lt;code class=&quot;highlighter-rouge&quot;&gt;hash&lt;/code&gt; 函数生成一个数字，然后这个数字再除以 &lt;code class=&quot;highlighter-rouge&quot;&gt;number_of_primary_shards&lt;/code&gt; （主分片的数量）后得到 余数 。&lt;/p&gt;
+
+&lt;p&gt;所有的文档 API（ &lt;code class=&quot;highlighter-rouge&quot;&gt;get&lt;/code&gt; 、 &lt;code class=&quot;highlighter-rouge&quot;&gt;index&lt;/code&gt; 、 &lt;code class=&quot;highlighter-rouge&quot;&gt;delete&lt;/code&gt; 、 &lt;code class=&quot;highlighter-rouge&quot;&gt;bulk&lt;/code&gt; 、 &lt;code class=&quot;highlighter-rouge&quot;&gt;update&lt;/code&gt; 以及 &lt;code class=&quot;highlighter-rouge&quot;&gt;mget&lt;/code&gt; ）都接受一个叫做 &lt;code class=&quot;highlighter-rouge&quot;&gt;routing&lt;/code&gt; 的路由参数 ，通过这个参数我们可以自定义文档到分片的映射。&lt;/p&gt;
+
+&lt;h2 id=&quot;煮粉片和副本分片如何交互&quot;&gt;煮粉片和副本分片如何交互&lt;/h2&gt;
+&lt;p&gt;假设有一个三个节点的集群，包含一个叫 &lt;code class=&quot;highlighter-rouge&quot;&gt;blogs&lt;/code&gt; 的索引。有两个主分片和四个副分片。
+则分片的分布可能如图：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/elas_0401.png&quot; alt=&quot;图片&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;我们假设下面的请求，都发送到 &lt;code class=&quot;highlighter-rouge&quot;&gt;Node 1&lt;/code&gt; 上。&lt;/p&gt;
+
+&lt;h2 id=&quot;新建索引和删除文档&quot;&gt;新建、索引和删除文档&lt;/h2&gt;
+&lt;p&gt;新建、索引和删除 请求都是 写 操作， 必须在主分片上面完成之后才能被复制到相关的副本分片。&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;一个文档只能存在于一个分片中，也就是说，如果一个索引有两个主分片，可以认为两个主分片合起来存储了索引的所有文档。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;更新步骤：
+&lt;img src=&quot;/assets/images/elas_0402.png&quot; alt=&quot;图片&quot; /&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;客户端向 &lt;code class=&quot;highlighter-rouge&quot;&gt;Node 1&lt;/code&gt; 发送新建、索引或者删除请求。&lt;/li&gt;
+  &lt;li&gt;节点使用文档的 &lt;code class=&quot;highlighter-rouge&quot;&gt;_id&lt;/code&gt; 确定文档属于分片 0 。请求会被转发到&lt;code class=&quot;highlighter-rouge&quot;&gt; Node 3&lt;/code&gt;，因为分片 0 的主分片目前被分配在 &lt;code class=&quot;highlighter-rouge&quot;&gt;Node 3&lt;/code&gt; 上。&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Node 3&lt;/code&gt; 在主分片上面执行请求。如果成功了，它将请求并行转发到 &lt;code class=&quot;highlighter-rouge&quot;&gt;Node 1&lt;/code&gt; 和 &lt;code class=&quot;highlighter-rouge&quot;&gt;Node 2&lt;/code&gt; 的副本分片上。一旦所有的副本分片都报告成功, &lt;code class=&quot;highlighter-rouge&quot;&gt;Node 3&lt;/code&gt; 将向协调节点报告成功，协调节点向客户端报告成功。&lt;/li&gt;
+&lt;/ol&gt;</content><author><name>Tesla Lee</name></author><summary type="html">分布式文档存储</summary></entry><entry><title type="html">Elasticsearch - The Definitive Guide - Chapter 3</title><link href="http://www.teslalee.com/elasticsearch/2018/05/08/Elasticsearch-The-Definitive-Guide-Chapter-3.html" rel="alternate" type="text/html" title="Elasticsearch - The Definitive Guide - Chapter 3" /><published>2018-05-08T15:09:15+08:00</published><updated>2018-05-08T15:09:15+08:00</updated><id>http://www.teslalee.com/elasticsearch/2018/05/08/Elasticsearch-The-Definitive-Guide-Chapter-3</id><content type="html" xml:base="http://www.teslalee.com/elasticsearch/2018/05/08/Elasticsearch-The-Definitive-Guide-Chapter-3.html">&lt;p&gt;数据输入和输出&lt;/p&gt;
 
 &lt;!--more--&gt;
 
@@ -1006,24 +1043,4 @@
 
 &lt;p&gt;它瞬间把我拉回了童年，那个在一群人在家里，围着游戏机一起通关的场景。&lt;/p&gt;
 
-&lt;p&gt;之所以喜悦是因为那种久违的感觉，而忧伤是，你知道永远也不会再回去了。&lt;/p&gt;</content><author><name>Tesla Lee</name></author><summary type="html">看完《头号玩家》后，有一个问题一直在脑海里盘旋： 『到底是什么触动了我，让我在看完电影后感到那么喜悦却又有点忧伤？』</summary></entry><entry><title type="html">My New Rules of Life</title><link href="http://www.teslalee.com/2018/03/02/my-new-rules-of-life.html" rel="alternate" type="text/html" title="My New Rules of Life" /><published>2018-03-02T13:56:00+08:00</published><updated>2018-03-02T13:56:00+08:00</updated><id>http://www.teslalee.com/2018/03/02/my-new-rules-of-life</id><content type="html" xml:base="http://www.teslalee.com/2018/03/02/my-new-rules-of-life.html">&lt;p&gt;Rules&lt;/p&gt;
-
-&lt;!--more--&gt;
-
-&lt;h4 id=&quot;things-i-wont-do-in-the-future&quot;&gt;Things I won’t do in the future&lt;/h4&gt;
-
-&lt;p&gt;1 Alchohol.&lt;/p&gt;
-
-&lt;p&gt;2 Eating meat except chicken and fish.&lt;/p&gt;
-
-&lt;p&gt;3 Cigarette.&lt;/p&gt;
-
-&lt;p&gt;4 Fast food, sugure, carbonated soft drinks.&lt;/p&gt;
-
-&lt;h4 id=&quot;things-i-want&quot;&gt;Things I want&lt;/h4&gt;
-
-&lt;p&gt;1 Exercises.&lt;/p&gt;
-
-&lt;p&gt;2 Sleep early and get up early.&lt;/p&gt;
-
-&lt;p&gt;3 Reading.&lt;/p&gt;</content><author><name>Tesla Lee</name></author><summary type="html">Rules</summary></entry></feed>
+&lt;p&gt;之所以喜悦是因为那种久违的感觉，而忧伤是，你知道永远也不会再回去了。&lt;/p&gt;</content><author><name>Tesla Lee</name></author><summary type="html">看完《头号玩家》后，有一个问题一直在脑海里盘旋： 『到底是什么触动了我，让我在看完电影后感到那么喜悦却又有点忧伤？』</summary></entry></feed>

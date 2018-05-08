@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- Begin Jekyll SEO tag v2.3.0 -->
+<title>Elasticsearch - The Definitive Guide - Chapter 4 | Code Cube</title>
+<meta property="og:title" content="Elasticsearch - The Definitive Guide - Chapter 4" />
+<meta name="author" content="Tesla Lee" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="分布式文档存储" />
+<meta property="og:description" content="分布式文档存储" />
+<link rel="canonical" href="http://www.teslalee.com/elasticsearch/2018/05/08/Elasticsearch-The-Definitive-Guide-Chapter-4.html" />
+<meta property="og:url" content="http://www.teslalee.com/elasticsearch/2018/05/08/Elasticsearch-The-Definitive-Guide-Chapter-4.html" />
+<meta property="og:site_name" content="Code Cube" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2018-05-08T19:03:50+08:00" />
+<script type="application/ld+json">
+{"name":null,"description":"分布式文档存储","author":{"@type":"Person","name":"Tesla Lee"},"@type":"BlogPosting","url":"http://www.teslalee.com/elasticsearch/2018/05/08/Elasticsearch-The-Definitive-Guide-Chapter-4.html","image":null,"publisher":null,"headline":"Elasticsearch - The Definitive Guide - Chapter 4","dateModified":"2018-05-08T19:03:50+08:00","datePublished":"2018-05-08T19:03:50+08:00","sameAs":null,"mainEntityOfPage":{"@type":"WebPage","@id":"http://www.teslalee.com/elasticsearch/2018/05/08/Elasticsearch-The-Definitive-Guide-Chapter-4.html"},"@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <!-- <link rel="stylesheet" href="/assets/main.css"> -->
+    <link rel="stylesheet" href="/assets/app.css">
+
+    <link rel="alternate" type="application/rss+xml" title="Code Cube" href="/%20/feed.xml">
+    
+        <!-- Google Analytics -->
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-83593915-2', 'auto');
+ga('send', 'pageview');
+</script>
+<!-- End Google Analytics -->
+    
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({ tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]} });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
+</head>
+
+  <body>
+    <nav class="nav-top headroom clearfix">
+	<div class="mzread-entrance">
+		<a href="/">Code Cube</a>
+	</div>
+
+	<ul class="main-nav">
+    
+	</ul>
+
+	<!-- <div class="nav-user">
+    <a class="nav-user-item" href="/login">登录</a>
+    <a class="nav-user-item" href="/signup">注册</a>
+  </div> -->
+</nav>
+
+    <main class="post-container sticky-footer--main-wrap clearfix">
+  <article class="post-article article-core chinese-punct clearfix" lang="en">
+    <!--Publish info-->
+		<aside class="publish-info-card clearfix">
+			<a class="publish-info-card--avatar-link" href="/">
+        <img class="avatar-circle publish-info-card--avatar" src="/logo.jpg" alt="TL">
+        
+        <h4 class="publish-info-card--name">Tesla Lee</h4>
+        
+      </a>
+			<p class="publish-info-card--meta">
+        
+        <!-- <a href="#" class="publish-info-card--author-name">Tesla Lee</a><span class="vert-line">｜</span> -->
+        
+				<span class="time-last-modified">
+          
+        May 8, 2018
+      </span>
+			</p>
+		</aside>
+
+    <!--Article Header-->
+    <header class="article-header">
+      <h1 class="article-header--h1">Elasticsearch - The Definitive Guide - Chapter 4</h1>
+    </header>
+
+    <!--Article Header-->
+    <section class="article-section">
+      <p>分布式文档存储</p>
+
+<!--more-->
+
+<h2 id="路由一个文档到一个分片中">路由一个文档到一个分片中</h2>
+<p>当索引一个文档的时候，文档会被存储到一个主分片中。</p>
+
+<p>如何决定存储在哪个分片中？</p>
+
+<p><code class="highlighter-rouge">shard = hash(routing) % number_of_primary_shards</code></p>
+
+<p><code class="highlighter-rouge">routing</code> 是一个可变值，默认是文档的 _id ，也可以设置成一个自定义的值。 <code class="highlighter-rouge">routing</code> 通过 <code class="highlighter-rouge">hash</code> 函数生成一个数字，然后这个数字再除以 <code class="highlighter-rouge">number_of_primary_shards</code> （主分片的数量）后得到 余数 。</p>
+
+<p>所有的文档 API（ <code class="highlighter-rouge">get</code> 、 <code class="highlighter-rouge">index</code> 、 <code class="highlighter-rouge">delete</code> 、 <code class="highlighter-rouge">bulk</code> 、 <code class="highlighter-rouge">update</code> 以及 <code class="highlighter-rouge">mget</code> ）都接受一个叫做 <code class="highlighter-rouge">routing</code> 的路由参数 ，通过这个参数我们可以自定义文档到分片的映射。</p>
+
+<h2 id="煮粉片和副本分片如何交互">煮粉片和副本分片如何交互</h2>
+<p>假设有一个三个节点的集群，包含一个叫 <code class="highlighter-rouge">blogs</code> 的索引。有两个主分片和四个副分片。
+则分片的分布可能如图：</p>
+
+<p><img src="/assets/images/elas_0401.png" alt="图片" /></p>
+
+<p>我们假设下面的请求，都发送到 <code class="highlighter-rouge">Node 1</code> 上。</p>
+
+<h2 id="新建索引和删除文档">新建、索引和删除文档</h2>
+<p>新建、索引和删除 请求都是 写 操作， 必须在主分片上面完成之后才能被复制到相关的副本分片。</p>
+
+<blockquote>
+  <p>一个文档只能存在于一个分片中，也就是说，如果一个索引有两个主分片，可以认为两个主分片合起来存储了索引的所有文档。</p>
+</blockquote>
+
+<p>更新步骤：
+<img src="/assets/images/elas_0402.png" alt="图片" /></p>
+
+<ol>
+  <li>客户端向 <code class="highlighter-rouge">Node 1</code> 发送新建、索引或者删除请求。</li>
+  <li>节点使用文档的 <code class="highlighter-rouge">_id</code> 确定文档属于分片 0 。请求会被转发到<code class="highlighter-rouge"> Node 3</code>，因为分片 0 的主分片目前被分配在 <code class="highlighter-rouge">Node 3</code> 上。</li>
+  <li><code class="highlighter-rouge">Node 3</code> 在主分片上面执行请求。如果成功了，它将请求并行转发到 <code class="highlighter-rouge">Node 1</code> 和 <code class="highlighter-rouge">Node 2</code> 的副本分片上。一旦所有的副本分片都报告成功, <code class="highlighter-rouge">Node 3</code> 将向协调节点报告成功，协调节点向客户端报告成功。</li>
+</ol>
+
+    </section>
+  </article>
+  <footer class="post-footer clearfix">
+  			<div class="clearfix">
+  				<nav class="post-footer--post-nav">
+  					<!-- <a href="#" class="button-capsule post-footer--next-post"><span class="button-label next-post-label">没有“国进民退”，也没有“国家资本主义”这回事儿？</span><span class="button-arrow-right next-post-arrow"></span></a> -->
+  				</nav>
+  			</div>
+  		</footer>
+</main>
+
+    <footer class="sticky-footer">
+  <div class="global-footer">
+    <ul class="global-footer-links">
+      <li>Designed by <a href="http://laerhsif.com/" target="_blank">realfish</a></li>
+    </ul>
+  </div>
+</footer>
+
+  </body>
+  <script type="text/javascript" src="/assets/app-cf635fcf31d244d93ece3ca7f45a686b16696c3d5c02dc04c2ae7cadef7c3aaa.js"></script>
+  <script>
+  		// NProgress configuration
+  		NProgress.configure({
+  			minimum: 0.10,
+  			ease: 'linear',
+  			speed: 500,
+  			trickleRate: 0.02,
+  			trickleSpeed: 200,
+  			showSpinner: false
+  		});
+
+  		NProgress.start();
+
+  		$(window).load(function(){
+  			NProgress.done();
+  		});
+
+  		// Headroom configuration
+  		$(".headroom").headroom();
+
+  		// Hover optimization for mobile webkit
+  		document.addEventListener("touchstart", function(){}, true);
+
+  		// Scroll-to-top button
+  		$('.scroll-to-top').click(function(){
+  			$('html, body').animate({
+  				scrollTop: 0}, 1000);
+  			return false;
+  		});
+
+  		// Positioning of `button.apply-for-write`
+  		$(function(){
+  			if($(window).width() > 1023){
+  				var offset = $('main').offset().top + parseInt($('main').css('padding-top').replace("px", "")) + 8;
+
+  				$('.apply-for-write').css({
+  					'top': offset + 'px'
+  				});
+  			}
+  		});
+
+  		$(window).resize(function(){
+  			if($(window).width() > 1023){
+  				var offset = $('main').offset().top + parseInt($('main').css('padding-top').replace("px", "")) + 8;
+
+  				$('.apply-for-write').css({
+  					'top': offset + 'px'
+  				});
+  			}
+  		});
+
+  		// State toggle of `is-active`
+  		$('.post-footer--action-fav').click(function(){
+  			$(this).toggleClass('is-active');
+  		});
+
+  		$('.button-subscribe').click(function(){
+  			$(this).toggleClass('is-active');
+  		});
+  	</script>
+</html>
