@@ -26,7 +26,7 @@
     <script type="text/x-mathjax-config">
         MathJax.Hub.Config({ tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]} });
     </script>
-    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
     </script>
 <script src="http://127.0.0.1:5678/livereload.js"></script></head>
 
@@ -142,24 +142,64 @@
 
   </body>
   <script type="text/javascript" src="/assets/app-cf635fcf31d244d93ece3ca7f45a686b16696c3d5c02dc04c2ae7cadef7c3aaa.js"></script>
-  <script type="text/javascript">
-    // NProgress configuration
-    NProgress.configure({
-      minimum: 0.10,
-      ease: 'linear',
-      speed: 500,
-      trickleRate: 0.02,
-      trickleSpeed: 200,
-      showSpinner: false
-    });
+  <script>
+  		// NProgress configuration
+  		NProgress.configure({
+  			minimum: 0.10,
+  			ease: 'linear',
+  			speed: 500,
+  			trickleRate: 0.02,
+  			trickleSpeed: 200,
+  			showSpinner: false
+  		});
 
-    NProgress.start();
+  		NProgress.start();
 
-    $(window).load(function(){
-      NProgress.done();
-    });
+  		$(window).load(function(){
+  			NProgress.done();
+  		});
 
-    // Headroom configuration
-    $(".headroom").headroom();
-  </script>
+  		// Headroom configuration
+  		$(".headroom").headroom();
+
+  		// Hover optimization for mobile webkit
+  		document.addEventListener("touchstart", function(){}, true);
+
+  		// Scroll-to-top button
+  		$('.scroll-to-top').click(function(){
+  			$('html, body').animate({
+  				scrollTop: 0}, 1000);
+  			return false;
+  		});
+
+  		// Positioning of `button.apply-for-write`
+  		$(function(){
+  			if($(window).width() > 1023){
+  				var offset = $('main').offset().top + parseInt($('main').css('padding-top').replace("px", "")) + 8;
+
+  				$('.apply-for-write').css({
+  					'top': offset + 'px'
+  				});
+  			}
+  		});
+
+  		$(window).resize(function(){
+  			if($(window).width() > 1023){
+  				var offset = $('main').offset().top + parseInt($('main').css('padding-top').replace("px", "")) + 8;
+
+  				$('.apply-for-write').css({
+  					'top': offset + 'px'
+  				});
+  			}
+  		});
+
+  		// State toggle of `is-active`
+  		$('.post-footer--action-fav').click(function(){
+  			$(this).toggleClass('is-active');
+  		});
+
+  		$('.button-subscribe').click(function(){
+  			$(this).toggleClass('is-active');
+  		});
+  	</script>
 </html>
