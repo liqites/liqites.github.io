@@ -1,4 +1,131 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://www.teslalee.com/feed.xml" rel="self" type="application/atom+xml" /><link href="http://www.teslalee.com/" rel="alternate" type="text/html" /><updated>2018-05-09T16:12:16+08:00</updated><id>http://www.teslalee.com/</id><title type="html">Code Cube</title><subtitle></subtitle><entry><title type="html">Elasticsearch - The Definitive Guide - Chapter 4</title><link href="http://www.teslalee.com/elasticsearch/2018/05/08/Elasticsearch-The-Definitive-Guide-Chapter-4.html" rel="alternate" type="text/html" title="Elasticsearch - The Definitive Guide - Chapter 4" /><published>2018-05-08T19:03:50+08:00</published><updated>2018-05-08T19:03:50+08:00</updated><id>http://www.teslalee.com/elasticsearch/2018/05/08/Elasticsearch-The-Definitive-Guide-Chapter-4</id><content type="html" xml:base="http://www.teslalee.com/elasticsearch/2018/05/08/Elasticsearch-The-Definitive-Guide-Chapter-4.html">&lt;p&gt;分布式文档存储&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://www.teslalee.com/feed.xml" rel="self" type="application/atom+xml" /><link href="http://www.teslalee.com/" rel="alternate" type="text/html" /><updated>2018-05-09T17:36:23+08:00</updated><id>http://www.teslalee.com/</id><title type="html">Code Cube</title><subtitle></subtitle><entry><title type="html">Elasticsearch - Index vs Type</title><link href="http://www.teslalee.com/elasticsearch/2018/05/09/Elasticsearch-Index-vs-Type.html" rel="alternate" type="text/html" title="Elasticsearch - Index vs Type" /><published>2018-05-09T16:43:35+08:00</published><updated>2018-05-09T16:43:35+08:00</updated><id>http://www.teslalee.com/elasticsearch/2018/05/09/Elasticsearch-Index-vs-Type</id><content type="html" xml:base="http://www.teslalee.com/elasticsearch/2018/05/09/Elasticsearch-Index-vs-Type.html">&lt;p&gt;This article is a short and noted versions of elasticsearch’s  &lt;a href=&quot;https://www.elastic.co/blog/index-vs-type&quot;&gt;Index vs Type&lt;/a&gt;&lt;/p&gt;
+
+&lt;!--more--&gt;
+
+&lt;h2 id=&quot;what-is-an-index&quot;&gt;What is an index?&lt;/h2&gt;
+&lt;p&gt;An index is stored in a set of shards, which are themselves Lucene indices.&lt;/p&gt;
+
+&lt;p&gt;Lucene indices have a small yet fixed overhead in terms of disk space, memory usage and file descriptors used.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;a single large index is more efficient than several small indices.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;While each shard is searched independently, Elasticsearch eventually needs to merge results from all the searched shards.&lt;/p&gt;
+
+&lt;p&gt;So, if the request is heavy, the task of merging all these shard results can become very resource-intensive, both in terms of CPU and memory.&lt;/p&gt;
+
+&lt;h2 id=&quot;what-is-a-type&quot;&gt;What is a type?&lt;/h2&gt;
+
+&lt;p&gt;Types are a convenient way to store several types of data in the same index, in order to keep the total number of indices low for the reasons exposed above.&lt;/p&gt;
+
+&lt;h3 id=&quot;limitations&quot;&gt;limitations&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Fields need to be consistent across types. For instance if two fields have the same name in different types of the same index, they need to be of the same field type (string, date, etc.) and have the same configuration.&lt;/li&gt;
+  &lt;li&gt;Fields that exist in one type will also consume resources for documents of types where this field does not exist. &lt;strong&gt;for speed reasons, doc values often reserve a fixed amount of disk space for every document, so that values can be addressed efficiently.&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;Scores use index-wide statistics, so scores of documents in one type can be impacted by documents from other types.&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>Tesla Lee</name></author><summary type="html">This article is a short and noted versions of elasticsearch’s Index vs Type</summary></entry><entry><title type="html">Elasticsearch - The Definitive Guide - Chapter 5</title><link href="http://www.teslalee.com/elasticsearch/2018/05/09/Elasticsearch-The-Definitive-Guide-Chapter-5.html" rel="alternate" type="text/html" title="Elasticsearch - The Definitive Guide - Chapter 5" /><published>2018-05-09T16:15:11+08:00</published><updated>2018-05-09T16:15:11+08:00</updated><id>http://www.teslalee.com/elasticsearch/2018/05/09/Elasticsearch-The-Definitive-Guide-Chapter-5</id><content type="html" xml:base="http://www.teslalee.com/elasticsearch/2018/05/09/Elasticsearch-The-Definitive-Guide-Chapter-5.html">&lt;p&gt;搜索 —— 最基本的工具&lt;/p&gt;
+
+&lt;!--more--&gt;
+
+&lt;p&gt;基本概念：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;映射（Mapping）&lt;/code&gt;描述数据在每个字段内如何存储&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;分析（Analysis）&lt;/code&gt;全文是如何处理是指可以被搜索的&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;领域特定查询语言（Query DSL）&lt;/code&gt;Elasticsaerch 中强大灵活的查询语言&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;空搜索&quot;&gt;空搜索&lt;/h2&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;curl &lt;span class=&quot;nt&quot;&gt;-X&lt;/span&gt; GET &lt;span class=&quot;s2&quot;&gt;&quot;localhost:9200/_search&quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;一个简化的返回：&lt;/p&gt;
+&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+   &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;hits&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+      &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;total&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;       &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;14&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+      &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;hits&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+          &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;_index&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;   &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;us&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+          &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;_type&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;tweet&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+          &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;_id&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;      &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;7&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+          &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;_score&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;   &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+          &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;_source&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+             &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;date&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;2014-09-17&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+             &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;name&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;John Smith&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+             &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;tweet&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;   &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;The Query DSL is really powerful and flexible&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+             &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;user_id&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+          &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+       &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;...&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;9&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;RESULTS&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;REMOVED&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;...&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+      &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+      &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;max_score&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;   &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+   &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+   &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;took&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;           &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+   &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;_shards&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+      &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;failed&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;      &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+      &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;successful&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;  &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+      &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;total&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;       &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+   &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+   &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;timed_out&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;      &lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;hits&quot;&gt;hits&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;total&lt;/code&gt;：匹配到的总文档数&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;hits&lt;/code&gt; 数组：前 10 个文档&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;_score&lt;/code&gt;：衡量每个文档的匹配度。&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;max_score&lt;/code&gt;: 所有匹配文档中的 &lt;code class=&quot;highlighter-rouge&quot;&gt;_score&lt;/code&gt; 的最大值。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;took&quot;&gt;took&lt;/h3&gt;
+&lt;p&gt;整个搜索耗时多少&lt;strong&gt;毫秒&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;shards&quot;&gt;shards&lt;/h3&gt;
+&lt;p&gt;查询中参与分片的总数，以及这些分片成功了多少个失败了多少个。&lt;/p&gt;
+
+&lt;h3 id=&quot;timeout&quot;&gt;timeout&lt;/h3&gt;
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;timed_ount&lt;/code&gt; 查询是否超时。&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;timeout&lt;/code&gt; 不是停止执行查询，它仅仅是告知正在协调的节点返回到目前为止收集的结果并且关闭连接。在后台，其他的分片可能仍在执行查询即使是结果已经被发送了。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;多索引多类型&quot;&gt;多索引，多类型&lt;/h2&gt;
+&lt;p&gt;我们可以通过在URL中指定特殊的索引和类型&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;/_search&lt;/code&gt;在所有的索引中搜索所有的类型&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;/gb/_search&lt;/code&gt;在 gb 索引中搜索所有的类型&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;/gb,us/_search&lt;/code&gt;在 gb 和 us 索引中搜索所有的文档&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;/g*,u*/_search&lt;/code&gt;在任何以 g 或者 u 开头的索引中搜索所有的类型&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;/gb/user/_search&lt;/code&gt;在 gb 索引中搜索 user 类型&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;/gb,us/user,tweet/_search&lt;/code&gt;在 gb 和 us 索引中搜索 user 和 tweet 类型&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;/_all/user,tweet/_search&lt;/code&gt;在所有的索引中搜索 user 和 tweet 类型&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;分页&quot;&gt;分页&lt;/h2&gt;
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;from&lt;/code&gt; 和 &lt;code class=&quot;highlighter-rouge&quot;&gt;size&lt;/code&gt; 参数&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;size&lt;/code&gt;显示应该返回的结果数量，默认是 10&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;from&lt;/code&gt;显示应该跳过的初始结果数量，默认是 0&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;轻量搜索&quot;&gt;轻量搜索&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;轻量搜索&lt;/strong&gt;，在查询字符串中传递参数&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;完整搜索&lt;/strong&gt;，使用 JSON 或更丰富的请求体&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;_all-字段&quot;&gt;_all 字段&lt;/h3&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;GET /_search?q=mary
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;上面的查询是如何执行的？
+我们会发现， Elasticsearch 返回的结果中，所有字段中包含 mary 的文档都返回了。这是因为，Elasticsearch 在索引文档时，会将所有的字段拼成一个字段 &lt;code class=&quot;highlighter-rouge&quot;&gt;_all&lt;/code&gt;，进行索引。就好像多了一个字段 &lt;code class=&quot;highlighter-rouge&quot;&gt;_all&lt;/code&gt;&lt;/p&gt;</content><author><name>Tesla Lee</name></author><summary type="html">搜索 —— 最基本的工具</summary></entry><entry><title type="html">Elasticsearch - The Definitive Guide - Chapter 4</title><link href="http://www.teslalee.com/elasticsearch/2018/05/08/Elasticsearch-The-Definitive-Guide-Chapter-4.html" rel="alternate" type="text/html" title="Elasticsearch - The Definitive Guide - Chapter 4" /><published>2018-05-08T19:03:50+08:00</published><updated>2018-05-08T19:03:50+08:00</updated><id>http://www.teslalee.com/elasticsearch/2018/05/08/Elasticsearch-The-Definitive-Guide-Chapter-4</id><content type="html" xml:base="http://www.teslalee.com/elasticsearch/2018/05/08/Elasticsearch-The-Definitive-Guide-Chapter-4.html">&lt;p&gt;分布式文档存储&lt;/p&gt;
 
 &lt;!--more--&gt;
 
@@ -1084,23 +1211,4 @@ _规定数量_ 计算公式: &lt;code class=&quot;highlighter-rouge&quot;&gt;int
 
 &lt;p&gt;f. The language of nonnegative integer constants in C, where numbers beginning with 0 are octal constants and other numbers are decimal constants.&lt;/p&gt;
 
-&lt;p&gt;g. Binary numbers n such that there exists an integer solution of $a^n + b^n = c^n$.&lt;/p&gt;</content><author><name>Tesla Lee</name></author><summary type="html">『Modern Compiler Implementation in C』词法分析部分笔记和总结。</summary></entry><entry><title type="html">Notes on Machine Learning on Coursera</title><link href="http://www.teslalee.com/2018/04/25/notes-of-machine-larning-on-coursera.html" rel="alternate" type="text/html" title="Notes on Machine Learning on Coursera" /><published>2018-04-25T00:00:00+08:00</published><updated>2018-04-25T00:00:00+08:00</updated><id>http://www.teslalee.com/2018/04/25/notes-of-machine-larning-on-coursera</id><content type="html" xml:base="http://www.teslalee.com/2018/04/25/notes-of-machine-larning-on-coursera.html">&lt;p&gt;I always want to learn Machine Learning and finally I got time.&lt;/p&gt;
-
-&lt;p&gt;I first started with the open class CS 229 Machine Learning from Stanford by Andrew Ng. But I failed after 2 classes, because Andrew Ng skipped some math detail that I forget the knowledge of calculus and linear algebra.&lt;/p&gt;
-
-&lt;p&gt;Then I find the Machine Learning by Andrew Ng on &lt;a href=&quot;http://www.coursera.com/&quot;&gt;Coursera&lt;/a&gt; is great.&lt;/p&gt;
-
-&lt;p&gt;The learning curve of class is more gentle, and all math details are covered in the course.&lt;/p&gt;
-
-&lt;p&gt;So if you want to learning machine learning, I highly recommend you try this course. All you want to know is the basic knowledge of calculus and linear algebra, which also covered in the course.&lt;/p&gt;
-
-&lt;p&gt;Yeah!&lt;/p&gt;</content><author><name>Tesla Lee</name></author><summary type="html">I always want to learn Machine Learning and finally I got time.</summary></entry><entry><title type="html">《头号玩家》</title><link href="http://www.teslalee.com/2018/04/02/ready-player-one.html" rel="alternate" type="text/html" title="《头号玩家》" /><published>2018-04-02T00:00:00+08:00</published><updated>2018-04-02T00:00:00+08:00</updated><id>http://www.teslalee.com/2018/04/02/ready-player-one</id><content type="html" xml:base="http://www.teslalee.com/2018/04/02/ready-player-one.html">&lt;p&gt;看完《头号玩家》后，有一个问题一直在脑海里盘旋：
-『到底是什么触动了我，让我在看完电影后感到那么喜悦却又有点忧伤？』&lt;/p&gt;
-
-&lt;p&gt;到刚才，在微博上看到梅原大吾用隆完全格挡春丽的大招时，我才忽然明白。&lt;/p&gt;
-
-&lt;p&gt;《头号玩家》带给我的感觉：&lt;/p&gt;
-
-&lt;p&gt;它瞬间把我拉回了童年，那个在一群人在家里，围着游戏机一起通关的场景。&lt;/p&gt;
-
-&lt;p&gt;之所以喜悦是因为那种久违的感觉，而忧伤是，你知道永远也不会再回去了。&lt;/p&gt;</content><author><name>Tesla Lee</name></author><summary type="html">看完《头号玩家》后，有一个问题一直在脑海里盘旋： 『到底是什么触动了我，让我在看完电影后感到那么喜悦却又有点忧伤？』</summary></entry></feed>
+&lt;p&gt;g. Binary numbers n such that there exists an integer solution of $a^n + b^n = c^n$.&lt;/p&gt;</content><author><name>Tesla Lee</name></author><summary type="html">『Modern Compiler Implementation in C』词法分析部分笔记和总结。</summary></entry></feed>

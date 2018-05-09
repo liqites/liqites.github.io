@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- Begin Jekyll SEO tag v2.3.0 -->
+<title>Elasticsearch - The Definitive Guide - Chapter 5 | Code Cube</title>
+<meta property="og:title" content="Elasticsearch - The Definitive Guide - Chapter 5" />
+<meta name="author" content="Tesla Lee" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="搜索 —— 最基本的工具" />
+<meta property="og:description" content="搜索 —— 最基本的工具" />
+<link rel="canonical" href="http://www.teslalee.com/elasticsearch/2018/05/09/Elasticsearch-The-Definitive-Guide-Chapter-5.html" />
+<meta property="og:url" content="http://www.teslalee.com/elasticsearch/2018/05/09/Elasticsearch-The-Definitive-Guide-Chapter-5.html" />
+<meta property="og:site_name" content="Code Cube" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2018-05-09T16:15:11+08:00" />
+<script type="application/ld+json">
+{"name":null,"description":"搜索 —— 最基本的工具","author":{"@type":"Person","name":"Tesla Lee"},"@type":"BlogPosting","url":"http://www.teslalee.com/elasticsearch/2018/05/09/Elasticsearch-The-Definitive-Guide-Chapter-5.html","image":null,"publisher":null,"headline":"Elasticsearch - The Definitive Guide - Chapter 5","dateModified":"2018-05-09T16:15:11+08:00","datePublished":"2018-05-09T16:15:11+08:00","sameAs":null,"mainEntityOfPage":{"@type":"WebPage","@id":"http://www.teslalee.com/elasticsearch/2018/05/09/Elasticsearch-The-Definitive-Guide-Chapter-5.html"},"@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <!-- <link rel="stylesheet" href="/assets/main.css"> -->
+    <link rel="stylesheet" href="/assets/app.css">
+
+    <link rel="alternate" type="application/rss+xml" title="Code Cube" href="/%20/feed.xml">
+    
+        <!-- Google Analytics -->
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-83593915-2', 'auto');
+ga('send', 'pageview');
+</script>
+<!-- End Google Analytics -->
+    
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({ tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]} });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
+</head>
+
+  <body>
+    <nav class="nav-top headroom clearfix">
+	<div class="mzread-entrance">
+		<a href="/">Code Cube</a>
+	</div>
+
+	<ul class="main-nav">
+    
+	</ul>
+
+	<!-- <div class="nav-user">
+    <a class="nav-user-item" href="/login">登录</a>
+    <a class="nav-user-item" href="/signup">注册</a>
+  </div> -->
+</nav>
+
+    <main class="post-container sticky-footer--main-wrap clearfix">
+  <article class="post-article article-core chinese-punct clearfix" lang="en">
+    <!--Publish info-->
+		<aside class="publish-info-card clearfix">
+			<a class="publish-info-card--avatar-link" href="/">
+        <img class="avatar-circle publish-info-card--avatar" src="/logo.jpg" alt="TL">
+        
+        <h4 class="publish-info-card--name">Tesla Lee</h4>
+        
+      </a>
+			<p class="publish-info-card--meta">
+        
+        <!-- <a href="#" class="publish-info-card--author-name">Tesla Lee</a><span class="vert-line">｜</span> -->
+        
+				<span class="time-last-modified">
+          
+        May 9, 2018
+      </span>
+			</p>
+		</aside>
+
+    <!--Article Header-->
+    <header class="article-header">
+      <h1 class="article-header--h1">Elasticsearch - The Definitive Guide - Chapter 5</h1>
+    </header>
+
+    <!--Article Header-->
+    <section class="article-section">
+      <p>搜索 —— 最基本的工具</p>
+
+<!--more-->
+
+<p>基本概念：</p>
+
+<ul>
+  <li><code class="highlighter-rouge">映射（Mapping）</code>描述数据在每个字段内如何存储</li>
+  <li><code class="highlighter-rouge">分析（Analysis）</code>全文是如何处理是指可以被搜索的</li>
+  <li><code class="highlighter-rouge">领域特定查询语言（Query DSL）</code>Elasticsaerch 中强大灵活的查询语言</li>
+</ul>
+
+<h2 id="空搜索">空搜索</h2>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl <span class="nt">-X</span> GET <span class="s2">"localhost:9200/_search"</span>
+</code></pre></div></div>
+
+<p>一个简化的返回：</p>
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+   </span><span class="s2">"hits"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"total"</span><span class="w"> </span><span class="p">:</span><span class="w">       </span><span class="mi">14</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"hits"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"_index"</span><span class="p">:</span><span class="w">   </span><span class="s2">"us"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"_type"</span><span class="p">:</span><span class="w">    </span><span class="s2">"tweet"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"_id"</span><span class="p">:</span><span class="w">      </span><span class="s2">"7"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"_score"</span><span class="p">:</span><span class="w">   </span><span class="mi">1</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"_source"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+             </span><span class="s2">"date"</span><span class="p">:</span><span class="w">    </span><span class="s2">"2014-09-17"</span><span class="p">,</span><span class="w">
+             </span><span class="s2">"name"</span><span class="p">:</span><span class="w">    </span><span class="s2">"John Smith"</span><span class="p">,</span><span class="w">
+             </span><span class="s2">"tweet"</span><span class="p">:</span><span class="w">   </span><span class="s2">"The Query DSL is really powerful and flexible"</span><span class="p">,</span><span class="w">
+             </span><span class="s2">"user_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="w">
+          </span><span class="p">}</span><span class="w">
+       </span><span class="p">},</span><span class="w">
+        </span><span class="err">...</span><span class="w"> </span><span class="mi">9</span><span class="w"> </span><span class="err">RESULTS</span><span class="w"> </span><span class="err">REMOVED</span><span class="w"> </span><span class="err">...</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+      </span><span class="s2">"max_score"</span><span class="w"> </span><span class="p">:</span><span class="w">   </span><span class="mi">1</span><span class="w">
+   </span><span class="p">},</span><span class="w">
+   </span><span class="s2">"took"</span><span class="w"> </span><span class="p">:</span><span class="w">           </span><span class="mi">4</span><span class="p">,</span><span class="w">
+   </span><span class="s2">"_shards"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"failed"</span><span class="w"> </span><span class="p">:</span><span class="w">      </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"successful"</span><span class="w"> </span><span class="p">:</span><span class="w">  </span><span class="mi">10</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"total"</span><span class="w"> </span><span class="p">:</span><span class="w">       </span><span class="mi">10</span><span class="w">
+   </span><span class="p">},</span><span class="w">
+   </span><span class="s2">"timed_out"</span><span class="w"> </span><span class="p">:</span><span class="w">      </span><span class="kc">false</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<h3 id="hits">hits</h3>
+
+<ul>
+  <li><code class="highlighter-rouge">total</code>：匹配到的总文档数</li>
+  <li><code class="highlighter-rouge">hits</code> 数组：前 10 个文档</li>
+  <li><code class="highlighter-rouge">_score</code>：衡量每个文档的匹配度。</li>
+  <li><code class="highlighter-rouge">max_score</code>: 所有匹配文档中的 <code class="highlighter-rouge">_score</code> 的最大值。</li>
+</ul>
+
+<h3 id="took">took</h3>
+<p>整个搜索耗时多少<strong>毫秒</strong></p>
+
+<h3 id="shards">shards</h3>
+<p>查询中参与分片的总数，以及这些分片成功了多少个失败了多少个。</p>
+
+<h3 id="timeout">timeout</h3>
+<p><code class="highlighter-rouge">timed_ount</code> 查询是否超时。</p>
+<blockquote>
+  <p><code class="highlighter-rouge">timeout</code> 不是停止执行查询，它仅仅是告知正在协调的节点返回到目前为止收集的结果并且关闭连接。在后台，其他的分片可能仍在执行查询即使是结果已经被发送了。</p>
+</blockquote>
+
+<h2 id="多索引多类型">多索引，多类型</h2>
+<p>我们可以通过在URL中指定特殊的索引和类型</p>
+
+<ul>
+  <li><code class="highlighter-rouge">/_search</code>在所有的索引中搜索所有的类型</li>
+  <li><code class="highlighter-rouge">/gb/_search</code>在 gb 索引中搜索所有的类型</li>
+  <li><code class="highlighter-rouge">/gb,us/_search</code>在 gb 和 us 索引中搜索所有的文档</li>
+  <li><code class="highlighter-rouge">/g*,u*/_search</code>在任何以 g 或者 u 开头的索引中搜索所有的类型</li>
+  <li><code class="highlighter-rouge">/gb/user/_search</code>在 gb 索引中搜索 user 类型</li>
+  <li><code class="highlighter-rouge">/gb,us/user,tweet/_search</code>在 gb 和 us 索引中搜索 user 和 tweet 类型</li>
+  <li><code class="highlighter-rouge">/_all/user,tweet/_search</code>在所有的索引中搜索 user 和 tweet 类型</li>
+</ul>
+
+<h2 id="分页">分页</h2>
+<p><code class="highlighter-rouge">from</code> 和 <code class="highlighter-rouge">size</code> 参数</p>
+
+<ul>
+  <li><code class="highlighter-rouge">size</code>显示应该返回的结果数量，默认是 10</li>
+  <li><code class="highlighter-rouge">from</code>显示应该跳过的初始结果数量，默认是 0</li>
+</ul>
+
+<h2 id="轻量搜索">轻量搜索</h2>
+
+<ul>
+  <li><strong>轻量搜索</strong>，在查询字符串中传递参数</li>
+  <li><strong>完整搜索</strong>，使用 JSON 或更丰富的请求体</li>
+</ul>
+
+<h3 id="_all-字段">_all 字段</h3>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>GET /_search?q=mary
+</code></pre></div></div>
+
+<p>上面的查询是如何执行的？
+我们会发现， Elasticsearch 返回的结果中，所有字段中包含 mary 的文档都返回了。这是因为，Elasticsearch 在索引文档时，会将所有的字段拼成一个字段 <code class="highlighter-rouge">_all</code>，进行索引。就好像多了一个字段 <code class="highlighter-rouge">_all</code></p>
+
+    </section>
+  </article>
+  <footer class="post-footer clearfix">
+  			<div class="clearfix">
+  				<nav class="post-footer--post-nav">
+  					<!-- <a href="#" class="button-capsule post-footer--next-post"><span class="button-label next-post-label">没有“国进民退”，也没有“国家资本主义”这回事儿？</span><span class="button-arrow-right next-post-arrow"></span></a> -->
+  				</nav>
+  			</div>
+  		</footer>
+</main>
+
+    <footer class="sticky-footer">
+  <div class="global-footer">
+    <ul class="global-footer-links">
+      <li>Designed by <a href="http://laerhsif.com/" target="_blank">realfish</a></li>
+    </ul>
+  </div>
+</footer>
+
+  </body>
+  <script type="text/javascript" src="/assets/app-cf635fcf31d244d93ece3ca7f45a686b16696c3d5c02dc04c2ae7cadef7c3aaa.js"></script>
+  <script>
+  		// NProgress configuration
+  		NProgress.configure({
+  			minimum: 0.10,
+  			ease: 'linear',
+  			speed: 500,
+  			trickleRate: 0.02,
+  			trickleSpeed: 200,
+  			showSpinner: false
+  		});
+
+  		NProgress.start();
+
+  		$(window).load(function(){
+  			NProgress.done();
+  		});
+
+  		// Headroom configuration
+  		$(".headroom").headroom();
+
+  		// Hover optimization for mobile webkit
+  		document.addEventListener("touchstart", function(){}, true);
+
+  		// Scroll-to-top button
+  		$('.scroll-to-top').click(function(){
+  			$('html, body').animate({
+  				scrollTop: 0}, 1000);
+  			return false;
+  		});
+
+  		// Positioning of `button.apply-for-write`
+  		$(function(){
+  			if($(window).width() > 1023){
+  				var offset = $('main').offset().top + parseInt($('main').css('padding-top').replace("px", "")) + 8;
+
+  				$('.apply-for-write').css({
+  					'top': offset + 'px'
+  				});
+  			}
+  		});
+
+  		$(window).resize(function(){
+  			if($(window).width() > 1023){
+  				var offset = $('main').offset().top + parseInt($('main').css('padding-top').replace("px", "")) + 8;
+
+  				$('.apply-for-write').css({
+  					'top': offset + 'px'
+  				});
+  			}
+  		});
+
+  		// State toggle of `is-active`
+  		$('.post-footer--action-fav').click(function(){
+  			$(this).toggleClass('is-active');
+  		});
+
+  		$('.button-subscribe').click(function(){
+  			$(this).toggleClass('is-active');
+  		});
+  	</script>
+</html>
