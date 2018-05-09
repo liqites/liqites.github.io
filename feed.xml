@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://www.teslalee.com/feed.xml" rel="self" type="application/atom+xml" /><link href="http://www.teslalee.com/" rel="alternate" type="text/html" /><updated>2018-05-08T21:02:24+08:00</updated><id>http://www.teslalee.com/</id><title type="html">Code Cube</title><subtitle></subtitle><entry><title type="html">Elasticsearch - The Definitive Guide - Chapter 4</title><link href="http://www.teslalee.com/elasticsearch/2018/05/08/Elasticsearch-The-Definitive-Guide-Chapter-4.html" rel="alternate" type="text/html" title="Elasticsearch - The Definitive Guide - Chapter 4" /><published>2018-05-08T19:03:50+08:00</published><updated>2018-05-08T19:03:50+08:00</updated><id>http://www.teslalee.com/elasticsearch/2018/05/08/Elasticsearch-The-Definitive-Guide-Chapter-4</id><content type="html" xml:base="http://www.teslalee.com/elasticsearch/2018/05/08/Elasticsearch-The-Definitive-Guide-Chapter-4.html">&lt;p&gt;分布式文档存储&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://www.teslalee.com/feed.xml" rel="self" type="application/atom+xml" /><link href="http://www.teslalee.com/" rel="alternate" type="text/html" /><updated>2018-05-09T15:54:20+08:00</updated><id>http://www.teslalee.com/</id><title type="html">Code Cube</title><subtitle></subtitle><entry><title type="html">Elasticsearch - The Definitive Guide - Chapter 4</title><link href="http://www.teslalee.com/elasticsearch/2018/05/08/Elasticsearch-The-Definitive-Guide-Chapter-4.html" rel="alternate" type="text/html" title="Elasticsearch - The Definitive Guide - Chapter 4" /><published>2018-05-08T19:03:50+08:00</published><updated>2018-05-08T19:03:50+08:00</updated><id>http://www.teslalee.com/elasticsearch/2018/05/08/Elasticsearch-The-Definitive-Guide-Chapter-4</id><content type="html" xml:base="http://www.teslalee.com/elasticsearch/2018/05/08/Elasticsearch-The-Definitive-Guide-Chapter-4.html">&lt;p&gt;分布式文档存储&lt;/p&gt;
 
 &lt;!--more--&gt;
 
@@ -13,7 +13,7 @@
 
 &lt;p&gt;所有的文档 API（ &lt;code class=&quot;highlighter-rouge&quot;&gt;get&lt;/code&gt; 、 &lt;code class=&quot;highlighter-rouge&quot;&gt;index&lt;/code&gt; 、 &lt;code class=&quot;highlighter-rouge&quot;&gt;delete&lt;/code&gt; 、 &lt;code class=&quot;highlighter-rouge&quot;&gt;bulk&lt;/code&gt; 、 &lt;code class=&quot;highlighter-rouge&quot;&gt;update&lt;/code&gt; 以及 &lt;code class=&quot;highlighter-rouge&quot;&gt;mget&lt;/code&gt; ）都接受一个叫做 &lt;code class=&quot;highlighter-rouge&quot;&gt;routing&lt;/code&gt; 的路由参数 ，通过这个参数我们可以自定义文档到分片的映射。&lt;/p&gt;
 
-&lt;h2 id=&quot;煮粉片和副本分片如何交互&quot;&gt;煮粉片和副本分片如何交互&lt;/h2&gt;
+&lt;h2 id=&quot;主分片和副本分片如何交互&quot;&gt;主分片和副本分片如何交互&lt;/h2&gt;
 &lt;p&gt;假设有一个三个节点的集群，包含一个叫 &lt;code class=&quot;highlighter-rouge&quot;&gt;blogs&lt;/code&gt; 的索引。有两个主分片和四个副分片。
 则分片的分布可能如图：&lt;/p&gt;
 
@@ -35,7 +35,47 @@
   &lt;li&gt;客户端向 &lt;code class=&quot;highlighter-rouge&quot;&gt;Node 1&lt;/code&gt; 发送新建、索引或者删除请求。&lt;/li&gt;
   &lt;li&gt;节点使用文档的 &lt;code class=&quot;highlighter-rouge&quot;&gt;_id&lt;/code&gt; 确定文档属于分片 0 。请求会被转发到&lt;code class=&quot;highlighter-rouge&quot;&gt; Node 3&lt;/code&gt;，因为分片 0 的主分片目前被分配在 &lt;code class=&quot;highlighter-rouge&quot;&gt;Node 3&lt;/code&gt; 上。&lt;/li&gt;
   &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Node 3&lt;/code&gt; 在主分片上面执行请求。如果成功了，它将请求并行转发到 &lt;code class=&quot;highlighter-rouge&quot;&gt;Node 1&lt;/code&gt; 和 &lt;code class=&quot;highlighter-rouge&quot;&gt;Node 2&lt;/code&gt; 的副本分片上。一旦所有的副本分片都报告成功, &lt;code class=&quot;highlighter-rouge&quot;&gt;Node 3&lt;/code&gt; 将向协调节点报告成功，协调节点向客户端报告成功。&lt;/li&gt;
-&lt;/ol&gt;</content><author><name>Tesla Lee</name></author><summary type="html">分布式文档存储</summary></entry><entry><title type="html">Elasticsearch - The Definitive Guide - Chapter 3</title><link href="http://www.teslalee.com/elasticsearch/2018/05/08/Elasticsearch-The-Definitive-Guide-Chapter-3.html" rel="alternate" type="text/html" title="Elasticsearch - The Definitive Guide - Chapter 3" /><published>2018-05-08T15:09:15+08:00</published><updated>2018-05-08T15:09:15+08:00</updated><id>http://www.teslalee.com/elasticsearch/2018/05/08/Elasticsearch-The-Definitive-Guide-Chapter-3</id><content type="html" xml:base="http://www.teslalee.com/elasticsearch/2018/05/08/Elasticsearch-The-Definitive-Guide-Chapter-3.html">&lt;p&gt;数据输入和输出&lt;/p&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;在客户端收到成功响应时，文档变更&lt;strong&gt;已经在主分片和所有副本分片执行完成&lt;/strong&gt;，变更是安全的。&lt;/p&gt;
+
+&lt;p&gt;一些可选参数：&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;consistency&lt;/code&gt;：consistency，即一致性。&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;在默认设置下，即使仅仅是在试图执行一个_写_操作之前，主分片都会要求 必须要有 &lt;em&gt;规定数量(quorum)&lt;/em&gt;（或者换种说法，也即必须要有大多数）的分片副本处于活跃可用状态，才会去执行_写_操作(其中分片副本可以是主分片或者副本分片)。
+_规定数量_ 计算公式: &lt;code class=&quot;highlighter-rouge&quot;&gt;int( (primary + number_of_replicas) / 2 ) + 1&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;consistency&lt;/code&gt; 参数的值可以设为 &lt;code class=&quot;highlighter-rouge&quot;&gt;one&lt;/code&gt; （只要主分片状态 ok 就允许执行_写_操作）,&lt;code class=&quot;highlighter-rouge&quot;&gt;all&lt;/code&gt;（必须要主分片和所有副本分片的状态没问题才允许执行_写_操作）, 或 &lt;code class=&quot;highlighter-rouge&quot;&gt;quorum&lt;/code&gt; 。默认值为 &lt;code class=&quot;highlighter-rouge&quot;&gt;quorum&lt;/code&gt; , 即大多数的分片副本状态没问题就允许执行_写_操作。&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;timeout&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;如果没有足够的副本分片会发生什么？ Elasticsearch会等待，希望更多的分片出现。默认情况下，它最多等待1分钟。 如果你需要，你可以使用 timeout 参数 使它更早终止： 100 100毫秒，30s 是30秒。&lt;/p&gt;
+
+&lt;h2 id=&quot;取回一个文档&quot;&gt;取回一个文档&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/elas_0403.png&quot; alt=&quot;图片&quot; /&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;客户端向 &lt;code class=&quot;highlighter-rouge&quot;&gt;Node 1&lt;/code&gt; 发送获取请求。&lt;/li&gt;
+  &lt;li&gt;节点使用文档的 &lt;code class=&quot;highlighter-rouge&quot;&gt;_id&lt;/code&gt; 来确定文档属于分片 0 。分片 0 的副本分片存在于所有的三个节点上。 在这种情况下，它将请求转发到 &lt;code class=&quot;highlighter-rouge&quot;&gt;Node 2 &lt;/code&gt;。&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Node 2&lt;/code&gt; 将文档返回给 Node 1 ，然后将文档返回给客户端。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;局部更新文档&quot;&gt;局部更新文档&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/elas_0404.png&quot; alt=&quot;图片&quot; /&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;客户端向 &lt;code class=&quot;highlighter-rouge&quot;&gt;Node 1&lt;/code&gt; 发送更新请求。&lt;/li&gt;
+  &lt;li&gt;它将请求转发到主分片所在的 &lt;code class=&quot;highlighter-rouge&quot;&gt;Node 3&lt;/code&gt; 。&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Node 3&lt;/code&gt; 从主分片检索文档，修改 &lt;code class=&quot;highlighter-rouge&quot;&gt;_source&lt;/code&gt; 字段中的 &lt;code class=&quot;highlighter-rouge&quot;&gt;JSON&lt;/code&gt; ，并且尝试重新索引主分片的文档。 如果文档已经被另一个进程修改，它会重试步骤 3 ，超过 &lt;code class=&quot;highlighter-rouge&quot;&gt;retry_on_conflict&lt;/code&gt; 次后放弃。&lt;/li&gt;
+  &lt;li&gt;如果 &lt;code class=&quot;highlighter-rouge&quot;&gt;Node 3&lt;/code&gt; 成功地更新文档，它将新版本的文档并行转发到 &lt;code class=&quot;highlighter-rouge&quot;&gt;Node 1&lt;/code&gt; 和 &lt;code class=&quot;highlighter-rouge&quot;&gt;Node 2&lt;/code&gt; 上的副本分片，重新建立索引。 一旦所有副本分片都返回成功， &lt;code class=&quot;highlighter-rouge&quot;&gt;Node 3&lt;/code&gt; 向协调节点也返回成功，协调节点向客户端返回成功。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;当主分片把更改转发到副本分片时， 它不会转发更新请求。 相反，它转发完整文档的新版本。这些更改将会异步转发到副本分片，并且不能保证它们以发送它们相同的顺序到达。 如果Elasticsearch仅转发更改请求，则可能以错误的顺序应用更改，导致得到损坏的文档。&lt;/p&gt;
+&lt;/blockquote&gt;</content><author><name>Tesla Lee</name></author><summary type="html">分布式文档存储</summary></entry><entry><title type="html">Elasticsearch - The Definitive Guide - Chapter 3</title><link href="http://www.teslalee.com/elasticsearch/2018/05/08/Elasticsearch-The-Definitive-Guide-Chapter-3.html" rel="alternate" type="text/html" title="Elasticsearch - The Definitive Guide - Chapter 3" /><published>2018-05-08T15:09:15+08:00</published><updated>2018-05-08T15:09:15+08:00</updated><id>http://www.teslalee.com/elasticsearch/2018/05/08/Elasticsearch-The-Definitive-Guide-Chapter-3</id><content type="html" xml:base="http://www.teslalee.com/elasticsearch/2018/05/08/Elasticsearch-The-Definitive-Guide-Chapter-3.html">&lt;p&gt;数据输入和输出&lt;/p&gt;
 
 &lt;!--more--&gt;
 

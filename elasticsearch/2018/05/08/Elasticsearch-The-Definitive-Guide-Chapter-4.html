@@ -102,7 +102,7 @@ ga('send', 'pageview');
 
 <p>所有的文档 API（ <code class="highlighter-rouge">get</code> 、 <code class="highlighter-rouge">index</code> 、 <code class="highlighter-rouge">delete</code> 、 <code class="highlighter-rouge">bulk</code> 、 <code class="highlighter-rouge">update</code> 以及 <code class="highlighter-rouge">mget</code> ）都接受一个叫做 <code class="highlighter-rouge">routing</code> 的路由参数 ，通过这个参数我们可以自定义文档到分片的映射。</p>
 
-<h2 id="煮粉片和副本分片如何交互">煮粉片和副本分片如何交互</h2>
+<h2 id="主分片和副本分片如何交互">主分片和副本分片如何交互</h2>
 <p>假设有一个三个节点的集群，包含一个叫 <code class="highlighter-rouge">blogs</code> 的索引。有两个主分片和四个副分片。
 则分片的分布可能如图：</p>
 
@@ -125,6 +125,46 @@ ga('send', 'pageview');
   <li>节点使用文档的 <code class="highlighter-rouge">_id</code> 确定文档属于分片 0 。请求会被转发到<code class="highlighter-rouge"> Node 3</code>，因为分片 0 的主分片目前被分配在 <code class="highlighter-rouge">Node 3</code> 上。</li>
   <li><code class="highlighter-rouge">Node 3</code> 在主分片上面执行请求。如果成功了，它将请求并行转发到 <code class="highlighter-rouge">Node 1</code> 和 <code class="highlighter-rouge">Node 2</code> 的副本分片上。一旦所有的副本分片都报告成功, <code class="highlighter-rouge">Node 3</code> 将向协调节点报告成功，协调节点向客户端报告成功。</li>
 </ol>
+
+<p>在客户端收到成功响应时，文档变更<strong>已经在主分片和所有副本分片执行完成</strong>，变更是安全的。</p>
+
+<p>一些可选参数：</p>
+
+<p><code class="highlighter-rouge">consistency</code>：consistency，即一致性。</p>
+
+<blockquote>
+  <p>在默认设置下，即使仅仅是在试图执行一个_写_操作之前，主分片都会要求 必须要有 <em>规定数量(quorum)</em>（或者换种说法，也即必须要有大多数）的分片副本处于活跃可用状态，才会去执行_写_操作(其中分片副本可以是主分片或者副本分片)。
+_规定数量_ 计算公式: <code class="highlighter-rouge">int( (primary + number_of_replicas) / 2 ) + 1</code></p>
+</blockquote>
+
+<p><code class="highlighter-rouge">consistency</code> 参数的值可以设为 <code class="highlighter-rouge">one</code> （只要主分片状态 ok 就允许执行_写_操作）,<code class="highlighter-rouge">all</code>（必须要主分片和所有副本分片的状态没问题才允许执行_写_操作）, 或 <code class="highlighter-rouge">quorum</code> 。默认值为 <code class="highlighter-rouge">quorum</code> , 即大多数的分片副本状态没问题就允许执行_写_操作。</p>
+
+<p><code class="highlighter-rouge">timeout</code></p>
+
+<p>如果没有足够的副本分片会发生什么？ Elasticsearch会等待，希望更多的分片出现。默认情况下，它最多等待1分钟。 如果你需要，你可以使用 timeout 参数 使它更早终止： 100 100毫秒，30s 是30秒。</p>
+
+<h2 id="取回一个文档">取回一个文档</h2>
+<p><img src="/assets/images/elas_0403.png" alt="图片" /></p>
+
+<ol>
+  <li>客户端向 <code class="highlighter-rouge">Node 1</code> 发送获取请求。</li>
+  <li>节点使用文档的 <code class="highlighter-rouge">_id</code> 来确定文档属于分片 0 。分片 0 的副本分片存在于所有的三个节点上。 在这种情况下，它将请求转发到 <code class="highlighter-rouge">Node 2 </code>。</li>
+  <li><code class="highlighter-rouge">Node 2</code> 将文档返回给 Node 1 ，然后将文档返回给客户端。</li>
+</ol>
+
+<h2 id="局部更新文档">局部更新文档</h2>
+<p><img src="/assets/images/elas_0404.png" alt="图片" /></p>
+
+<ol>
+  <li>客户端向 <code class="highlighter-rouge">Node 1</code> 发送更新请求。</li>
+  <li>它将请求转发到主分片所在的 <code class="highlighter-rouge">Node 3</code> 。</li>
+  <li><code class="highlighter-rouge">Node 3</code> 从主分片检索文档，修改 <code class="highlighter-rouge">_source</code> 字段中的 <code class="highlighter-rouge">JSON</code> ，并且尝试重新索引主分片的文档。 如果文档已经被另一个进程修改，它会重试步骤 3 ，超过 <code class="highlighter-rouge">retry_on_conflict</code> 次后放弃。</li>
+  <li>如果 <code class="highlighter-rouge">Node 3</code> 成功地更新文档，它将新版本的文档并行转发到 <code class="highlighter-rouge">Node 1</code> 和 <code class="highlighter-rouge">Node 2</code> 上的副本分片，重新建立索引。 一旦所有副本分片都返回成功， <code class="highlighter-rouge">Node 3</code> 向协调节点也返回成功，协调节点向客户端返回成功。</li>
+</ol>
+
+<blockquote>
+  <p>当主分片把更改转发到副本分片时， 它不会转发更新请求。 相反，它转发完整文档的新版本。这些更改将会异步转发到副本分片，并且不能保证它们以发送它们相同的顺序到达。 如果Elasticsearch仅转发更改请求，则可能以错误的顺序应用更改，导致得到损坏的文档。</p>
+</blockquote>
 
     </section>
   </article>
