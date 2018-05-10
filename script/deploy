@@ -4,7 +4,8 @@
 
 deploypath="./_deploy"
 
-echo "【`date +%T`】开始发布"
+start_time=`date`
+echo "【`date +%T`】开始生成网站"
 
 bundle exec jekyll build --config _config_prod.yml --destination ./_deploy
 

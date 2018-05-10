@@ -192,7 +192,8 @@ input[type="radio"] {
 }
 
 .chinese-punct {
-    font-family: "Minerva Chinese Punct", "Avenir Next", "Segoe UI", "Helvetica Neue", Arial, "Hiragino Sans GB", "Microsoft YaHei UI", "Microsoft YaHei", "Source Han Sans", sans-serif;
+    // font-family: "Minerva Chinese Punct", "Avenir Next", "Segoe UI", "Helvetica Neue", Arial, "Hiragino Sans GB", "Microsoft YaHei UI", "Microsoft YaHei", "Source Han Sans", sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Segoe UI", Arial, "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei UI", "Microsoft YaHei", "Source Han Sans", sans-serif;
 }
 
 @-moz-document url-prefix() {
@@ -458,7 +459,8 @@ code {
     @include relative-font-size(0.8);
     border: 1px solid $grey-color-light;
     border-radius: 3px;
-    background-color: rgb(202, 230, 202);
+    // background-color: rgb(202, 230, 202);
+    background-color: #FCFAF2;
     // background-color: #eef;
 }
 

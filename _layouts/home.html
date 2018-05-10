@@ -24,7 +24,7 @@ layout: default
 						<p class="post-digest--excerpt"><a href="{{ post.url | relative_url }}">{{ post.excerpt | remove: '<p>' | remove: '</p>' }}</a></p>
 						<p class="post-digest--meta">
               {% if post.author %}
-              <a href="#" class="post-digest--feed-name">{{ post.author }}</a><span class="vert-line">｜</span>
+              <a href="javascript:void(0)" class="post-digest--feed-name">{{ post.author }}</a><span class="vert-line">｜</span>
               {% endif %}
 							<span class="post-digest--timestamp">{{ post.date | date: date_format }}</span>
 						</p>

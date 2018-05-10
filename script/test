@@ -1,0 +1,5 @@
+#!/bin/bash
+
+SECONDS=0
+duration=$SECONDS
+echo "耗时：【$(($duration / 60)) 分 and $(($duration % 60)) 秒】"

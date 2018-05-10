@@ -1,9 +1,12 @@
 #!/bin/bash
 
+SECONDS=0
+duration=$SECONDS
+
 echo "【`date`】发布源码"
 
 git status
 git add . ; git commit -m "Update source at `date`"
 git push origin source
 
-echo "`date`】 发布完成"
+echo "【`date`】 发布完成，耗时：【$(($duration / 60)) 分 and $(($duration % 60)) 秒】"
