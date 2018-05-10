@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://www.teslalee.com/feed.xml" rel="self" type="application/atom+xml" /><link href="http://www.teslalee.com/" rel="alternate" type="text/html" /><updated>2018-05-09T19:05:19+08:00</updated><id>http://www.teslalee.com/</id><title type="html">Code Cube</title><subtitle></subtitle><entry><title type="html">Elasticsearch - Inverted Index</title><link href="http://www.teslalee.com/elasticsearch/2018/05/09/Elasticsearch-Inverted-Index.html" rel="alternate" type="text/html" title="Elasticsearch - Inverted Index" /><published>2018-05-09T18:40:20+08:00</published><updated>2018-05-09T18:40:20+08:00</updated><id>http://www.teslalee.com/elasticsearch/2018/05/09/Elasticsearch-Inverted-Index</id><content type="html" xml:base="http://www.teslalee.com/elasticsearch/2018/05/09/Elasticsearch-Inverted-Index.html">&lt;p&gt;倒排索引 Inverted Index&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://www.teslalee.com/feed.xml" rel="self" type="application/atom+xml" /><link href="http://www.teslalee.com/" rel="alternate" type="text/html" /><updated>2018-05-10T17:23:22+08:00</updated><id>http://www.teslalee.com/</id><title type="html">Code Cube</title><subtitle></subtitle><entry><title type="html">Elasticsearch - Inverted Index</title><link href="http://www.teslalee.com/elasticsearch/2018/05/09/Elasticsearch-Inverted-Index.html" rel="alternate" type="text/html" title="Elasticsearch - Inverted Index" /><published>2018-05-09T18:40:20+08:00</published><updated>2018-05-09T18:40:20+08:00</updated><id>http://www.teslalee.com/elasticsearch/2018/05/09/Elasticsearch-Inverted-Index</id><content type="html" xml:base="http://www.teslalee.com/elasticsearch/2018/05/09/Elasticsearch-Inverted-Index.html">&lt;p&gt;倒排索引 Inverted Index&lt;/p&gt;
 
 &lt;!--more--&gt;
 
@@ -63,7 +63,62 @@
 
 &lt;p&gt;可以使用 &lt;code class=&quot;highlighter-rouge&quot;&gt;GET /gb/_mapping/tweet&lt;/code&gt; 文档的结构与类型。&lt;/p&gt;
 
-&lt;p&gt;可以看到 &lt;code class=&quot;highlighter-rouge&quot;&gt;date&lt;/code&gt; 字段是 &lt;code class=&quot;highlighter-rouge&quot;&gt;strict_date_optional_time||epoch_millis&lt;/code&gt; 类型。&lt;/p&gt;</content><author><name>Tesla Lee</name></author><summary type="html">映射与分析</summary></entry><entry><title type="html">Elasticsearch - Index vs Type</title><link href="http://www.teslalee.com/elasticsearch/2018/05/09/Elasticsearch-Index-vs-Type.html" rel="alternate" type="text/html" title="Elasticsearch - Index vs Type" /><published>2018-05-09T16:43:35+08:00</published><updated>2018-05-09T16:43:35+08:00</updated><id>http://www.teslalee.com/elasticsearch/2018/05/09/Elasticsearch-Index-vs-Type</id><content type="html" xml:base="http://www.teslalee.com/elasticsearch/2018/05/09/Elasticsearch-Index-vs-Type.html">&lt;p&gt;This article is a short and noted versions of elasticsearch’s  &lt;a href=&quot;https://www.elastic.co/blog/index-vs-type&quot;&gt;Index vs Type&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;可以看到 &lt;code class=&quot;highlighter-rouge&quot;&gt;date&lt;/code&gt; 字段是 &lt;code class=&quot;highlighter-rouge&quot;&gt;strict_date_optional_time||epoch_millis&lt;/code&gt; 类型。&lt;/p&gt;
+
+&lt;p&gt;由此，就引出了两种不同类型的字段&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;精确值字段：类似 &lt;code class=&quot;highlighter-rouge&quot;&gt;number&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;date&lt;/code&gt; 等。&lt;/li&gt;
+  &lt;li&gt;全文字段：&lt;code class=&quot;highlighter-rouge&quot;&gt;string&lt;/code&gt; 等&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Elasticsearch 处理搜索时，不同的字段能够使用的搜索方式是不同的。&lt;/p&gt;
+
+&lt;h3 id=&quot;精确值-vs-全文&quot;&gt;精确值 vs 全文&lt;/h3&gt;
+&lt;p&gt;对于精确值来说，其实，这里 &lt;code class=&quot;highlighter-rouge&quot;&gt;string&lt;/code&gt; 类型也可以被看做是 &lt;strong&gt;精确值&lt;/strong&gt;，比如一个用户 ID，对于精确值来说 “Foo” 和 “foo” 是不同的。这一点是很好理解的。&lt;/p&gt;
+
+&lt;p&gt;精确值很容易查询，查询的结果只有两种，匹配条件或者不匹配条件。例如下面的 SQL：&lt;/p&gt;
+&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;WHERE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;    &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;&quot;John Smith&quot;&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;AND&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;user_id&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;AND&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;date&lt;/span&gt;    &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;&quot;2014-09-15&quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;但是全文查询时，要考虑的情况就要复杂一点。我们得到的结果也不是，”这个文档是不是匹配查询条件？“，而是，”这个文档在多大程度上匹配了这个查询条件？“。同时，我们还希望搜索引擎能够理解我们的意图。例如：&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;搜索 &lt;code class=&quot;highlighter-rouge&quot;&gt;UK&lt;/code&gt;，时，同时也能匹配包含 &lt;code class=&quot;highlighter-rouge&quot;&gt;United Kindom&lt;/code&gt; 的文档&lt;/li&gt;
+  &lt;li&gt;搜索 &lt;code class=&quot;highlighter-rouge&quot;&gt;jump&lt;/code&gt; 时，也能够匹配 &lt;code class=&quot;highlighter-rouge&quot;&gt;jumped&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;jumps&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;jumping&lt;/code&gt; 设置 &lt;code class=&quot;highlighter-rouge&quot;&gt;leap&lt;/code&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;等等情况。&lt;/p&gt;
+
+&lt;p&gt;为了达到上面的目的，Elasticsearch 首先需要对文档进行分析，然后根据分析结果创建 &lt;code class=&quot;highlighter-rouge&quot;&gt;倒排索引&lt;/code&gt;。&lt;/p&gt;
+
+&lt;h3 id=&quot;倒排索引&quot;&gt;倒排索引&lt;/h3&gt;
+&lt;p&gt;Elasticsearch 使用一种称为 倒排索引 的结构，它适用于快速的全文搜索。一个倒排索引由文档中所有不重复词的列表构成，对于其中每个词，有一个包含它的文档列表。&lt;/p&gt;
+
+&lt;p&gt;关于&lt;code class=&quot;highlighter-rouge&quot;&gt;倒排索引&lt;/code&gt; 的两篇文章&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.elastic.co/guide/cn/elasticsearch/guide/cn/inverted-index.html&quot;&gt;ES 的原文&lt;/a&gt;。&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;/elasticsearch/2018/05/09/Elasticsearch-Inverted-Index.html&quot;&gt;我自己整理的一篇文章&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;简单来说，&lt;code class=&quot;highlighter-rouge&quot;&gt;倒排索引&lt;/code&gt; 记录了词条在哪些文档中出现以及出现的位置。&lt;/p&gt;
+
+&lt;h3 id=&quot;分析与分析器&quot;&gt;分析与分析器&lt;/h3&gt;
+
+&lt;p&gt;分析 包含下面的过程：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;首先，将一块文本分成适合于倒排索引的独立的 &lt;strong&gt;词条&lt;/strong&gt; ，&lt;/li&gt;
+  &lt;li&gt;之后，将这些词条统一化为&lt;strong&gt;标准格式&lt;/strong&gt;以提高它们的“可搜索性”，或者 recall分析器执行上面的工作。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;分词器实际上有下面三个独立的功能：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;字符过滤器：字符串按顺序通过每个&lt;code class=&quot;highlighter-rouge&quot;&gt;字符过滤器&lt;/code&gt;。在分词前对字符进行整理。比如去掉 HTML 标签，将 &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;amp;&lt;/code&gt; 转化为 &lt;code class=&quot;highlighter-rouge&quot;&gt;and&lt;/code&gt; 等。&lt;/li&gt;
+  &lt;li&gt;分词器：字符串被分词器分为单个的词条。&lt;/li&gt;
+  &lt;li&gt;Token 过滤器：词条按顺序通过每个 Token 过滤器。每个过程都可能会改变词条，比如小写化，删除一些无用词条，或者增加一些词条。&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>Tesla Lee</name></author><summary type="html">映射与分析</summary></entry><entry><title type="html">Elasticsearch - Index vs Type</title><link href="http://www.teslalee.com/elasticsearch/2018/05/09/Elasticsearch-Index-vs-Type.html" rel="alternate" type="text/html" title="Elasticsearch - Index vs Type" /><published>2018-05-09T16:43:35+08:00</published><updated>2018-05-09T16:43:35+08:00</updated><id>http://www.teslalee.com/elasticsearch/2018/05/09/Elasticsearch-Index-vs-Type</id><content type="html" xml:base="http://www.teslalee.com/elasticsearch/2018/05/09/Elasticsearch-Index-vs-Type.html">&lt;p&gt;This article is a short and noted versions of elasticsearch’s  &lt;a href=&quot;https://www.elastic.co/blog/index-vs-type&quot;&gt;Index vs Type&lt;/a&gt;&lt;/p&gt;
 
 &lt;!--more--&gt;
 

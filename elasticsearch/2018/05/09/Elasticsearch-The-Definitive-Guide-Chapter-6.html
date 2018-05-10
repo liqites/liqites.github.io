@@ -104,6 +104,61 @@ ga('send', 'pageview');
 
 <p>可以看到 <code class="highlighter-rouge">date</code> 字段是 <code class="highlighter-rouge">strict_date_optional_time||epoch_millis</code> 类型。</p>
 
+<p>由此，就引出了两种不同类型的字段</p>
+<ul>
+  <li>精确值字段：类似 <code class="highlighter-rouge">number</code>, <code class="highlighter-rouge">date</code> 等。</li>
+  <li>全文字段：<code class="highlighter-rouge">string</code> 等</li>
+</ul>
+
+<p>Elasticsearch 处理搜索时，不同的字段能够使用的搜索方式是不同的。</p>
+
+<h3 id="精确值-vs-全文">精确值 vs 全文</h3>
+<p>对于精确值来说，其实，这里 <code class="highlighter-rouge">string</code> 类型也可以被看做是 <strong>精确值</strong>，比如一个用户 ID，对于精确值来说 “Foo” 和 “foo” 是不同的。这一点是很好理解的。</p>
+
+<p>精确值很容易查询，查询的结果只有两种，匹配条件或者不匹配条件。例如下面的 SQL：</p>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">WHERE</span> <span class="n">name</span>    <span class="o">=</span> <span class="nv">"John Smith"</span>
+  <span class="k">AND</span> <span class="n">user_id</span> <span class="o">=</span> <span class="mi">2</span>
+  <span class="k">AND</span> <span class="n">date</span>    <span class="o">&gt;</span> <span class="nv">"2014-09-15"</span>
+</code></pre></div></div>
+
+<p>但是全文查询时，要考虑的情况就要复杂一点。我们得到的结果也不是，”这个文档是不是匹配查询条件？“，而是，”这个文档在多大程度上匹配了这个查询条件？“。同时，我们还希望搜索引擎能够理解我们的意图。例如：</p>
+<ul>
+  <li>搜索 <code class="highlighter-rouge">UK</code>，时，同时也能匹配包含 <code class="highlighter-rouge">United Kindom</code> 的文档</li>
+  <li>搜索 <code class="highlighter-rouge">jump</code> 时，也能够匹配 <code class="highlighter-rouge">jumped</code>, <code class="highlighter-rouge">jumps</code>, <code class="highlighter-rouge">jumping</code> 设置 <code class="highlighter-rouge">leap</code>。</li>
+</ul>
+
+<p>等等情况。</p>
+
+<p>为了达到上面的目的，Elasticsearch 首先需要对文档进行分析，然后根据分析结果创建 <code class="highlighter-rouge">倒排索引</code>。</p>
+
+<h3 id="倒排索引">倒排索引</h3>
+<p>Elasticsearch 使用一种称为 倒排索引 的结构，它适用于快速的全文搜索。一个倒排索引由文档中所有不重复词的列表构成，对于其中每个词，有一个包含它的文档列表。</p>
+
+<p>关于<code class="highlighter-rouge">倒排索引</code> 的两篇文章</p>
+<ul>
+  <li><a href="https://www.elastic.co/guide/cn/elasticsearch/guide/cn/inverted-index.html">ES 的原文</a>。</li>
+  <li><a href="/elasticsearch/2018/05/09/Elasticsearch-Inverted-Index.html">我自己整理的一篇文章</a></li>
+</ul>
+
+<p>简单来说，<code class="highlighter-rouge">倒排索引</code> 记录了词条在哪些文档中出现以及出现的位置。</p>
+
+<h3 id="分析与分析器">分析与分析器</h3>
+
+<p>分析 包含下面的过程：</p>
+
+<ul>
+  <li>首先，将一块文本分成适合于倒排索引的独立的 <strong>词条</strong> ，</li>
+  <li>之后，将这些词条统一化为<strong>标准格式</strong>以提高它们的“可搜索性”，或者 recall分析器执行上面的工作。</li>
+</ul>
+
+<p>分词器实际上有下面三个独立的功能：</p>
+
+<ul>
+  <li>字符过滤器：字符串按顺序通过每个<code class="highlighter-rouge">字符过滤器</code>。在分词前对字符进行整理。比如去掉 HTML 标签，将 <code class="highlighter-rouge">&amp;</code> 转化为 <code class="highlighter-rouge">and</code> 等。</li>
+  <li>分词器：字符串被分词器分为单个的词条。</li>
+  <li>Token 过滤器：词条按顺序通过每个 Token 过滤器。每个过程都可能会改变词条，比如小写化，删除一些无用词条，或者增加一些词条。</li>
+</ul>
+
     </section>
   </article>
   <footer class="post-footer clearfix">
