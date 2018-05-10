@@ -549,7 +549,7 @@ pre > code { border: 0; padding-right: 0; padding-left: 0; }
   .article-section--h2 { font-size: 28px; font-weight: 400; margin: 48px auto 0px auto; }
   .article-section--h3 { font-size: 22px; font-weight: 600; margin: 48px auto 0px auto; }
   .article-section--h4 { font-size: 18px; font-weight: 600; margin: 24px auto 0px auto; }
-  .article-section--p { width: 33em; text-indent: 2em; line-height: 32px; margin: 24px auto 0px auto; }
+  .article-section--p { width: 33em; text-indent: 0em; line-height: 32px; margin: 24px auto 0px auto; }
   .article-section--p a { color: #0d86ff; text-decoration: none; border-bottom: 1px solid #0d86ff; margin-left: 0.075em; margin-right: 0.075em; transition: ease 0.5s; }
   .article-section--p a:hover { color: #333; border-bottom: 1px solid #333; transition: ease 0.5s; }
   .article-section--p a:active { color: black; }
@@ -587,7 +587,7 @@ pre > code { border: 0; padding-right: 0; padding-left: 0; }
   article > section h2 { font-size: 28px; font-weight: 400; margin: 48px auto 0px auto; }
   article > section h3 { font-size: 22px; font-weight: 600; margin: 48px auto 0px auto; }
   article > section h4 { font-size: 18px; font-weight: 600; margin: 24px auto 0px auto; }
-  article > section p { width: 33em; text-indent: 2em; line-height: 32px; margin: 24px auto 0px auto; }
+  article > section p { width: 33em; text-indent: 0em; line-height: 32px; margin: 24px auto 0px auto; }
   article > section p a { color: #0d86ff; text-decoration: none; border-bottom: 1px solid #0d86ff; margin-left: 0.075em; margin-right: 0.075em; transition: ease 0.5s; }
   article > section p a:hover { color: #333; border-bottom: 1px solid #333; transition: ease 0.5s; }
   article > section p a:active { color: black; }

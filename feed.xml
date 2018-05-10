@@ -1,54 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://www.teslalee.com/feed.xml" rel="self" type="application/atom+xml" /><link href="http://www.teslalee.com/" rel="alternate" type="text/html" /><updated>2018-05-10T18:38:10+08:00</updated><id>http://www.teslalee.com/</id><title type="html">Code Cube</title><subtitle></subtitle><entry><title type="html">Elasticsearch - Inverted Index</title><link href="http://www.teslalee.com/elasticsearch/2018/05/09/Elasticsearch-Inverted-Index.html" rel="alternate" type="text/html" title="Elasticsearch - Inverted Index" /><published>2018-05-09T18:40:20+08:00</published><updated>2018-05-09T18:40:20+08:00</updated><id>http://www.teslalee.com/elasticsearch/2018/05/09/Elasticsearch-Inverted-Index</id><content type="html" xml:base="http://www.teslalee.com/elasticsearch/2018/05/09/Elasticsearch-Inverted-Index.html">&lt;p&gt;倒排索引 Inverted Index&lt;/p&gt;
-
-&lt;!--more--&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://zh.wikipedia.org/wiki/%E5%80%92%E6%8E%92%E7%B4%A2%E5%BC%95&quot;&gt;维基词条&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;倒排索引（英语：Inverted index），也常被称为&lt;code class=&quot;highlighter-rouge&quot;&gt;反向索引&lt;/code&gt;、置&lt;code class=&quot;highlighter-rouge&quot;&gt;入档案&lt;/code&gt;或&lt;code class=&quot;highlighter-rouge&quot;&gt;反向档案&lt;/code&gt;，是一种索引方法，被用来存储在全文搜索下某个单词在&lt;code class=&quot;highlighter-rouge&quot;&gt;一个文档&lt;/code&gt;或者&lt;code class=&quot;highlighter-rouge&quot;&gt;一组文档&lt;/code&gt;中的&lt;code class=&quot;highlighter-rouge&quot;&gt;存储位置的映射&lt;/code&gt;。它是文档检索系统中最常用的数据结构。&lt;/p&gt;
-
-&lt;p&gt;有两种不同的反向索引形式：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;一条记录的水平反向索引（或者反向档案索引）包含每个引用单词的文档的列表。&lt;/li&gt;
-  &lt;li&gt;一个单词的水平反向索引（或者完全反向索引）又包含每个单词在一个文档中的&lt;strong&gt;位置&lt;/strong&gt;。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;例子&quot;&gt;例子&lt;/h2&gt;
-
-&lt;p&gt;以英文为例&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;$T_0$ = “it is what it is&lt;/p&gt;
-
-  &lt;p&gt;$T_1$ = “waht is it”&lt;/p&gt;
-
-  &lt;p&gt;$T_2$ = “it is a banana”&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;就有以下反向文件索引：&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&quot;a&quot;:      {2}
-&quot;banana&quot;: {2}
-&quot;is&quot;:     {0, 1, 2}
-&quot;it&quot;:     {0, 1, 2}
-&quot;what&quot;:   {0, 1}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;检索 “what”, “is”, “it” 时，可以得到对应的集合：&lt;/p&gt;
-&lt;blockquote&gt;
-  &lt;p&gt;$\{ 0,1 \} \cap \{ 0, 1, 2 \} \cap \{ 0,1,2 \} = \{ 0,1 \}$&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;同样的，我们还能建立一个完全反向索引&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&quot;a&quot;:      {(2, 2)}
-&quot;banana&quot;: {(2, 3)}
-&quot;is&quot;:     {(0, 1), (0, 4), (1, 1), (2, 1)}
-&quot;it&quot;:     {(0, 0), (0, 3), (1, 2), (2, 0)}
-&quot;what&quot;:   {(0, 2), (1, 0)}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;对于 “what is it”&lt;/p&gt;
-
-&lt;p&gt;其完全索引就是{(1, 1), (1, 2), (1, 0)} 可以看到，只有在文档1 中，两个词是连续的。&lt;/p&gt;</content><author><name>Tesla Lee</name></author><summary type="html">倒排索引 Inverted Index</summary></entry><entry><title type="html">Elasticsearch - The Definitive Guide - Chapter 6</title><link href="http://www.teslalee.com/elasticsearch/2018/05/09/Elasticsearch-The-Definitive-Guide-Chapter-6.html" rel="alternate" type="text/html" title="Elasticsearch - The Definitive Guide - Chapter 6" /><published>2018-05-09T17:46:51+08:00</published><updated>2018-05-09T17:46:51+08:00</updated><id>http://www.teslalee.com/elasticsearch/2018/05/09/Elasticsearch-The-Definitive-Guide-Chapter-6</id><content type="html" xml:base="http://www.teslalee.com/elasticsearch/2018/05/09/Elasticsearch-The-Definitive-Guide-Chapter-6.html">&lt;p&gt;映射与分析&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://www.teslalee.com/feed.xml" rel="self" type="application/atom+xml" /><link href="http://www.teslalee.com/" rel="alternate" type="text/html" /><updated>2018-05-10T20:49:13+08:00</updated><id>http://www.teslalee.com/</id><title type="html">Code Cube</title><subtitle></subtitle><entry><title type="html">Elasticsearch - The Definitive Guide - Chapter 6</title><link href="http://www.teslalee.com/elasticsearch/2018/05/10/Elasticsearch-The-Definitive-Guide-Chapter-6.html" rel="alternate" type="text/html" title="Elasticsearch - The Definitive Guide - Chapter 6" /><published>2018-05-10T17:46:51+08:00</published><updated>2018-05-10T17:46:51+08:00</updated><id>http://www.teslalee.com/elasticsearch/2018/05/10/Elasticsearch-The-Definitive-Guide-Chapter-6</id><content type="html" xml:base="http://www.teslalee.com/elasticsearch/2018/05/10/Elasticsearch-The-Definitive-Guide-Chapter-6.html">&lt;p&gt;映射与分析&lt;/p&gt;
 
 &lt;!--more--&gt;
 &lt;p&gt;在我们的先有数据中，有一条数据的 date 是 2014-09-23。但是我们发现在使用查询&lt;/p&gt;
@@ -165,20 +115,235 @@
 
 &lt;h3 id=&quot;什么时候使用分析器&quot;&gt;什么时候使用分析器？&lt;/h3&gt;
 
-&lt;p&gt;当我们&lt;strong&gt;索引&lt;/strong&gt;一个文档时，它的全文字段被分析成词条以用来创建&lt;strong&gt;倒排索引&lt;/strong&gt;。同时，当我们在全文字段中搜索时，同样也要对查询条件应用相同的&lt;em&gt;分析过程&lt;/em&gt;，来是搜索条件和索引词条一致。&lt;/p&gt;
+&lt;p&gt;当我们&lt;strong&gt;索引&lt;/strong&gt;一个文档时，它的全文域被分析成词条以用来创建&lt;strong&gt;倒排索引&lt;/strong&gt;。同时，当我们在全文域中搜索时，同样也要对查询条件应用相同的&lt;em&gt;分析过程&lt;/em&gt;，来是搜索条件和索引词条一致。&lt;/p&gt;
 
 &lt;p&gt;这也就能够解释，为何之前使用简单搜索 &lt;code class=&quot;highlighter-rouge&quot;&gt;GET /_search?q=date:2014&lt;/code&gt; 时没有办法搜索到结果，而搜索 &lt;code class=&quot;highlighter-rouge&quot;&gt;GET /_search?q=2014&lt;/code&gt; 时却可以搜索到内容。&lt;/p&gt;
 
 &lt;h3 id=&quot;测试分析器&quot;&gt;测试分析器&lt;/h3&gt;
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;shell GET /_analyze
-{
-  &quot;analyzer&quot;: &quot;standard&quot;,
-  &quot;text&quot;: &quot;Text to analyze&quot;
-}
-&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; GET /_analyze
+&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;s2&quot;&gt;&quot;analyzer&quot;&lt;/span&gt;: &lt;span class=&quot;s2&quot;&gt;&quot;standard&quot;&lt;/span&gt;,
+  &lt;span class=&quot;s2&quot;&gt;&quot;text&quot;&lt;/span&gt;: &lt;span class=&quot;s2&quot;&gt;&quot;Text to analyze&quot;&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;h3 id=&quot;指定分析器&quot;&gt;指定分析器&lt;/h3&gt;
-&lt;p&gt;Elasticsearch 会自动给字符串分配一个分析器，同时我们也可以自己手动指定分析器。为了能够做到这点，我们需要手动指定映射。&lt;/p&gt;</content><author><name>Tesla Lee</name></author><summary type="html">映射与分析</summary></entry><entry><title type="html">Elasticsearch - Index vs Type</title><link href="http://www.teslalee.com/elasticsearch/2018/05/09/Elasticsearch-Index-vs-Type.html" rel="alternate" type="text/html" title="Elasticsearch - Index vs Type" /><published>2018-05-09T16:43:35+08:00</published><updated>2018-05-09T16:43:35+08:00</updated><id>http://www.teslalee.com/elasticsearch/2018/05/09/Elasticsearch-Index-vs-Type</id><content type="html" xml:base="http://www.teslalee.com/elasticsearch/2018/05/09/Elasticsearch-Index-vs-Type.html">&lt;p&gt;This article is a short and noted versions of elasticsearch’s  &lt;a href=&quot;https://www.elastic.co/blog/index-vs-type&quot;&gt;Index vs Type&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Elasticsearch 会自动给字符串分配一个分析器，同时我们也可以自己手动指定分析器。为了能够做到这点，我们需要手动指定映射。&lt;/p&gt;
+
+&lt;h2 id=&quot;映射&quot;&gt;映射&lt;/h2&gt;
+&lt;p&gt;为了能够将时间域视为时间，数字域视为数字，字符串域视为全文或精确值字符串， Elasticsearch 需要知道每个域中数据的类型。这个信息包含在映射中。&lt;/p&gt;
+
+&lt;p&gt;索引中每个文档都有 类型 ,每种类型都有它自己的 映射 ，或者 模式定义 。映射定义了类型中的域，每个域的数据类型，以及Elasticsearch如何处理这些域。映射也用于配置与类型有关的元数据。&lt;/p&gt;
+
+&lt;h3 id=&quot;核心简单域类型&quot;&gt;核心简单域类型&lt;/h3&gt;
+&lt;p&gt;Elasticsearch 支持 如下简单域类型：&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;字符串: string&lt;/li&gt;
+  &lt;li&gt;整数 : byte, short, integer, long&lt;/li&gt;
+  &lt;li&gt;浮点数: float, double&lt;/li&gt;
+  &lt;li&gt;布尔型: boolean&lt;/li&gt;
+  &lt;li&gt;日期: date&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;当你索引一个包含新域的文档–之前未曾出现– Elasticsearch 会使用 动态映射 ，通过JSON中基本数据类型，尝试猜测域类型。&lt;/p&gt;
+
+&lt;p&gt;域在 es 中的名词是 &lt;code class=&quot;highlighter-rouge&quot;&gt;properties&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;自定义域映射&quot;&gt;自定义域映射&lt;/h3&gt;
+&lt;p&gt;自定义映射允许的操作：&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;全文字符串域和精确值字符串域的区别&lt;/li&gt;
+  &lt;li&gt;使用特定语言分析器&lt;/li&gt;
+  &lt;li&gt;优化域以适应部分匹配&lt;/li&gt;
+  &lt;li&gt;指定自定义数据格式&lt;/li&gt;
+  &lt;li&gt;还有更多…&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;域最重要的属性是 type 。对于不是 string 的域，你一般只需要设置 type：&lt;/p&gt;
+
+&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;number_of_clicks&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;type&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;integer&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;默认， &lt;code class=&quot;highlighter-rouge&quot;&gt;string&lt;/code&gt; 类型域会被认为包含全文。&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;string&lt;/code&gt; 域映射的两个最重要 属性是 &lt;code class=&quot;highlighter-rouge&quot;&gt;index&lt;/code&gt; 和 &lt;code class=&quot;highlighter-rouge&quot;&gt;analyzer&lt;/code&gt; 。&lt;/p&gt;
+
+&lt;h4 id=&quot;index&quot;&gt;index&lt;/h4&gt;
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;index&lt;/code&gt; 属性控制怎样索引字符串。它可以有这几个值：&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;analyzed&lt;/code&gt;： 分析字符串，然后索引它。&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;not_analyzed&lt;/code&gt;：索引这个域，但是作为精确值被搜索，不进行分析。&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;no&lt;/code&gt;：不索引这个域，无法被搜索到。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;string&lt;/code&gt; 域 &lt;code class=&quot;highlighter-rouge&quot;&gt;index&lt;/code&gt; 属性默认是 &lt;code class=&quot;highlighter-rouge&quot;&gt;analyzed&lt;/code&gt; 。&lt;/p&gt;
+
+&lt;h4 id=&quot;analyzer&quot;&gt;analyzer&lt;/h4&gt;
+&lt;p&gt;对于 &lt;code class=&quot;highlighter-rouge&quot;&gt;analyzed&lt;/code&gt; 域，可用 &lt;code class=&quot;highlighter-rouge&quot;&gt;analyzer&lt;/code&gt; 属性指定在搜索和索引时使用的分析器。默认使用的是 &lt;code class=&quot;highlighter-rouge&quot;&gt;standard&lt;/code&gt; 分析器。&lt;/p&gt;
+
+&lt;h4 id=&quot;更新映射&quot;&gt;更新映射&lt;/h4&gt;
+&lt;p&gt;当首次创建索引时，可以指定类型的映射。也可以使用 &lt;code class=&quot;highlighter-rouge&quot;&gt;/_mapping&lt;/code&gt; API 为新类型增加唉映射。&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;尽管你可以 增加_ 一个存在的映射，你不能 _修改 存在的域映射。如果一个域的映射已经存在，那么该域的数据可能已经被索引。如果你意图修改这个域的映射，索引的数据可能会出错，不能被正常的搜索。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;可以更新一个映射来添加一个新域，但不能将一个存在的域从 analyzed 改为 not_analyzed 。&lt;/p&gt;
+
+&lt;h2 id=&quot;复杂核心域类型&quot;&gt;复杂核心域类型&lt;/h2&gt;
+&lt;p&gt;Elasticsearch 还支持 &lt;code class=&quot;highlighter-rouge&quot;&gt;null&lt;/code&gt;，数组和对象。&lt;/p&gt;
+
+&lt;h3 id=&quot;多值域&quot;&gt;多值域&lt;/h3&gt;
+&lt;p&gt;有可能我们希望 &lt;code class=&quot;highlighter-rouge&quot;&gt;tag&lt;/code&gt; 域中包含多个标签。也就是说&lt;/p&gt;
+&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;tag&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;search&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;nosql&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;数组中所有的值必须是&lt;em&gt;相同类型&lt;/em&gt;的。如果你通过索引数组来创建新的域，Elasticsearch 会用数组中第一个值的数据类型作为这个域的 &lt;code class=&quot;highlighter-rouge&quot;&gt;类型&lt;/code&gt; 。&lt;/p&gt;
+
+&lt;h3 id=&quot;空域&quot;&gt;空域&lt;/h3&gt;
+&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;s2&quot;&gt;&quot;null_value&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;               &lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;empty_array&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;              &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[],&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;array_with_null_value&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;以上三种情况是空域，不会被索引。&lt;/p&gt;
+
+&lt;h3 id=&quot;多层级对象&quot;&gt;多层级对象&lt;/h3&gt;
+&lt;p&gt;也就是 JSON 中的对象类型。例如下面的多级对象&lt;/p&gt;
+&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;tweet&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;            &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Elasticsearch is very flexible&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;user&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;id&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;           &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;@johnsmith&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;gender&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;       &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;male&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;age&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;          &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;26&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;name&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+            &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;full&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;     &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;John Smith&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+            &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;first&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;John&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+            &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;last&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;     &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Smith&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;内部对象的映射&quot;&gt;内部对象的映射&lt;/h3&gt;
+&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;gb&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;tweet&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; 
+      &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;properties&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;tweet&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;            &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;type&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;string&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;user&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; 
+          &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;type&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;             &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;object&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+          &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;properties&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+            &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;id&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;           &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;type&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;string&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+            &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;gender&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;       &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;type&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;string&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+            &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;age&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;          &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;type&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;long&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;   &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+            &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;name&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;   &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; 
+              &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;type&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;         &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;object&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+              &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;properties&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+                &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;full&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;     &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;type&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;string&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+                &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;first&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;type&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;string&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+                &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;last&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;     &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;type&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;string&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+              &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+            &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+          &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+      &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;tweet&lt;/code&gt; 是根对象&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;user&lt;/code&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;name&lt;/code&gt; 是内部对象&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;内部对象是如何索引的&quot;&gt;内部对象是如何索引的&lt;/h3&gt;
+&lt;p&gt;Lucene 不理解内部对象。所以 Elasticsearch 会先转化文档。例如：&lt;/p&gt;
+&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;tweet&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;            &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;elasticsearch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;flexible&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;very&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;user.id&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;          &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;@johnsmith&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;user.gender&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;      &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;male&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;user.age&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;         &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;26&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;user.name.full&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;   &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;john&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;smith&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;user.name.first&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;john&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;user.name.last&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;   &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;smith&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;内部域 可以通过名称引用（例如， first ）。为了区分同名的两个域，我们可以使用全 路径 （例如， user.name.first ） 或 type 名加路径（ tweet.user.name.first ）。&lt;/p&gt;
+
+&lt;h3 id=&quot;内部对象数组&quot;&gt;内部对象数组&lt;/h3&gt;
+&lt;p&gt;假设有这样一个对象。&lt;/p&gt;
+&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;followers&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;age&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;35&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;name&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Mary White&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;age&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;26&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;name&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Alex Jones&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;age&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;19&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;name&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Lisa Smith&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;这个文档会被处理成：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-json {&quot;&gt;    &quot;followers.age&quot;:    [19, 26, 35],
+    &quot;followers.name&quot;:   [alex, jones, lisa, smith, mary, white]
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;{age: 35}&lt;/code&gt; 和 &lt;code class=&quot;highlighter-rouge&quot;&gt;{name: Mary White}&lt;/code&gt; 之间的相关性已经丢失了，因为每个多值域只是一包无序的值，而不是有序数组。&lt;strong&gt;这足以让我们问，“有一个26岁的追随者？”&lt;/strong&gt;
+&lt;strong&gt;但是我们不能得到一个准确的答案&lt;/strong&gt;：“是否有一个26岁 名字叫 Alex Jones 的追随者？”
+相关内部对象被称为 nested 对象，可以回答上面的查询，我们稍后会在嵌套对象中介绍它。&lt;/p&gt;
+&lt;/blockquote&gt;</content><author><name>Tesla Lee</name></author><summary type="html">映射与分析</summary></entry><entry><title type="html">Elasticsearch - Inverted Index</title><link href="http://www.teslalee.com/elasticsearch/2018/05/09/Elasticsearch-Inverted-Index.html" rel="alternate" type="text/html" title="Elasticsearch - Inverted Index" /><published>2018-05-09T18:40:20+08:00</published><updated>2018-05-09T18:40:20+08:00</updated><id>http://www.teslalee.com/elasticsearch/2018/05/09/Elasticsearch-Inverted-Index</id><content type="html" xml:base="http://www.teslalee.com/elasticsearch/2018/05/09/Elasticsearch-Inverted-Index.html">&lt;p&gt;倒排索引 Inverted Index&lt;/p&gt;
+
+&lt;!--more--&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://zh.wikipedia.org/wiki/%E5%80%92%E6%8E%92%E7%B4%A2%E5%BC%95&quot;&gt;维基词条&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;倒排索引（英语：Inverted index），也常被称为&lt;code class=&quot;highlighter-rouge&quot;&gt;反向索引&lt;/code&gt;、置&lt;code class=&quot;highlighter-rouge&quot;&gt;入档案&lt;/code&gt;或&lt;code class=&quot;highlighter-rouge&quot;&gt;反向档案&lt;/code&gt;，是一种索引方法，被用来存储在全文搜索下某个单词在&lt;code class=&quot;highlighter-rouge&quot;&gt;一个文档&lt;/code&gt;或者&lt;code class=&quot;highlighter-rouge&quot;&gt;一组文档&lt;/code&gt;中的&lt;code class=&quot;highlighter-rouge&quot;&gt;存储位置的映射&lt;/code&gt;。它是文档检索系统中最常用的数据结构。&lt;/p&gt;
+
+&lt;p&gt;有两种不同的反向索引形式：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;一条记录的水平反向索引（或者反向档案索引）包含每个引用单词的文档的列表。&lt;/li&gt;
+  &lt;li&gt;一个单词的水平反向索引（或者完全反向索引）又包含每个单词在一个文档中的&lt;strong&gt;位置&lt;/strong&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;例子&quot;&gt;例子&lt;/h2&gt;
+
+&lt;p&gt;以英文为例&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;$T_0$ = “it is what it is&lt;/p&gt;
+
+  &lt;p&gt;$T_1$ = “waht is it”&lt;/p&gt;
+
+  &lt;p&gt;$T_2$ = “it is a banana”&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;就有以下反向文件索引：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&quot;a&quot;:      {2}
+&quot;banana&quot;: {2}
+&quot;is&quot;:     {0, 1, 2}
+&quot;it&quot;:     {0, 1, 2}
+&quot;what&quot;:   {0, 1}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;检索 “what”, “is”, “it” 时，可以得到对应的集合：&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;$\{ 0,1 \} \cap \{ 0, 1, 2 \} \cap \{ 0,1,2 \} = \{ 0,1 \}$&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;同样的，我们还能建立一个完全反向索引&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&quot;a&quot;:      {(2, 2)}
+&quot;banana&quot;: {(2, 3)}
+&quot;is&quot;:     {(0, 1), (0, 4), (1, 1), (2, 1)}
+&quot;it&quot;:     {(0, 0), (0, 3), (1, 2), (2, 0)}
+&quot;what&quot;:   {(0, 2), (1, 0)}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;对于 “what is it”&lt;/p&gt;
+
+&lt;p&gt;其完全索引就是{(1, 1), (1, 2), (1, 0)} 可以看到，只有在文档1 中，两个词是连续的。&lt;/p&gt;</content><author><name>Tesla Lee</name></author><summary type="html">倒排索引 Inverted Index</summary></entry><entry><title type="html">Elasticsearch - Index vs Type</title><link href="http://www.teslalee.com/elasticsearch/2018/05/09/Elasticsearch-Index-vs-Type.html" rel="alternate" type="text/html" title="Elasticsearch - Index vs Type" /><published>2018-05-09T16:43:35+08:00</published><updated>2018-05-09T16:43:35+08:00</updated><id>http://www.teslalee.com/elasticsearch/2018/05/09/Elasticsearch-Index-vs-Type</id><content type="html" xml:base="http://www.teslalee.com/elasticsearch/2018/05/09/Elasticsearch-Index-vs-Type.html">&lt;p&gt;This article is a short and noted versions of elasticsearch’s  &lt;a href=&quot;https://www.elastic.co/blog/index-vs-type&quot;&gt;Index vs Type&lt;/a&gt;&lt;/p&gt;
 
 &lt;!--more--&gt;
 
