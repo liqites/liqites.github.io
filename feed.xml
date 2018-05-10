@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://www.teslalee.com/feed.xml" rel="self" type="application/atom+xml" /><link href="http://www.teslalee.com/" rel="alternate" type="text/html" /><updated>2018-05-10T17:23:22+08:00</updated><id>http://www.teslalee.com/</id><title type="html">Code Cube</title><subtitle></subtitle><entry><title type="html">Elasticsearch - Inverted Index</title><link href="http://www.teslalee.com/elasticsearch/2018/05/09/Elasticsearch-Inverted-Index.html" rel="alternate" type="text/html" title="Elasticsearch - Inverted Index" /><published>2018-05-09T18:40:20+08:00</published><updated>2018-05-09T18:40:20+08:00</updated><id>http://www.teslalee.com/elasticsearch/2018/05/09/Elasticsearch-Inverted-Index</id><content type="html" xml:base="http://www.teslalee.com/elasticsearch/2018/05/09/Elasticsearch-Inverted-Index.html">&lt;p&gt;倒排索引 Inverted Index&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://www.teslalee.com/feed.xml" rel="self" type="application/atom+xml" /><link href="http://www.teslalee.com/" rel="alternate" type="text/html" /><updated>2018-05-10T18:38:10+08:00</updated><id>http://www.teslalee.com/</id><title type="html">Code Cube</title><subtitle></subtitle><entry><title type="html">Elasticsearch - Inverted Index</title><link href="http://www.teslalee.com/elasticsearch/2018/05/09/Elasticsearch-Inverted-Index.html" rel="alternate" type="text/html" title="Elasticsearch - Inverted Index" /><published>2018-05-09T18:40:20+08:00</published><updated>2018-05-09T18:40:20+08:00</updated><id>http://www.teslalee.com/elasticsearch/2018/05/09/Elasticsearch-Inverted-Index</id><content type="html" xml:base="http://www.teslalee.com/elasticsearch/2018/05/09/Elasticsearch-Inverted-Index.html">&lt;p&gt;倒排索引 Inverted Index&lt;/p&gt;
 
 &lt;!--more--&gt;
 
@@ -73,7 +73,7 @@
 
 &lt;p&gt;Elasticsearch 处理搜索时，不同的字段能够使用的搜索方式是不同的。&lt;/p&gt;
 
-&lt;h3 id=&quot;精确值-vs-全文&quot;&gt;精确值 vs 全文&lt;/h3&gt;
+&lt;h2 id=&quot;精确值-vs-全文&quot;&gt;精确值 vs 全文&lt;/h2&gt;
 &lt;p&gt;对于精确值来说，其实，这里 &lt;code class=&quot;highlighter-rouge&quot;&gt;string&lt;/code&gt; 类型也可以被看做是 &lt;strong&gt;精确值&lt;/strong&gt;，比如一个用户 ID，对于精确值来说 “Foo” 和 “foo” 是不同的。这一点是很好理解的。&lt;/p&gt;
 
 &lt;p&gt;精确值很容易查询，查询的结果只有两种，匹配条件或者不匹配条件。例如下面的 SQL：&lt;/p&gt;
@@ -92,7 +92,7 @@
 
 &lt;p&gt;为了达到上面的目的，Elasticsearch 首先需要对文档进行分析，然后根据分析结果创建 &lt;code class=&quot;highlighter-rouge&quot;&gt;倒排索引&lt;/code&gt;。&lt;/p&gt;
 
-&lt;h3 id=&quot;倒排索引&quot;&gt;倒排索引&lt;/h3&gt;
+&lt;h2 id=&quot;倒排索引&quot;&gt;倒排索引&lt;/h2&gt;
 &lt;p&gt;Elasticsearch 使用一种称为 倒排索引 的结构，它适用于快速的全文搜索。一个倒排索引由文档中所有不重复词的列表构成，对于其中每个词，有一个包含它的文档列表。&lt;/p&gt;
 
 &lt;p&gt;关于&lt;code class=&quot;highlighter-rouge&quot;&gt;倒排索引&lt;/code&gt; 的两篇文章&lt;/p&gt;
@@ -103,7 +103,7 @@
 
 &lt;p&gt;简单来说，&lt;code class=&quot;highlighter-rouge&quot;&gt;倒排索引&lt;/code&gt; 记录了词条在哪些文档中出现以及出现的位置。&lt;/p&gt;
 
-&lt;h3 id=&quot;分析与分析器&quot;&gt;分析与分析器&lt;/h3&gt;
+&lt;h2 id=&quot;分析与分析器&quot;&gt;分析与分析器&lt;/h2&gt;
 
 &lt;p&gt;分析 包含下面的过程：&lt;/p&gt;
 
@@ -118,7 +118,67 @@
   &lt;li&gt;字符过滤器：字符串按顺序通过每个&lt;code class=&quot;highlighter-rouge&quot;&gt;字符过滤器&lt;/code&gt;。在分词前对字符进行整理。比如去掉 HTML 标签，将 &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;amp;&lt;/code&gt; 转化为 &lt;code class=&quot;highlighter-rouge&quot;&gt;and&lt;/code&gt; 等。&lt;/li&gt;
   &lt;li&gt;分词器：字符串被分词器分为单个的词条。&lt;/li&gt;
   &lt;li&gt;Token 过滤器：词条按顺序通过每个 Token 过滤器。每个过程都可能会改变词条，比如小写化，删除一些无用词条，或者增加一些词条。&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>Tesla Lee</name></author><summary type="html">映射与分析</summary></entry><entry><title type="html">Elasticsearch - Index vs Type</title><link href="http://www.teslalee.com/elasticsearch/2018/05/09/Elasticsearch-Index-vs-Type.html" rel="alternate" type="text/html" title="Elasticsearch - Index vs Type" /><published>2018-05-09T16:43:35+08:00</published><updated>2018-05-09T16:43:35+08:00</updated><id>http://www.teslalee.com/elasticsearch/2018/05/09/Elasticsearch-Index-vs-Type</id><content type="html" xml:base="http://www.teslalee.com/elasticsearch/2018/05/09/Elasticsearch-Index-vs-Type.html">&lt;p&gt;This article is a short and noted versions of elasticsearch’s  &lt;a href=&quot;https://www.elastic.co/blog/index-vs-type&quot;&gt;Index vs Type&lt;/a&gt;&lt;/p&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;内置分析器&quot;&gt;内置分析器&lt;/h3&gt;
+
+&lt;p&gt;Elasticsearch 有一些预装的分析器。&lt;/p&gt;
+
+&lt;p&gt;以下面这段话为例：&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&quot;Set the shape to semi-transparent by calling set_trans(5)&quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;标准分析器(standard)&lt;/strong&gt;：标准分析器是Elasticsearch默认使用的分析器。它是分析各种语言文本最常用的选择。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;set, the, shape, to, semi, transparent, by, calling, set_trans, 5
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;简单分析器(simple)&lt;/strong&gt;：简单分析器在任何不是字母的地方分隔文本，将词条小写。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;set, the, shape, to, semi, transparent, by, calling, set, trans
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;空格分析器(whitespace)&lt;/strong&gt;：空格分析器在空格的地方划分文本。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Set, the, shape, to, semi-transparent, by, calling, set_trans(5)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;语言分析器&lt;/strong&gt;：&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;这是支持的所有语言分析器：&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;arabic, armenian, basque, bengali, brazilian, bulgarian, catalan, cjk, czech, danish, dutch, english, finnish, french, galician, german, greek, hindi, hungarian, indonesian, irish, italian, latvian, lithuanian, norwegian, persian, portuguese, romanian, russian, sorani, spanish, swedish, turkish, thai.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;使用 &lt;code class=&quot;highlighter-rouge&quot;&gt;english&lt;/code&gt; 语言分析器时：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;set, shape, semi, transpar, call, set_tran, 5
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;什么时候使用分析器&quot;&gt;什么时候使用分析器？&lt;/h3&gt;
+
+&lt;p&gt;当我们&lt;strong&gt;索引&lt;/strong&gt;一个文档时，它的全文字段被分析成词条以用来创建&lt;strong&gt;倒排索引&lt;/strong&gt;。同时，当我们在全文字段中搜索时，同样也要对查询条件应用相同的&lt;em&gt;分析过程&lt;/em&gt;，来是搜索条件和索引词条一致。&lt;/p&gt;
+
+&lt;p&gt;这也就能够解释，为何之前使用简单搜索 &lt;code class=&quot;highlighter-rouge&quot;&gt;GET /_search?q=date:2014&lt;/code&gt; 时没有办法搜索到结果，而搜索 &lt;code class=&quot;highlighter-rouge&quot;&gt;GET /_search?q=2014&lt;/code&gt; 时却可以搜索到内容。&lt;/p&gt;
+
+&lt;h3 id=&quot;测试分析器&quot;&gt;测试分析器&lt;/h3&gt;
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;shell GET /_analyze
+{
+  &quot;analyzer&quot;: &quot;standard&quot;,
+  &quot;text&quot;: &quot;Text to analyze&quot;
+}
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;指定分析器&quot;&gt;指定分析器&lt;/h3&gt;
+&lt;p&gt;Elasticsearch 会自动给字符串分配一个分析器，同时我们也可以自己手动指定分析器。为了能够做到这点，我们需要手动指定映射。&lt;/p&gt;</content><author><name>Tesla Lee</name></author><summary type="html">映射与分析</summary></entry><entry><title type="html">Elasticsearch - Index vs Type</title><link href="http://www.teslalee.com/elasticsearch/2018/05/09/Elasticsearch-Index-vs-Type.html" rel="alternate" type="text/html" title="Elasticsearch - Index vs Type" /><published>2018-05-09T16:43:35+08:00</published><updated>2018-05-09T16:43:35+08:00</updated><id>http://www.teslalee.com/elasticsearch/2018/05/09/Elasticsearch-Index-vs-Type</id><content type="html" xml:base="http://www.teslalee.com/elasticsearch/2018/05/09/Elasticsearch-Index-vs-Type.html">&lt;p&gt;This article is a short and noted versions of elasticsearch’s  &lt;a href=&quot;https://www.elastic.co/blog/index-vs-type&quot;&gt;Index vs Type&lt;/a&gt;&lt;/p&gt;
 
 &lt;!--more--&gt;
 

@@ -273,7 +273,7 @@ a { color: inherit; touch-action: none; -webkit-tap-highlight-color: rgba(0, 0, 
 
 /*--- Entrance of application for writing END ---*/
 /** Code formatting */
-pre, code { font-size: 14.4px; border: 1px solid #e8e8e8; border-radius: 3px; background-color: #cae6ca; }
+pre, code { font-size: 14.4px; border: 1px solid #e8e8e8; border-radius: 3px; background-color: #FCFAF2; }
 
 code { padding: 1px 5px; }
 
@@ -287,7 +287,7 @@ pre > code { border: 0; padding-right: 0; padding-left: 0; }
 /*====== Hide elements for mobile END ======*/
 /** Syntax highlighting styles */
 .highlight { background: #fff; }
-.highlighter-rouge .highlight { background: #cae6ca; }
+.highlighter-rouge .highlight { background: #FCFAF2; }
 .highlight .c { color: #998; font-style: italic; }
 .highlight .err { color: #a61717; background-color: #e3d2d2; }
 .highlight .k { font-weight: bold; }
