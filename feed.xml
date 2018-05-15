@@ -1,4 +1,145 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://www.teslalee.com/feed.xml" rel="self" type="application/atom+xml" /><link href="http://www.teslalee.com/" rel="alternate" type="text/html" /><updated>2018-05-15T16:09:28+08:00</updated><id>http://www.teslalee.com/</id><title type="html">Code Cube</title><subtitle></subtitle><entry><title type="html">Elasticsearch The Defenitive Guide - Chapter 7</title><link href="http://www.teslalee.com/elasticsearch/2018/05/14/Elasticsearch-The-Defenitive-Guide-Chapter-7.html" rel="alternate" type="text/html" title="Elasticsearch The Defenitive Guide - Chapter 7" /><published>2018-05-14T13:07:44+08:00</published><updated>2018-05-14T13:07:44+08:00</updated><id>http://www.teslalee.com/elasticsearch/2018/05/14/Elasticsearch-The-Defenitive-Guide-Chapter-7</id><content type="html" xml:base="http://www.teslalee.com/elasticsearch/2018/05/14/Elasticsearch-The-Defenitive-Guide-Chapter-7.html">&lt;p&gt;请求提查询（Full Body Search)&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://www.teslalee.com/feed.xml" rel="self" type="application/atom+xml" /><link href="http://www.teslalee.com/" rel="alternate" type="text/html" /><updated>2018-05-15T19:17:08+08:00</updated><id>http://www.teslalee.com/</id><title type="html">Code Cube</title><subtitle></subtitle><entry><title type="html">Elasticsearch The Definitive Guide - Chapter 8</title><link href="http://www.teslalee.com/elasticsearch/2018/05/15/Elasticsearch-The-Definitive-Guide-Chapter-8.html" rel="alternate" type="text/html" title="Elasticsearch The Definitive Guide - Chapter 8" /><published>2018-05-15T16:38:54+08:00</published><updated>2018-05-15T16:38:54+08:00</updated><id>http://www.teslalee.com/elasticsearch/2018/05/15/Elasticsearch-The-Definitive-Guide-Chapter-8</id><content type="html" xml:base="http://www.teslalee.com/elasticsearch/2018/05/15/Elasticsearch-The-Definitive-Guide-Chapter-8.html">&lt;p&gt;排序与相关性&lt;/p&gt;
+
+&lt;!--more--&gt;
+
+&lt;h2 id=&quot;排序&quot;&gt;排序&lt;/h2&gt;
+
+&lt;p&gt;为了按照相关性来排序，需要将相关性表示为一个数值。&lt;em&gt;相关性得分&lt;/em&gt; 由一个浮点数表示，并在结果中以 &lt;code class=&quot;highlighter-rouge&quot;&gt;_score&lt;/code&gt; 参数返回。默认是 &lt;code class=&quot;highlighter-rouge&quot;&gt;_score&lt;/code&gt; 降序。&lt;/p&gt;
+
+&lt;h3 id=&quot;按照字段的值排序&quot;&gt;按照字段的值排序&lt;/h3&gt;
+
+&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;err&quot;&gt;GET&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;/_search&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;query&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;bool&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+            &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;filter&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;term&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;user_id&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;sort&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;date&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;order&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;desc&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;一个简便方法是, 你可以 指定一个字段用来排序：&lt;/p&gt;
+
+  &lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;w&quot;&gt;   &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;sort&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;number_of_children&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;  &lt;/div&gt;
+  &lt;p&gt;字段将会默认升序排序 ，而按照 _score 的值进行降序排序。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&quot;多级排序&quot;&gt;多级排序&lt;/h3&gt;
+&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;err&quot;&gt;GET&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;/_search&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;query&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;bool&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+            &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;must&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;   &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;match&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;tweet&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;manage text search&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+            &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;filter&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;term&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;user_id&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;sort&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;date&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;   &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;order&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;desc&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;_score&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;order&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;desc&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;结果首先按第一个条件排序，仅当结果集的第一个 sort 值完全相同时才会按照第二个条件进行排序，以此类推。&lt;/p&gt;
+
+&lt;h3 id=&quot;多值字段排序&quot;&gt;多值字段排序&lt;/h3&gt;
+
+&lt;p&gt;对于数字或日期，你可以将多值字段减为单值，这可以通过使用 min 、 max 、 avg 或是 sum 排序模式 。&lt;/p&gt;
+&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;s2&quot;&gt;&quot;sort&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;dates&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;order&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;asc&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;mode&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;min&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;字符串排序与多字段&quot;&gt;字符串排序与多字段&lt;/h2&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;被解析的字符串字段也是多值字段。&lt;/p&gt;
+
+  &lt;p&gt;但是很少会按照你想要的方式进行排序。如果你想分析一个字符串，如 fine old art ， 这包含 3 项。我们很可能想要按第一项的字母排序，然后按第二项的字母排序，诸如此类，但是 Elasticsearch 在排序过程中没有这样的信息。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;为了以字符串字段进行排序，这个字段应仅包含一项： 整个 not_analyzed 字符串。&lt;/p&gt;
+
+&lt;p&gt;一个简单的方法是用两种方式对同一个字符串进行索引，这将在文档中包括两个字段： analyzed 用于搜索， not_analyzed 用于排序。&lt;/p&gt;
+
+&lt;p&gt;所有的 _core_field 类型 (strings, numbers, Booleans, dates) 接收一个 fields 参数。该参数允许你转化一个简单的映射如：&lt;/p&gt;
+&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;s2&quot;&gt;&quot;tweet&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;type&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;     &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;string&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;analyzer&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;english&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;s2&quot;&gt;&quot;tweet&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;type&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;     &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;string&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;analyzer&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;english&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;fields&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;raw&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+            &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;type&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;string&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+            &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;index&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;not_analyzed&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;这样可以来使用 &lt;code class=&quot;highlighter-rouge&quot;&gt;tweet&lt;/code&gt; 来搜索，&lt;code class=&quot;highlighter-rouge&quot;&gt;tweet.raw&lt;/code&gt; 来排序&lt;/p&gt;
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;GET /_search
+&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;s2&quot;&gt;&quot;query&quot;&lt;/span&gt;: &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;s2&quot;&gt;&quot;match&quot;&lt;/span&gt;: &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;s2&quot;&gt;&quot;tweet&quot;&lt;/span&gt;: &lt;span class=&quot;s2&quot;&gt;&quot;elasticsearch&quot;&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;,
+    &lt;span class=&quot;s2&quot;&gt;&quot;sort&quot;&lt;/span&gt;: &lt;span class=&quot;s2&quot;&gt;&quot;tweet.raw&quot;&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;什么是相关性&quot;&gt;什么是相关性？&lt;/h2&gt;
+
+&lt;p&gt;查询语句会为每个文档生成一个 _score 字段。评分的计算方式取决于查询类型 不同的查询语句用于不同的目的： fuzzy 查询会计算与关键词的拼写相似程度，terms 查询会计算 找到的内容与关键词组成部分匹配的百分比，但是通常我们说的 relevance 是我们用来计算全文本字段的值相对于全文本检索词相似程度的算法。&lt;/p&gt;
+
+&lt;p&gt;Elasticsearch 的相似度算法 被定义为检索词频率/反向文档频率， TF/IDF ，包括以下内容：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;检索词频率：检索词在该字段出现的频率？出现频率越高，相关性也越高。 字段中出现过 5 次要比只出现过 1 次的相关性高。&lt;/li&gt;
+  &lt;li&gt;反向文档频率：每个检索词在索引中出现的频率？频率越高，相关性越低。检索词出现在多数文档中会比出现在少数文档中的权重更低。&lt;/li&gt;
+  &lt;li&gt;字段长度准则：字段的长度是多少？长度越长，相关性越低。 检索词出现在一个短的 title 要比同样的词出现在一个长的 content 字段权重更大。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;如果多条查询子句被合并为一条复合查询语句 ，比如 bool 查询，则每个查询子句计算得出的评分会被合并到总的相关性评分中。&lt;/p&gt;
+
+&lt;h3 id=&quot;理解评分标准&quot;&gt;理解评分标准&lt;/h3&gt;
+
+&lt;p&gt;Elasticsearch 在 每个查询语句中都有一个 explain 参数，将 explain 设为 true 就可以得到更详细的信息。&lt;/p&gt;
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;GET /_search?explain
+&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+   &lt;span class=&quot;s2&quot;&gt;&quot;query&quot;&lt;/span&gt;   : &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;match&quot;&lt;/span&gt; : &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;tweet&quot;&lt;/span&gt; : &lt;span class=&quot;s2&quot;&gt;&quot;honeymoon&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;}}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;doc-values-介绍&quot;&gt;Doc Values 介绍&lt;/h2&gt;
+
+&lt;p&gt;当你对一个字段进行排序时，Elasticsearch 需要访问每个匹配到的文档得到相关的值。倒排索引的检索性能是非常快的，但是在字段值排序时却不是理想的结构。&lt;/p&gt;
+
+&lt;p&gt;在搜索的时候，我们能通过搜索关键词快速得到结果集。
+当排序的时候，我们需要倒排索引里面某个字段值的集合。换句话说，我们需要 转置 倒排索引。
+转置 结构在其他系统中经常被称作 列存储 。实质上，它将所有单字段的值存储在单数据列中，这使得对其进行操作是十分高效的，例如排序。&lt;/p&gt;
+
+&lt;p&gt;在 Elasticsearch 中，&lt;code class=&quot;highlighter-rouge&quot;&gt;Doc Values&lt;/code&gt; 就是一种列式存储结构，默认情况下每个字段的 &lt;code class=&quot;highlighter-rouge&quot;&gt;Doc Values&lt;/code&gt; 都是激活的，&lt;code class=&quot;highlighter-rouge&quot;&gt;Doc Values&lt;/code&gt; 是在索引时创建的，当字段索引时，Elasticsearch 为了能够快速检索，会把字段的值加入倒排索引中，同时它也会存储该字段的 &lt;code class=&quot;highlighter-rouge&quot;&gt;Doc Values&lt;/code&gt;。&lt;/p&gt;
+
+&lt;p&gt;Elasticsearch 中的 Doc Values 常被应用到以下场景：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;对一个字段进行排序&lt;/li&gt;
+  &lt;li&gt;对一个字段进行聚合&lt;/li&gt;
+  &lt;li&gt;某些过滤，比如地理位置过滤&lt;/li&gt;
+  &lt;li&gt;某些与字段相关的脚本计算&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;因为文档值被序列化到磁盘，我们可以依靠操作系统的帮助来快速访问。当 working set 远小于节点的可用内存，系统会自动将所有的文档值保存在内存中，使得其读写十分高速； 当其远大于可用内存，操作系统会自动把 Doc Values 加载到系统的页缓存中，从而避免了 jvm 堆内存溢出异常。&lt;/p&gt;</content><author><name>Tesla Lee</name></author><summary type="html">排序与相关性</summary></entry><entry><title type="html">Elasticsearch The Defenitive Guide - Chapter 7</title><link href="http://www.teslalee.com/elasticsearch/2018/05/14/Elasticsearch-The-Definitive-Guide-Chapter-7.html" rel="alternate" type="text/html" title="Elasticsearch The Defenitive Guide - Chapter 7" /><published>2018-05-14T13:07:44+08:00</published><updated>2018-05-14T13:07:44+08:00</updated><id>http://www.teslalee.com/elasticsearch/2018/05/14/Elasticsearch-The-Definitive-Guide-Chapter-7</id><content type="html" xml:base="http://www.teslalee.com/elasticsearch/2018/05/14/Elasticsearch-The-Definitive-Guide-Chapter-7.html">&lt;p&gt;请求提查询（Full Body Search)&lt;/p&gt;
 
 &lt;blockquote&gt;
   &lt;p&gt;简易查询可以提供方便的临时查询功能。但是使用搜索体查询，可以充分利用查询的强大功能。&lt;/p&gt;
@@ -1337,84 +1478,4 @@ _规定数量_ 计算公式: &lt;code class=&quot;highlighter-rouge&quot;&gt;int
   &lt;li&gt;复制每个分片以支持数据冗余，从而防止硬件故障导致的数据丢失&lt;/li&gt;
   &lt;li&gt;将集群中任一节点的请求路由到存有相关数据的节点&lt;/li&gt;
   &lt;li&gt;集群扩容时无缝整合新节点，重新分配分片以便从离群节点恢复&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>Tesla Lee</name></author><summary type="html">你知道的，为了搜索…</summary></entry><entry><title type="html">九州</title><link href="http://www.teslalee.com/%E4%B9%9D%E5%B7%9E/2018/05/07/nine-continents.html" rel="alternate" type="text/html" title="九州" /><published>2018-05-07T00:00:00+08:00</published><updated>2018-05-07T00:00:00+08:00</updated><id>http://www.teslalee.com/%E4%B9%9D%E5%B7%9E/2018/05/07/nine-continents</id><content type="html" xml:base="http://www.teslalee.com/%E4%B9%9D%E5%B7%9E/2018/05/07/nine-continents.html">&lt;p&gt;九州设定
-&lt;!--more--&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;设定&quot;&gt;设定&lt;/h2&gt;
-
-&lt;p&gt;最初，世界只有混沌，无数的基本粒子，漫无边际地飘荡在混沌中，没有方向，没有边界，没有时间。&lt;/p&gt;
-
-&lt;p&gt;粒子间凝聚和排斥的力量使得混沌中产生了运动。当运动的趋势逐渐发展后，混沌被某一个偶然的搅动打破了。这个搅动只是那些粒子偶然出现的有序排列，奇妙的图纹隐现在混沌中，有序的排列组合第一次出现在混沌中。这就是第一个意识。&lt;/p&gt;
-
-&lt;p&gt;意识的特性将可延续的、可积累的认知阶段当做是真实的，那一段时间中意识的活动称为“醒”；将断断续续的、不积累的那一段当做是虚幻的，那一段时间中的意识活动称为“梦”。第一个意识进入了断续的梦境。梦境中的意识不断地加强自己，对抗重新归于混沌的凝聚力量。当这个意识强大到足以辨别自己的时候，它忽然从梦幻里醒来，开始认识所处的世界。这个意识发现周围的世界竟然不是它的梦而仅仅是混沌。有序的梦境与它所存在的混沌的世界存在强烈的反差，使得这个意识产生了创造的愿望。&lt;/p&gt;
-
-&lt;p&gt;在世界初始的那一段时间里，第一个意识不断的加强自己，对抗重新归于混沌的凝聚力量。&lt;/p&gt;
-
-&lt;p&gt;这个意识被称作世界的第一个主神“墟”。而混沌本身则产生了对应的概念上的主神“荒”。荒代表无所不在的强大凝聚力，可是他没有意识。&lt;/p&gt;
-
-&lt;p&gt;墟是精神的主神，荒是物质的主神。&lt;/p&gt;
-
-&lt;p&gt;荒想要重新回复到混沌状态，而墟不允许荒破坏他的创造，于是他奋力撞击在混沌的中心，从而导致整个混沌产生了空前绝后的大爆炸，荒的一部分身体被震碎为尘埃，他的主体却被凝聚力牢牢地抓住，形成了一个被称作大地的球体。而墟在撞击中完全粉碎，他精神的碎片化成无数星辰瞬间飞出了混沌，却被凝聚的力量抓在环绕在球体的周围。星辰的精神也成为第一批有独立意识的次神。&lt;/p&gt;
-
-&lt;p&gt;次神是墟的碎片，他们微弱地回忆起主神墟的意志是阻止世界重新凝聚为混沌。可是荒所具有的强大凝聚力依然在吸引周围的物质碎片。这一力量最终将会导致星辰诸神被吸聚回主神荒，回到混沌状态。&lt;/p&gt;
-
-&lt;p&gt;惊恐的诸神于是在荒的身体上施展一个法术，他们用荒的碎片中的精华物质制造了捆绑束缚荒的封印，布满主神荒的身体，以阻止荒的凝聚，并且不惜把自己的一部分精神加入这些封印图纹，使之具有意识。这就是生命的诞生。&lt;/p&gt;
-
-&lt;p&gt;这些生物中，得到了较多精神力的，逐渐发展成为具有文明的智慧种族。&lt;/p&gt;
-
-&lt;p&gt;诸神明白只有精神的力量才能阻止荒的凝聚，因此他们把这些生物放置在大地的四方，并赋予它们自由意识所具有的一切矛盾特性：对秩序的向往和争战的本能。诸神希望各种冲突力量阻止这些种族走到一起，从而荒的碎片不会彻底融合，也就不会有新的混沌。&lt;/p&gt;
-
-&lt;p&gt;任何精神体都是矛盾的，墟希望通过最终战争实现一个完全由他意识建立的有序世界，而荒则默默的行使力量把世界重新凝聚成一个无序的混沌整体。当今世界只是墟依照无尽梦幻中的体验而创造的模型，墟从当今的世界中汲取创造的经验，希望战胜荒后建立完美的世界。而荒的唯一目的就是毁灭世界归于混沌。&lt;/p&gt;
-
-&lt;p&gt;精神和物质，混乱和秩序，构成了这个世界的终级冲突，并成为一切生物意识中的烙印。&lt;/p&gt;
-
-&lt;h2 id=&quot;地理&quot;&gt;地理&lt;/h2&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/九州地图.jpg&quot; alt=&quot;九州地图&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;九州的已知世界由三块大陆组成，按照上古的传说划分为九个州，这正是九州名称的来源。&lt;/p&gt;
-
-&lt;h3 id=&quot;北陆&quot;&gt;北陆&lt;/h3&gt;
-
-&lt;h4 id=&quot;殇州&quot;&gt;殇州&lt;/h4&gt;
-&lt;p&gt;殇州位于北陆西部，二面临海，向北是茫茫雪山冰原的寒冷大陆。东部与翰州以火雷原为界。面积约十万拓。殇州主要分为三大地形带：北部为殇州高原，东起蛮古山脉，西至天池山脉，其中蛮古山脉为北陆最高部分，平均海拔超过1万尺。中部和东部地区地势趋于平缓，长期的剥蚀作用形成了数片广阔而起伏平缓的平原，其间分布有一些小山和丘陵。西南部地区是一条火山带，统称为冰炎地海，分布有数十座较大的火山和更多小型或休眠的火山。更西面在浩瀚洋中分布有火山岛群。
-这是一片冰与火的大陆，相应的气候分布也多变。殇州高原气候寒冷，夏季普遍气温低，降水丰沛，无论冬季还是夏季，都是既能下雨，也能下雪。该地区不适于乔木生长，灌木丛和苔原是殇州高原的常见植被。西南部地热资源丰富，可见到木本植物组成的小林，在背风的地方或热泉附近分布着杂草草甸。中东部的平原区气候状况比瀚州平原略复杂，以森林植被为主，针叶林的分布最为广泛，阔叶树的种类较少，森林草原和草原分布在与瀚州的交界处。&lt;/p&gt;
-
-&lt;h4 id=&quot;瀚州&quot;&gt;瀚州&lt;/h4&gt;
-&lt;p&gt;瀚州位于北陆中部，东连宁州，西接殇州，总面积约十五万拓。西南是涣海，下端指向滁潦海。西部受到殇州高原地形带的影响，平均海拔较高。中部地区地势平坦，一马平川。东部由极宽的天拓大江与中州隔开。西端由霍零江与云州隔开。 瀚州大部分地区降水量不足，森林不能自然生长，以草原为主，自然植被主要是丛生禾草，并混生有多种双子叶杂草。东部彤云山地区则由森林草原逐渐向混交林区过渡。溟朦海位于翰州中部草原，是北陆最大的湖泊，周围形成形成大片的绿州沃野。&lt;/p&gt;
-
-&lt;h4 id=&quot;宁州&quot;&gt;宁州&lt;/h4&gt;
-&lt;p&gt;宁州位于北陆最东部，三面临海，面积约十一万拓，其东南部为丘陵地带，分布森林和森林草原，乌鬼山横越其北，三昧河自此向南入海口时，变成了三条纵横交错的宽阔河道，因为土质和藻类的不同，分别呈青绿，淡紫和绛红三种颜色。宁州西部多为荒漠戈壁，众多破碎的丘陵一路连向虎皮山脉。极西端与瀚州间隔勾弋山，勾弋山高万仞，因为山峰终年积雪，云开雾散之际银光闪闪，又被称为”月亮山脉”，其主峰为北陆最高山。宁州北部多为厚厚的冰川层覆盖，这块巨大冰原的面积几乎相当于四分之一的宁州，主要植被是在短暂的夏季中长满的苔藓和草本植物。&lt;/p&gt;
-
-&lt;h3 id=&quot;东陆&quot;&gt;东陆&lt;/h3&gt;
-&lt;h4 id=&quot;澜州&quot;&gt;澜州&lt;/h4&gt;
-&lt;p&gt;澜州位于东陆东块，东部临海，西接中州，南部与越州为邻。面积约十五万拓。整个澜州形势如弓，销金河如弦横跨南北，东陆最高峰的擎梁山就架在弓脊上。澜州平均海拔超过3000尺，是东陆平均海拔最高的地区，地堑性的中央低地把澜州分割为东北和西南两部。东北的夜北高原是一个地垒性地块，西南与越州交界处由于降水较多，是大片的沼泽地和森林。 整个夜北高原土地凉薄，兼之气候不利，一年中冬季长达5个月，除了寒地的针叶林生长颇速，农作物生长却非常不利，重要的粮食产区仅在西南小部分地域。沼泽地和森林带人迹稀少，树木林冠稠密，层次很多，且多藤本和附生植物。&lt;/p&gt;
-
-&lt;h4 id=&quot;中州&quot;&gt;中州&lt;/h4&gt;
-&lt;p&gt;中州位于东陆的北块，南接宛州，东靠澜州。面积约十五万拓，是东陆第一大州。中州地形以山脉和平原为主，从澜州夜北高原延伸下东西走向的两条隆起带和二条沉降带，隆起带主要为山地地形，沉降带则形成为盆地和平原。 中州的风向、降水均随季节而有明显的更替，自然植被以森林为主，既有冷湿性森林、森林草原景观，又有半湿润半干旱夏绿林、森林草原景观，混有落叶阔叶林。&lt;/p&gt;
-
-&lt;h4 id=&quot;宛州&quot;&gt;宛州&lt;/h4&gt;
-&lt;p&gt;宛州位于东陆西块，北与中州交界，东与越州相邻。面积约十二万拓。宛州地形受到建水与西江以及诸多小河流的切割，大部分呈丘陵状，只有与中州交接的平原才是宛州的平坦部分。宛州东部受到雷眼山脉和北邙山脉影响，地势较复杂，雁返湖是宛州大部分河流的发源地。 宛州气候温和的，冬不太冷，夏不太热，降水适中，大多数地区没有干旱的感觉。这种气候条件适宜于木本植物的生长，阔叶林是本区的地带性植被。&lt;/p&gt;
-
-&lt;h4 id=&quot;越州&quot;&gt;越州&lt;/h4&gt;
-&lt;p&gt;越州位于东陆南块，面积约十二万拓，在东陆四州中列于第三。越州中部和西部地区以丘陵和低山为主，雷眼、北邙山脉诸多延伸山脉呈绵延不断的岭脊，主要是块状山，峰峦耸立，山坡陡峭，岩石裸露，地形十分崎岖，山岭间错纵地分布着面积不大的山谷和盆地，盆地中水源丰富，东部和北部沿岸为海岸平原，沿海沙洲、潟湖较多，东南部还有珊瑚礁海岸。 越州的基本植被是硬叶常绿群落，不限于分布在沿海和平原地区，并沿河谷深入到山地内部，由于越州是人口最稀少的地区，全境森林覆盖率达到60％至70％。&lt;/p&gt;
-
-&lt;h3 id=&quot;西陆&quot;&gt;西陆&lt;/h3&gt;
-&lt;h4 id=&quot;云州&quot;&gt;云州&lt;/h4&gt;
-&lt;p&gt;面积均约十二万拓，与雷州以中部被称为沉沙海的海湾为界。由于云州西部为高耸的赤华山脉，东部有丘陵群，地势较高，天高云远，所以中部有连片沙漠，与山谷交错着。&lt;/p&gt;
-
-&lt;h3 id=&quot;雷州&quot;&gt;雷州&lt;/h3&gt;
-&lt;p&gt;面积约十三万拓。与云州截然不同，气候调和，植物茂盛多样，两边临海，气候多雨潮湿，森林茂密。&lt;/p&gt;
-
-&lt;h2 id=&quot;种族&quot;&gt;种族&lt;/h2&gt;
-
-&lt;h3 id=&quot;人族&quot;&gt;人族&lt;/h3&gt;
-&lt;blockquote&gt;
-  &lt;p&gt;人是最平均也最复杂的种族，他们没有关夸父的高大，河络的技术，羽族的轻灵，鲛人的善水，魅的魔力。但他们有最庞大的人口和最完善的制度文明。人族有北陆，东陆，西陆三大文明带。北陆人为游牧文明，东陆人为农业文明，西陆的城邦文明则因为瘟疫而淹没在沙漠密林之后，成为探险发现的天堂。&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h3 id=&quot;羽族&quot;&gt;羽族&lt;/h3&gt;
-&lt;h3 id=&quot;夸父&quot;&gt;夸父&lt;/h3&gt;
-&lt;h3 id=&quot;河络&quot;&gt;河络&lt;/h3&gt;
-&lt;h3 id=&quot;鲛人&quot;&gt;鲛人&lt;/h3&gt;
-&lt;h3 id=&quot;魅族&quot;&gt;魅族&lt;/h3&gt;</content><author><name>Tesla Lee</name></author><summary type="html">九州设定</summary></entry></feed>
+&lt;/ul&gt;</content><author><name>Tesla Lee</name></author><summary type="html">你知道的，为了搜索…</summary></entry></feed>

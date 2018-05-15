@@ -658,6 +658,8 @@ pre > code { border: 0; padding-right: 0; padding-left: 0; }
   article > section p a:hover { color: #333; transition: ease 0.2s; }
   article > section blockquote { border-left: 3px solid #8c8c8c; padding: 0; margin: 0; }
   article > section blockquote p { font-size: 16.2px; color: #8c8c8c; margin: 21px 16px 0px 13px; }
+  article > section blockquote div.highlighter-rouge { padding-left: 0.5em; }
+  article > section div.highlighter-rouge { padding-left: 0.5em; padding-right: 0.5em; }
   article > section ol, article > section ul { list-style: none; padding: 0; margin: 0px 16px 0px 16px; }
   article > section ol ol, article > section ul ol, article > section ol ul, article > section ul ul { margin: 0px 0px 0px -8px; }
   article > section ol > li, article > section ul > li { margin-top: 0px; margin-left: 1.5em; }
