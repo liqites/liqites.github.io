@@ -319,16 +319,16 @@ ga('send', 'pageview');
 <h3 id="内部对象的映射">内部对象的映射</h3>
 <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"gb"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"tweet"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> 
+    </span><span class="s2">"tweet"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
       </span><span class="s2">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
         </span><span class="s2">"tweet"</span><span class="p">:</span><span class="w">            </span><span class="p">{</span><span class="w"> </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w"> </span><span class="p">},</span><span class="w">
-        </span><span class="s2">"user"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> 
+        </span><span class="s2">"user"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
           </span><span class="s2">"type"</span><span class="p">:</span><span class="w">             </span><span class="s2">"object"</span><span class="p">,</span><span class="w">
           </span><span class="s2">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
             </span><span class="s2">"id"</span><span class="p">:</span><span class="w">           </span><span class="p">{</span><span class="w"> </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w"> </span><span class="p">},</span><span class="w">
             </span><span class="s2">"gender"</span><span class="p">:</span><span class="w">       </span><span class="p">{</span><span class="w"> </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w"> </span><span class="p">},</span><span class="w">
             </span><span class="s2">"age"</span><span class="p">:</span><span class="w">          </span><span class="p">{</span><span class="w"> </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"long"</span><span class="w">   </span><span class="p">},</span><span class="w">
-            </span><span class="s2">"name"</span><span class="p">:</span><span class="w">   </span><span class="p">{</span><span class="w"> 
+            </span><span class="s2">"name"</span><span class="p">:</span><span class="w">   </span><span class="p">{</span><span class="w">
               </span><span class="s2">"type"</span><span class="p">:</span><span class="w">         </span><span class="s2">"object"</span><span class="p">,</span><span class="w">
               </span><span class="s2">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
                 </span><span class="s2">"full"</span><span class="p">:</span><span class="w">     </span><span class="p">{</span><span class="w"> </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w"> </span><span class="p">},</span><span class="w">
@@ -374,7 +374,8 @@ ga('send', 'pageview');
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div></div>
 <p>这个文档会被处理成：</p>
-<pre><code class="language-json {">    "followers.age":    [19, 26, 35],
+<pre><code class="language-json ">{
+    "followers.age":    [19, 26, 35],
     "followers.name":   [alex, jones, lisa, smith, mary, white]
 }
 </code></pre>

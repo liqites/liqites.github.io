@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- Begin Jekyll SEO tag v2.3.0 -->
+<title>Elasticsearch The Defenitive Guide - Chapter 7 | Code Cube</title>
+<meta property="og:title" content="Elasticsearch The Defenitive Guide - Chapter 7" />
+<meta name="author" content="Tesla Lee" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="请求提查询（Full Body Search)" />
+<meta property="og:description" content="请求提查询（Full Body Search)" />
+<link rel="canonical" href="http://www.teslalee.com/elasticsearch/2018/05/14/Elasticsearch-The-Defenitive-Guide-Chapter-7.html" />
+<meta property="og:url" content="http://www.teslalee.com/elasticsearch/2018/05/14/Elasticsearch-The-Defenitive-Guide-Chapter-7.html" />
+<meta property="og:site_name" content="Code Cube" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2018-05-14T13:07:44+08:00" />
+<script type="application/ld+json">
+{"name":null,"description":"请求提查询（Full Body Search)","author":{"@type":"Person","name":"Tesla Lee"},"@type":"BlogPosting","url":"http://www.teslalee.com/elasticsearch/2018/05/14/Elasticsearch-The-Defenitive-Guide-Chapter-7.html","image":null,"publisher":null,"headline":"Elasticsearch The Defenitive Guide - Chapter 7","dateModified":"2018-05-14T13:07:44+08:00","datePublished":"2018-05-14T13:07:44+08:00","sameAs":null,"mainEntityOfPage":{"@type":"WebPage","@id":"http://www.teslalee.com/elasticsearch/2018/05/14/Elasticsearch-The-Defenitive-Guide-Chapter-7.html"},"@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <!-- <link rel="stylesheet" href="/assets/main.css"> -->
+    <link rel="stylesheet" href="/assets/app.css">
+
+    <link rel="alternate" type="application/rss+xml" title="Code Cube" href="/%20/feed.xml">
+    
+        <!-- Google Analytics -->
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-83593915-2', 'auto');
+ga('send', 'pageview');
+</script>
+<!-- End Google Analytics -->
+    
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({ tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]} });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
+</head>
+
+  <body>
+    <nav class="nav-top headroom clearfix">
+	<div class="mzread-entrance">
+		<a href="/">Code Cube</a>
+	</div>
+
+	<ul class="main-nav">
+    
+	</ul>
+
+	<!-- <div class="nav-user">
+    <a class="nav-user-item" href="/login">登录</a>
+    <a class="nav-user-item" href="/signup">注册</a>
+  </div> -->
+</nav>
+
+    <main class="post-container sticky-footer--main-wrap clearfix">
+  <article class="post-article article-core chinese-punct clearfix" lang="en">
+    <!--Publish info-->
+		<aside class="publish-info-card clearfix">
+			<a class="publish-info-card--avatar-link" href="/">
+        <img class="avatar-circle publish-info-card--avatar" src="/logo.jpg" alt="TL">
+        
+        <h4 class="publish-info-card--name">Tesla Lee</h4>
+        
+      </a>
+			<p class="publish-info-card--meta">
+        
+        <!-- <a href="#" class="publish-info-card--author-name">Tesla Lee</a><span class="vert-line">｜</span> -->
+        
+				<span class="time-last-modified">
+          
+        May 14, 2018
+      </span>
+			</p>
+		</aside>
+
+    <!--Article Header-->
+    <header class="article-header">
+      <h1 class="article-header--h1">Elasticsearch The Defenitive Guide - Chapter 7</h1>
+    </header>
+
+    <!--Article Header-->
+    <section class="article-section">
+      <p>请求提查询（Full Body Search)</p>
+
+<blockquote>
+  <p>简易查询可以提供方便的临时查询功能。但是使用搜索体查询，可以充分利用查询的强大功能。</p>
+</blockquote>
+
+<!--more-->
+
+<h2 id="空查询">空查询</h2>
+
+<p>空查询将返回索引库中所有的文档。</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>GET /_search
+<span class="o">{}</span>
+</code></pre></div></div>
+
+<p>参数</p>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>GET /_search
+<span class="o">{</span>
+  <span class="s2">"from"</span>: 30,
+  <span class="s2">"size"</span>: 10
+<span class="o">}</span>
+</code></pre></div></div>
+<blockquote>
+  <h4 id="带-body-的-get-请求">带 body 的 GET 请求？</h4>
+
+  <p>某些特定语言（特别是 JavaScript）的 HTTP 库是不允许 GET 请求带有请求体的。 事实上，一些使用者对于 GET 请求可以带请求体感到非常的吃惊。</p>
+
+  <p>而事实是这个RFC文档 RFC 7231— 一个专门负责处理 HTTP 语义和内容的文档 — 并没有规定一个带有请求体的 GET 请求应该如何处理！结果是，一些 HTTP 服务器允许这样子，而有一些 — 特别是一些用于缓存和代理的服务器 — 则不允许。</p>
+
+  <p>对于一个查询请求，Elasticsearch 的工程师偏向于使用 GET 方式，因为他们觉得它比 POST 能更好的描述信息检索（retrieving information）的行为。然而，因为带请求体的 GET 请求并不被广泛支持，所以 search API 同时支持 POST 请求：</p>
+
+  <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>POST /_search
+<span class="o">{</span>
+  <span class="s2">"from"</span>: 30,
+  <span class="s2">"size"</span>: 10
+<span class="o">}</span>
+</code></pre></div>  </div>
+  <p>类似的规则可以应用于任何需要带请求体的 GET API。</p>
+</blockquote>
+
+<h2 id="查询表达式">查询表达式</h2>
+
+<p>查询表达式(Query DSL)是一种非常灵活又富有表现力的 查询语言。
+要使用这种查询表达式，只需将查询语句传递给 query 参数：</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>GET /_search
+<span class="o">{</span>
+    <span class="s2">"query"</span>: YOUR_QUERY_HERE
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>空搜索等价于</p>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>GET /_search
+<span class="o">{</span>
+    <span class="s2">"query"</span>: <span class="o">{</span>
+        <span class="s2">"match_all"</span>: <span class="o">{}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="查询语句结构">查询语句结构</h3>
+<p>一个查询语句的典型结构：</p>
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+    </span><span class="err">QUERY_NAME</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="err">ARGUMENT</span><span class="p">:</span><span class="w"> </span><span class="err">VALUE</span><span class="p">,</span><span class="w">
+        </span><span class="err">ARGUMENT</span><span class="p">:</span><span class="w"> </span><span class="err">VALUE</span><span class="p">,</span><span class="w">
+        </span><span class="err">...</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>如果是针对某个字段</p>
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+    </span><span class="err">QUERY_NAME</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="err">FIELD_NAME</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="err">ARGUMENT</span><span class="p">:</span><span class="w"> </span><span class="err">VALUE</span><span class="p">,</span><span class="w">
+            </span><span class="err">ARGUMENT</span><span class="p">:</span><span class="w"> </span><span class="err">VALUE</span><span class="p">,</span><span class="w">
+            </span><span class="err">...</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<h3 id="合并查询语句">合并查询语句</h3>
+<ul>
+  <li>叶子语句：用于将查询字符串和一个字段对比</li>
+  <li>复合语句：合并其他查询语句，同时可以包含不评分的过滤器。</li>
+</ul>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"bool"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"must"</span><span class="p">:</span><span class="w">     </span><span class="p">{</span><span class="w"> </span><span class="s2">"match"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s2">"tweet"</span><span class="p">:</span><span class="w"> </span><span class="s2">"elasticsearch"</span><span class="w"> </span><span class="p">}},</span><span class="w">
+        </span><span class="s2">"must_not"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s2">"match"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s2">"name"</span><span class="p">:</span><span class="w">  </span><span class="s2">"mary"</span><span class="w"> </span><span class="p">}},</span><span class="w">
+        </span><span class="s2">"should"</span><span class="p">:</span><span class="w">   </span><span class="p">{</span><span class="w"> </span><span class="s2">"match"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s2">"tweet"</span><span class="p">:</span><span class="w"> </span><span class="s2">"full text"</span><span class="w"> </span><span class="p">}},</span><span class="w">
+        </span><span class="s2">"filter"</span><span class="p">:</span><span class="w">   </span><span class="p">{</span><span class="w"> </span><span class="s2">"range"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s2">"age"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s2">"gt"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="w"> </span><span class="p">}}</span><span class="w"> </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>符合语句可以包含其他任何语句，包括复合语句。</p>
+
+<h2 id="查询与过滤">查询与过滤</h2>
+<p>Elasticsearch 有一套查询组件，这些组件可以任意组合。同时在 <code class="highlighter-rouge">Filter Context(过滤情况)</code> 和 <code class="highlighter-rouge">Query Context(查询情况)</code> 情况下使用。</p>
+
+<p>当使用于 <code class="highlighter-rouge">过滤情况</code> 时，查询被设置成一个“不评分”或者“过滤”查询。即，这个查询只是简单的问一个问题：“这篇文档是否匹配？”。</p>
+
+<p>当使用于 <code class="highlighter-rouge">查询情况</code> 时，查询就变成了一个“评分”的查询。</p>
+
+<p>一个评分查询计算每一个文档与此查询的 <strong><em>相关程度</em></strong> 同时将这个相关程度分配给表示相关性的字段 <code class="highlighter-rouge">_score</code>，并且按照相关性对匹配到的文档进行排序。</p>
+
+<h3 id="性能差异">性能差异</h3>
+<p>过滤查询（Filtering queries）只是简单的检查包含或者排除，这就使得计算起来非常快。</p>
+
+<p>评分查询（scoring queries）不仅仅要找出 匹配的文档，还要计算每个匹配文档的相关性，计算相关性使得它们比不评分查询费力的多。同时，查询结果并不缓存。</p>
+
+<p>过滤（filtering）的目标是减少那些需要通过评分查询（scoring queries）进行检查的文档。</p>
+
+<h3 id="如何选择查询与过滤">如何选择查询与过滤</h3>
+<p>通常的规则是，使用 查询（query）语句来进行 全文 搜索或者其它任何需要影响 相关性得分 的搜索。除此以外的情况都使用过滤（filters)。</p>
+
+<h2 id="最重要的几个查询">最重要的几个查询</h2>
+
+<h3 id="match_all-查询"><code class="highlighter-rouge">match_all</code> 查询</h3>
+<p>match_all 查询简单的 匹配所有文档。在没有指定查询方式时，它是默认的查询：</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w"> </span><span class="s2">"match_all"</span><span class="p">:</span><span class="w"> </span><span class="p">{}}</span><span class="w">
+</span></code></pre></div></div>
+<h3 id="match-查询"><code class="highlighter-rouge">match</code> 查询</h3>
+
+<p>如果你在一个全文字段上使用 match 查询，在执行查询前，它将用正确的分析器去分析查询字符串：</p>
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w"> </span><span class="s2">"match"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s2">"tweet"</span><span class="p">:</span><span class="w"> </span><span class="s2">"About Search"</span><span class="w"> </span><span class="p">}}</span><span class="w">
+</span></code></pre></div></div>
+<p>如果在一个精确值的字段上使用它， 例如数字、日期、布尔或者一个 not_analyzed 字符串字段，那么它将会精确匹配给定的值：</p>
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w"> </span><span class="s2">"match"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s2">"age"</span><span class="p">:</span><span class="w">    </span><span class="mi">26</span><span class="w">           </span><span class="p">}}</span><span class="w">
+</span><span class="p">{</span><span class="w"> </span><span class="s2">"match"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s2">"date"</span><span class="p">:</span><span class="w">   </span><span class="s2">"2014-09-01"</span><span class="w"> </span><span class="p">}}</span><span class="w">
+</span><span class="p">{</span><span class="w"> </span><span class="s2">"match"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s2">"public"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">         </span><span class="p">}}</span><span class="w">
+</span><span class="p">{</span><span class="w"> </span><span class="s2">"match"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s2">"tag"</span><span class="p">:</span><span class="w">    </span><span class="s2">"full_text"</span><span class="w">  </span><span class="p">}}</span><span class="w">
+</span></code></pre></div></div>
+<blockquote>
+  <p>对于精确值的查询，你可能需要使用 filter 语句来取代 query，因为 filter 将会被缓存。</p>
+</blockquote>
+
+<h3 id="multi_match-查询"><code class="highlighter-rouge">multi_match</code> 查询</h3>
+<p><code class="highlighter-rouge">multi_match</code> 查询可以在多个字段上执行相同的 <code class="highlighter-rouge">match</code> 查询：</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{
+    "multi_match": {
+        "query":    "full text search",
+        "fields":   [ "title", "body" ]
+    }
+}
+</code></pre></div></div>
+
+<h3 id="range-查询"><code class="highlighter-rouge">range</code> 查询</h3>
+<p>range 查询找出那些落在指定区间内的数字或者时间。</p>
+
+<ul>
+  <li><code class="highlighter-rouge">gt</code> 大于</li>
+  <li><code class="highlighter-rouge">gte</code> 大于等于</li>
+  <li><code class="highlighter-rouge">lt</code> 小于</li>
+  <li><code class="highlighter-rouge">lte</code> 小于等于</li>
+</ul>
+
+<h3 id="term-查询"><code class="highlighter-rouge">term</code> 查询</h3>
+
+<p>term 查询被用于精确值 匹配，这些精确值可能是数字、时间、布尔或者那些 not_analyzed 的字符串。</p>
+
+<h3 id="terms-查询"><code class="highlighter-rouge">terms</code> 查询</h3>
+
+<p>terms 查询和 term 查询一样，但它允许你指定多值进行匹配。</p>
+
+<h3 id="exists-查询和-missing-查询"><code class="highlighter-rouge">exists</code> 查询和 <code class="highlighter-rouge">missing</code> 查询</h3>
+
+<p>exists 查询和 missing 查询被用于查找那些指定字段中有值 (exists) 或无值 (missing) 的文档。这与SQL中的 IS_NULL (missing) 和 NOT IS_NULL (exists) 在本质上具有共性.</p>
+
+<h2 id="组合多查询">组合多查询</h2>
+
+<p><code class="highlighter-rouge">bool</code> 查询可以将查询组合起来，它接收以下参数：</p>
+
+<ul>
+  <li><code class="highlighter-rouge">must</code> 文档 必须 匹配这些条件才能被包含进来。</li>
+  <li><code class="highlighter-rouge">must_not</code> 文档 必须不 匹配这些条件才能被包含进来。</li>
+  <li><code class="highlighter-rouge">should</code> 如果满足这些语句中的任意语句，将增加 _score ，否则，无任何影响。它们主要用于修正每个文档的相关性得分。</li>
+  <li><code class="highlighter-rouge">filter</code> 必须 匹配，但它以不评分、过滤模式来进行。这些语句对评分没有贡献，只是根据过滤标准来排除或包含文档。</li>
+</ul>
+
+<blockquote>
+  <p>如果没有 <code class="highlighter-rouge">must</code> 语句，那么至少需要能够匹配其中的一条 <code class="highlighter-rouge">should</code> 语句。但，如果存在至少一条 <code class="highlighter-rouge">must</code> 语句，则对 <code class="highlighter-rouge">should</code> 语句的匹配没有要求。</p>
+</blockquote>
+
+<h3 id="增加带过滤器-filtering-的查询">增加带过滤器 (filtering) 的查询</h3>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"bool"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"must"</span><span class="p">:</span><span class="w">     </span><span class="p">{</span><span class="w"> </span><span class="s2">"match"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"how to make millions"</span><span class="w"> </span><span class="p">}},</span><span class="w">
+        </span><span class="s2">"must_not"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s2">"match"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s2">"tag"</span><span class="p">:</span><span class="w">   </span><span class="s2">"spam"</span><span class="w"> </span><span class="p">}},</span><span class="w">
+        </span><span class="s2">"should"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="p">{</span><span class="w"> </span><span class="s2">"match"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s2">"tag"</span><span class="p">:</span><span class="w"> </span><span class="s2">"starred"</span><span class="w"> </span><span class="p">}}</span><span class="w">
+        </span><span class="p">],</span><span class="w">
+        </span><span class="s2">"filter"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"range"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s2">"date"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s2">"gte"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2014-01-01"</span><span class="w"> </span><span class="p">}}</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+<p>通过将 <code class="highlighter-rouge">range</code> 查询移到 <code class="highlighter-rouge">filter</code> 语句中，我们将它转化成不评分的查询，将不再影响文档的相关性排名。</p>
+
+<p><code class="highlighter-rouge">bool</code> 查询本身也可以被用做不评分的查询。</p>
+
+<h3 id="constant_score-查询"><code class="highlighter-rouge">constant_score</code> 查询</h3>
+<p>它将一个不变的常量评分应用于所有匹配的文档。它被经常用于你只需要执行一个 filter 而没有其它查询。</p>
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"constant_score"</span><span class="p">:</span><span class="w">   </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"filter"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"term"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s2">"category"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ebooks"</span><span class="w"> </span><span class="p">}</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<h2 id="验证查询">验证查询</h2>
+
+<p>使用 <code class="highlighter-rouge">validate-query</code> API 验证查询是否合法。</p>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl <span class="nt">-X</span> GET <span class="s2">"localhost:9200/gb/tweet/_validate/query"</span>
+<span class="nt">-H</span> <span class="s1">'Content-Type: application/json'</span> <span class="nt">-d</span><span class="s1">'
+{
+   "query": {
+      "tweet" : {
+         "match" : "really powerful"
+      }
+   }
+}
+'</span>
+</code></pre></div></div>
+
+<h3 id="理解错误信息">理解错误信息</h3>
+<p>可以将 explain 参数 加到查询字符串中来显示错误信息。</p>
+
+<h3 id="理解查询语句">理解查询语句</h3>
+<p>对于合法查询，使用 explain 参数将返回可读的描述。</p>
+
+    </section>
+  </article>
+  <footer class="post-footer clearfix">
+  			<div class="clearfix">
+  				<nav class="post-footer--post-nav">
+  					<!-- <a href="#" class="button-capsule post-footer--next-post"><span class="button-label next-post-label">没有“国进民退”，也没有“国家资本主义”这回事儿？</span><span class="button-arrow-right next-post-arrow"></span></a> -->
+  				</nav>
+  			</div>
+  		</footer>
+</main>
+
+    <footer class="sticky-footer">
+  <div class="global-footer">
+    <ul class="global-footer-links">
+      <li>Designed by <a href="http://laerhsif.com/" target="_blank">realfish</a></li>
+    </ul>
+  </div>
+</footer>
+
+  </body>
+  <script type="text/javascript" src="/assets/app-cf635fcf31d244d93ece3ca7f45a686b16696c3d5c02dc04c2ae7cadef7c3aaa.js"></script>
+  <script>
+  		// NProgress configuration
+  		NProgress.configure({
+  			minimum: 0.10,
+  			ease: 'linear',
+  			speed: 500,
+  			trickleRate: 0.02,
+  			trickleSpeed: 200,
+  			showSpinner: false
+  		});
+
+  		NProgress.start();
+
+  		$(window).load(function(){
+  			NProgress.done();
+  		});
+
+  		// Headroom configuration
+  		$(".headroom").headroom();
+
+  		// Hover optimization for mobile webkit
+  		document.addEventListener("touchstart", function(){}, true);
+
+  		// Scroll-to-top button
+  		$('.scroll-to-top').click(function(){
+  			$('html, body').animate({
+  				scrollTop: 0}, 1000);
+  			return false;
+  		});
+
+  		// Positioning of `button.apply-for-write`
+  		$(function(){
+  			if($(window).width() > 1023){
+  				var offset = $('main').offset().top + parseInt($('main').css('padding-top').replace("px", "")) + 8;
+
+  				$('.apply-for-write').css({
+  					'top': offset + 'px'
+  				});
+  			}
+  		});
+
+  		$(window).resize(function(){
+  			if($(window).width() > 1023){
+  				var offset = $('main').offset().top + parseInt($('main').css('padding-top').replace("px", "")) + 8;
+
+  				$('.apply-for-write').css({
+  					'top': offset + 'px'
+  				});
+  			}
+  		});
+
+  		// State toggle of `is-active`
+  		$('.post-footer--action-fav').click(function(){
+  			$(this).toggleClass('is-active');
+  		});
+
+  		$('.button-subscribe').click(function(){
+  			$(this).toggleClass('is-active');
+  		});
+  	</script>
+</html>
