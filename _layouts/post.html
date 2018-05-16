@@ -28,15 +28,20 @@ layout: default
     </header>
 
     <!--Article Header-->
-    <section class="article-section">
+    <section class="article-section chinese-punct-md">
       {{ content }}
     </section>
   </article>
   <footer class="post-footer clearfix">
-  			<div class="clearfix">
-  				<nav class="post-footer--post-nav">
-  					<!-- <a href="#" class="button-capsule post-footer--next-post"><span class="button-label next-post-label">没有“国进民退”，也没有“国家资本主义”这回事儿？</span><span class="button-arrow-right next-post-arrow"></span></a> -->
-  				</nav>
-  			</div>
-  		</footer>
+		<div class="clearfix">
+			<nav class="post-footer--post-nav">
+        {% if page.next %}
+          <a href="{{ page.next.url }}" class="button-capsule post-footer--next-post"><span class="button-label next-post-label">{{ page.next.title }}</span><span class="button-arrow-right next-post-arrow"></span></a>
+        {% endif %}
+			</nav>
+		</div>
+
+    <div class="feed-card clearfix">
+    </div>
+	</footer>
 </main>

@@ -3,7 +3,7 @@ layout: post
 title: Elasticsearch - The Definitive Guide - Chapter 2
 author: Tesla Lee
 date: 2018-05-07 18:16:46 +0800
-categories:
+categories: [elasticsearch]
 ---
 集群内的原理
 

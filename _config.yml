@@ -34,6 +34,7 @@ plugins:
   - jekyll-seo-tag
   - jekyll-coffeescript
   - jekyll-assets
+  - jekyll-paginate
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list
 # to override the default setting.
@@ -49,6 +50,9 @@ exclude:
 
 livereload: true     # You no longer need to include --livereload
 reload_port: 5678
+
+paginate: 10
+paginate_path: "/blog/page:num/"
 
 assets:
   compress:

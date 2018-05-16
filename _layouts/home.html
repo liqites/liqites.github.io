@@ -15,7 +15,7 @@ layout: default
 	</nav>
   <div class="reading-list">
 		<ol class="post-list chinese-punct" lang="en">
-      {% for post in site.posts %}
+      {% for post in paginator.posts %}
         {% assign date_format = site.minima.date_format | default: "%b %-d, %Y" %}
         <li class="post-list-item">
 					<article class="post-digest digest-without-thumb clearfix">
@@ -32,5 +32,27 @@ layout: default
 				</li>
       {% endfor %}
 		</ol>
+		<nav class="post-list--page-nav clearfix">
+      {% if paginator.previous_page %}
+				<a class="button-circle post-list--page-prev" href="{{ paginator.previous_page_path }}">
+					<span class="button-arrow-left prev-page-arrow"></span>
+				</a>
+      {% else %}
+				<a class="button-circle post-list--page-prev" href="javascript:void(0)">
+					<span class="button-arrow-left prev-page-arrow"></span>
+				</a>
+      {% endif %}
+
+			{% if paginator.next_page %}
+				<a class="button-capsule post-list--page-next" href="{{ paginator.next_page_path }}">
+					<span class="button-label next-page-label">下一页</span>
+					<span class="button-arrow-right next-page-arrow"></span>
+				</a>
+			{% else %}
+				<button class="button-capsule post-list--page-next" href="javascript:void(0)">
+					<span class="button-label next-page-label">下一页</span><span class="button-arrow-right next-page-arrow"></span>
+				</button>
+			{% endif %}
+		</nav>
 	</div>
 </main>

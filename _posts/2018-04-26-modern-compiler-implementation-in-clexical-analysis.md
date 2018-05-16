@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Chapter 2 - Lexical Analysis
+title: Modern Compiler Implementation In C, Chapter 2, Lexical Analysis
 author: Tesla Lee
 date: 2018-04-26 00:00:00 +0800
 categories: Compiler

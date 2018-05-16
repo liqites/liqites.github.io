@@ -3,7 +3,7 @@ layout: post
 title: Elasticsearch - The Definitive Guide - Chapter 1
 author: Tesla Lee
 date: 2018-05-07 16:50:10 +0800
-categories:
+categories: [elasticsearch]
 ---
 你知道的，为了搜索...
 <!--more-->

@@ -198,6 +198,15 @@
             color: $text-sub;
             margin: 21px 16px 0px 13px;
         }
+        blockquote div.highlighter-rouge {
+          padding-left: 0.5em;
+        }
+
+        div.highlighter-rouge {
+          padding-left: 0.5em;
+          padding-right: 0.5em;
+        }
+
         /*--- FALLBACK List styles ---*/
         ol,
         ul {

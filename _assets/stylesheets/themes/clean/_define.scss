@@ -1,7 +1,9 @@
+// $bg-main: #fcfcfc;
 $bg-main: #fcfcfc;
 $bg-sub: #f7f7f7;
 
-$text-main: #333;
+// $text-main: #333;
+$text-main: rgba(0,0,0,.84);
 $text-sub: #8c8c8c;
 $text-disable: #b3b3b3;
 
@@ -13,7 +15,7 @@ $red-main: #ff4040;
 $hairline: #e5e5e5;
 
 $spacing-unit: 30px !default;
-$base-font-size: 18px !default;
+$base-font-size: 19px !default;
 
 $grey-color : #828282 !default;
 $grey-color-light: lighten($grey-color, 40%) !default;
@@ -28,20 +30,20 @@ $grey-color-dark : darken($grey-color, 25%) !default;
  */
 @font-face {
   font-family: 'Minerva Glyphs';
-  src: url("/assets/fonts/Minerva-Glyphs.eot");
-  src: url("/assets/fonts/Minerva-Glyphs.eot?#iefix") format("embedded-opentype"),
-  url("/assets/fonts/Minerva-Glyphs.ttf") format("truetype"),
-  url("/assets/fonts/Minerva-Glyphs.woff") format("woff"),
-  url("/assets/fonts/Minerva-Glyphs.svg#Minerva-Glyphs") format("svg");
+  src: asset_url("Minerva-Glyphs.eot");
+  src: asset_url("Minerva-Glyphs.eot?#iefix") format("embedded-opentype"),
+  asset_url("Minerva-Glyphs.ttf") format("truetype"),
+  asset_url("Minerva-Glyphs.woff") format("woff"),
+  asset_url("Minerva-Glyphs.svg#Minerva-Glyphs") format("svg");
 }
 
 @font-face {
   font-family: 'Minerva Glyphs FALLBACK';
-  src: url("/assets/fonts/Minerva-Glyphs.eot");
-  src: url("/assets/fonts/Minerva-Glyphs.eot?#iefix") format("embedded-opentype"),
-  url("/assets/fonts/Minerva-Glyphs.ttf") format("truetype"),
-  url("/assets/fonts/Minerva-Glyphs.woff") format("woff"),
-  url("/assets/fonts/Minerva-Glyphs.svg#Minerva-Glyphs") format("svg");
+  src: asset_url("Minerva-Glyphs.eot");
+  src: asset_url("Minerva-Glyphs.eot?#iefix") format("embedded-opentype"),
+  asset_url("Minerva-Glyphs.ttf") format("truetype"),
+  asset_url("Minerva-Glyphs.woff") format("woff"),
+  asset_url("Minerva-Glyphs.svg#Minerva-Glyphs") format("svg");
 }
 
 .minerva-glyphs {

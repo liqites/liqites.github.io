@@ -223,16 +223,16 @@ Elasticsearch 还支持 `null`，数组和对象。
 ```json
 {
   "gb": {
-    "tweet": { 
+    "tweet": {
       "properties": {
         "tweet":            { "type": "string" },
-        "user": { 
+        "user": {
           "type":             "object",
           "properties": {
             "id":           { "type": "string" },
             "gender":       { "type": "string" },
             "age":          { "type": "long"   },
-            "name":   { 
+            "name":   {
               "type":         "object",
               "properties": {
                 "full":     { "type": "string" },
@@ -246,7 +246,7 @@ Elasticsearch 还支持 `null`，数组和对象。
     }
   }
 }
-``` 
+```
 * `tweet` 是根对象
 * `user` `name` 是内部对象
 
@@ -278,7 +278,8 @@ Lucene 不理解内部对象。所以 Elasticsearch 会先转化文档。例如�
 }
 ```
 这个文档会被处理成：
-```json {
+```json 
+{
     "followers.age":    [19, 26, 35],
     "followers.name":   [alex, jones, lisa, smith, mary, white]
 }
