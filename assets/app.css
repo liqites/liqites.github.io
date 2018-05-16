@@ -496,7 +496,18 @@ pre > code { border: 0; padding-right: 0; padding-left: 0; }
   .digest-with-thumb .post-digest--h1, .digest-with-thumb .post-digest--excerpt, .digest-with-thumb .post-digest--meta { width: 378px; float: left; }
   /*--- Digest thumb-specific rules end ---*/
   /* Layout of feedlist's page-nav */
-  .post-list + .list-page-nav { margin-top: 45px; } }
+  .post-list + .list-page-nav { margin-top: 45px; }
+  /** Styles of post list's page navigation */
+  .post-list--page-nav { margin: 24px auto 72px auto; }
+  .post-list--page-prev { display: inline-block; width: 36px; height: 36px; border-color: #e5e5e5; padding: 0; float: left; transition: ease 0.2s; }
+  .prev-page-arrow { float: left; margin: 13px 0px 0px 13px; transition: ease 0.2s; }
+  .post-list--page-next { display: inline-block; width: 90px; height: 36px; line-height: 36px; border-color: #e5e5e5; padding: 0; float: right; transition: ease 0.2s; }
+  .next-page-label { font-size: 14px; /*	line-height: 36px;*/ color: #8c8c8c; float: left; margin-left: 16px; transition: ease 0.2s; }
+  .next-page-arrow { float: right; margin: 13px 13px 0px 0px; transition: ease 0.2s; }
+  .post-list--page-prev:hover, .post-list--page-next:hover { border-color: rgba(0, 0, 0, 0.84); transition: ease 0.2s; }
+  .post-list--page-prev:hover .prev-page-arrow { border-color: transparent rgba(0, 0, 0, 0.84) transparent transparent; transition: ease 0.2s; }
+  .post-list--page-next:hover .next-page-arrow { border-color: transparent transparent transparent rgba(0, 0, 0, 0.84); transition: ease 0.2s; }
+  .post-list--page-next:hover .next-page-label { color: rgba(0, 0, 0, 0.84); transition: ease 0.2s; } }
 @media only screen and (max-width: 1023px) { /** Styles of post list */
   .post-list { margin: 0px 20px; list-style: none; padding: 0; }
   .post-list-item { padding: 24px 0px; border-top: 1px solid #e5e5e5; }
@@ -532,7 +543,7 @@ pre > code { border: 0; padding-right: 0; padding-left: 0; }
   /** Styles of post list's page navigation */
   .post-list--page-nav { margin: 24px auto 72px auto; }
   .post-list--page-prev { display: inline-block; width: 36px; height: 36px; border-color: #e5e5e5; margin-left: 20px; padding: 0; float: left; transition: ease 0.2s; }
-  .prev-page-arrow { float: left; margin: 0px 0px 0px 13px; transition: ease 0.2s; }
+  .prev-page-arrow { float: left; margin: 13px 0px 0px 13px; transition: ease 0.2s; }
   .post-list--page-next { display: inline-block; width: 90px; height: 36px; line-height: 36px; border-color: #e5e5e5; margin-right: 20px; padding: 0; float: right; transition: ease 0.2s; }
   .next-page-label { font-size: 14px; /*	line-height: 36px;*/ color: #8c8c8c; float: left; margin-left: 16px; transition: ease 0.2s; }
   .next-page-arrow { float: right; margin: 13px 13px 0px 0px; transition: ease 0.2s; }
