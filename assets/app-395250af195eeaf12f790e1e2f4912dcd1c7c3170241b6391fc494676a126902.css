@@ -360,12 +360,12 @@ th {
  */
 @font-face {
   font-family: 'Minerva Glyphs';
-  src: url("/assets/fonts/Minerva-Glyphs.eot");
-  src: url("/assets/fonts/Minerva-Glyphs.eot?#iefix") format("embedded-opentype"), url("/assets/fonts/Minerva-Glyphs.ttf") format("truetype"), url("/assets/fonts/Minerva-Glyphs.woff") format("woff"), url("/assets/fonts/Minerva-Glyphs.svg#Minerva-Glyphs") format("svg"); }
+  src: url(/assets/Minerva-Glyphs-740def2798672845947d33d8fcc13fb1e43401e07d0e00b32356b560c539cfc2.eot);
+  src: url(/assets/Minerva-Glyphs-740def2798672845947d33d8fcc13fb1e43401e07d0e00b32356b560c539cfc2.eot?#iefix) format("embedded-opentype"), url(/assets/Minerva-Glyphs-6c6802cbf8fe4921e64f0ecfd2ba495a7b68f01506bb7a77214db37c2f1232e0.ttf) format("truetype"), url(/assets/Minerva-Glyphs-5dc4bf1be780fcd1d4598b014e7270da6fd7df21a4a30f6d7ca2aed02f4461d9.woff) format("woff"), url(/assets/Minerva-Glyphs-7708b8129a881d204a719e1aea4f88f568a388c64143889dae6b4f429ce18207.svg#Minerva-Glyphs) format("svg"); }
 @font-face {
   font-family: 'Minerva Glyphs FALLBACK';
-  src: url("/assets/fonts/Minerva-Glyphs.eot");
-  src: url("/assets/fonts/Minerva-Glyphs.eot?#iefix") format("embedded-opentype"), url("/assets/fonts/Minerva-Glyphs.ttf") format("truetype"), url("/assets/fonts/Minerva-Glyphs.woff") format("woff"), url("/assets/fonts/Minerva-Glyphs.svg#Minerva-Glyphs") format("svg"); }
+  src: url(/assets/Minerva-Glyphs-740def2798672845947d33d8fcc13fb1e43401e07d0e00b32356b560c539cfc2.eot);
+  src: url(/assets/Minerva-Glyphs-740def2798672845947d33d8fcc13fb1e43401e07d0e00b32356b560c539cfc2.eot?#iefix) format("embedded-opentype"), url(/assets/Minerva-Glyphs-6c6802cbf8fe4921e64f0ecfd2ba495a7b68f01506bb7a77214db37c2f1232e0.ttf) format("truetype"), url(/assets/Minerva-Glyphs-5dc4bf1be780fcd1d4598b014e7270da6fd7df21a4a30f6d7ca2aed02f4461d9.woff) format("woff"), url(/assets/Minerva-Glyphs-7708b8129a881d204a719e1aea4f88f568a388c64143889dae6b4f429ce18207.svg#Minerva-Glyphs) format("svg"); }
 .minerva-glyphs {
   font-family: "Minerva Glyphs", "Minerva Glyphs FALLBACK";
   speak: none; }
@@ -569,14 +569,14 @@ input[type="radio"] {
   unicode-range: U+2014, U+00b7;
   /* em dash, middle dot, ellipsis */ }
 .chinese-punct {
-  font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Segoe UI", Arial, "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei UI", "Microsoft YaHei", "Source Han Sans", sans-serif; }
+  font-family: "Minerva Chinese Punct", "Avenir Next", "Segoe UI", "Helvetica Neue", Arial, "Hiragino Sans GB", "Microsoft YaHei UI", "Microsoft YaHei", "Source Han Sans", sans-serif; }
 
 .chinese-punct-md {
-  font-family: -apple-system, Georgia, Cambria, BlinkMacSystemFont, "Helvetica Neue", "Segoe UI", Arial, "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei UI", "Microsoft YaHei", "Source Han Sans", sans-serif; }
+  font-family: "Minerva Chinese Punct", "Avenir Next", "Segoe UI", "Helvetica Neue", Arial, "Hiragino Sans GB", "Microsoft YaHei UI", "Microsoft YaHei", "Source Han Sans", sans-serif; }
 
 @-moz-document url-prefix() {
   .chinese-punct {
-    font-family: "Avenir Next", "Segoe UI", "Helvetica Neue", Arial, "Hiragino Sans GB", "Microsoft YaHei UI", "Microsoft YaHei", "Source Han Sans", sans-serif !important; } }
+    font-family: "Minerva Chinese Punct", "Avenir Next", "Segoe UI", "Helvetica Neue", Arial, "Hiragino Sans GB", "Microsoft YaHei UI", "Microsoft YaHei", "Source Han Sans", sans-serif; } }
 /*====== Chinese punctuation optimization END ======*/
 /*====== Typographic reset ======*/
 header,
